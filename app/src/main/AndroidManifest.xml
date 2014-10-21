@@ -20,6 +20,18 @@
             android:name=".LoginPage"
             android:label="@string/title_activity_login_page" >
         </activity>
+        <activity
+            android:name=".sqltest"
+            android:label="@string/title_activity_sqltest" >
+        </activity>
+        <activity
+            android:name=".sqlview"
+            android:label="@string/title_activity_sqlview" >
+        </activity>
+        <activity
+            android:name=".sqldb"
+            android:label="@string/title_activity_sqldb" >
+        </activity>
     </application>
 
 </manifest>

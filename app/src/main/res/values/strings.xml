@@ -7,5 +7,8 @@
     <string name="action_login">Login</string>
     <string name="action_logout">Logout</string>
     <string name="title_activity_login_page">LoginPage</string>
+    <string name="title_activity_sqltest">sqltest</string>
+    <string name="title_activity_sqlview">sqlview</string>
+    <string name="title_activity_sqldb">sqldb</string>
 
 </resources>
