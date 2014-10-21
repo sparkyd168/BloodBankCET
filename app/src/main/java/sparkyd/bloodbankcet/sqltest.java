@@ -1,12 +1,16 @@
 package sparkyd.bloodbankcet;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import sparkyd.bloodbankcet.R;
 
@@ -27,6 +31,26 @@ EditText name;
             @Override
             public void onClick(View v) {
                 String nam=name.getText().toString();
+
+                    sqldb entry = new sqldb(sqltest.this);
+                    entry.open();
+                    entry.add(nam);
+                    entry.close();
+
+                Dialog d=new Dialog(sqltest.this);
+                d.setTitle("yeah");
+                TextView tv=new TextView(sqltest.this);
+                tv.setText("boo yaa");
+                d.setContentView(tv);
+                d.show();
+            }
+        });
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(sqltest.this,sqlview.class);
+                startActivity(i);
 
             }
         });

@@ -1,36 +1,93 @@
 package sparkyd.bloodbankcet;
 
 import android.app.Activity;
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import java.sql.SQLException;
+
 import sparkyd.bloodbankcet.R;
 
-public class sqldb extends Activity {
+public class sqldb{
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sqldb);
-    }
+    public static final String KEY_ROWID = "_id";
+    public static final String KEY_NAME = "_name";
+
+    private static final String DB_NAME = "_db";
+    private static final String DB_TABLE = "_table";
+    private static final int DB_VERSION = 1;
+
+    private dbhelper ourhelper;
+    private final Context ourcontext;
+    private SQLiteDatabase ourdb;
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.sqldb, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+
+    private static class dbhelper extends SQLiteOpenHelper{
+
+        public dbhelper (Context context){
+            super(context,DB_NAME,null,DB_VERSION);
+
         }
-        return super.onOptionsItemSelected(item);
+
+        @Override
+        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
+            db.execSQL("DROP TABLE IF EXISTS " + DB_TABLE);
+            onCreate(db);
+        }
+
+        @Override
+        public void onCreate(SQLiteDatabase db) {
+            db.execSQL("CREATE TABLE " + DB_TABLE + " (" +
+                    KEY_ROWID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                            KEY_NAME + " TEXT NOT NULL);"
+            );
+        }
+
+
+    }
+
+    public sqldb(Context c){
+        ourcontext=c;
+    }
+
+    public  sqldb open(){
+        ourhelper = new dbhelper(ourcontext);
+        ourdb = ourhelper.getWritableDatabase();
+        return this;
+    }
+
+    public void close(){
+        ourhelper.close();
+    }
+
+    public long add(String nam) {
+
+        ContentValues cv = new ContentValues();
+        cv.put(KEY_NAME,nam);
+        return ourdb.insert(DB_TABLE,null,cv);
+    }
+
+    public String getData() {
+        String[] columns=new String[]{KEY_ROWID,KEY_NAME};
+        Cursor c=ourdb.query(DB_TABLE,columns,null,null,null,null,null);
+        String result = "";
+
+        int irow=c.getColumnIndex(KEY_ROWID);
+        int iname=c.getColumnIndex(KEY_NAME);
+
+        for(c.moveToFirst();!c.isAfterLast();c.moveToNext()){
+            result = result + c.getString(irow) + "  " + c.getString(iname) + " \n";
+        }
+
+        return result;
     }
 }

@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
@@ -12,13 +12,12 @@
 
     <TableLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_alignTop="@+id/info"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp">
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true">
 
         <TableRow><TextView
             android:text="Name"
+            android:layout_weight="1"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent" /></TableRow>
 
@@ -28,5 +27,8 @@
         android:text="info"
         android:id="@+id/info"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
+        android:layout_height="fill_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="20dp" />
 </RelativeLayout>

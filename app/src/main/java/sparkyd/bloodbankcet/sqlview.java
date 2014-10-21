@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
 import sparkyd.bloodbankcet.R;
 
 public class sqlview extends Activity {
@@ -12,6 +14,13 @@ public class sqlview extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sqlview);
+
+        TextView tv= (TextView)findViewById(R.id.info);
+        sqldb table = new sqldb(this);
+        table.open();
+        String data = table.getData();
+        table.close();
+        tv.setText(data);
     }
 
 
