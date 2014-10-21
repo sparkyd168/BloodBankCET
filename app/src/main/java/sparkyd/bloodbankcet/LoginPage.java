@@ -74,4 +74,13 @@ public class LoginPage extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent back=new Intent(LoginPage.this,Home.class);
+        back.putExtra("logged",0);
+        startActivity(back);
+        finish();
+    }
 }

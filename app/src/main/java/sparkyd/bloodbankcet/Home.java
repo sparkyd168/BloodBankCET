@@ -70,10 +70,14 @@ int logged_in=0;
         if (id == R.id.action_login) {
             Intent login =new Intent(Home.this,LoginPage.class);
             startActivity(login);
+            finish();
             //finish();
         }
         if (id == R.id.action_logout){
-            return true;
+            Intent logout =new Intent (Home.this,Home.class);
+            logout.putExtra("logged",0);
+            startActivity(logout);
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }
