@@ -90,4 +90,13 @@ public class sqldb{
 
         return result;
     }
+
+    public Cursor readData() {
+        String[] allColumns = new String[] { KEY_ROWID,KEY_NAME };
+        Cursor c = ourdb.query(DB_TABLE, allColumns, null,null, null, null, null);
+        if (c != null) {
+            c.moveToFirst();
+        }
+        return c;
+    }
 }
