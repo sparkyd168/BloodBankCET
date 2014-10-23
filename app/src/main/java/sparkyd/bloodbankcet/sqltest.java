@@ -1,4 +1,4 @@
-package sparkyd.bloodbankcet;
+package moonblade.bloodbankcet;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import sparkyd.bloodbankcet.R;
+import moonblade.bloodbankcet.R;
 
 public class sqltest extends Activity {
 EditText name;

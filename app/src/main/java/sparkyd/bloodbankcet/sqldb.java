@@ -1,4 +1,4 @@
-package sparkyd.bloodbankcet;
+package moonblade.bloodbankcet;
 
 import android.app.Activity;
 import android.content.ContentValues;
@@ -12,7 +12,7 @@ import android.view.MenuItem;
 
 import java.sql.SQLException;
 
-import sparkyd.bloodbankcet.R;
+import moonblade.bloodbankcet.R;
 
 public class sqldb{
 
