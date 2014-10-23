@@ -99,4 +99,18 @@ public class sqldb{
         }
         return c;
     }
+
+    public int updateData(long memberID, String memberName) {
+        ContentValues cvUpdate = new ContentValues();
+        cvUpdate.put(KEY_NAME, memberName);
+        int i = ourdb.update(DB_TABLE, cvUpdate,
+                KEY_ROWID + " = " + memberID, null);
+        return i;
+    }
+
+    public void deleteData(long memberID) {
+        ourdb.delete(DB_TABLE, KEY_ROWID + "="
+                + memberID, null);
+    }
+
 }
