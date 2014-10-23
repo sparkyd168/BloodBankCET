@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-
+import moonblade.bloodbankcet.sqldb;
 import moonblade.bloodbankcet.R;
 
 public class sqlview extends Activity {
