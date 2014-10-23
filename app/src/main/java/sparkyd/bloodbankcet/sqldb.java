@@ -76,6 +76,18 @@ public class sqldb{
         return ourdb.insert(DB_TABLE,null,cv);
     }
 
+    public Cursor fecthalladmins() {
+        Cursor mc= ourdb.query(DB_TABLE,new String[]{KEY_ROWID,KEY_NAME},null,null,null,null,null);
+        if(mc!=null)
+            mc.moveToFirst();
+        return mc;
+
+    }
+
+    public void deleteadmin(String name) {
+        ourdb.delete(DB_TABLE, KEY_NAME + "=?", new String[] { name });
+    }
+
     public String getData() {
         String[] columns=new String[]{KEY_ROWID,KEY_NAME};
         Cursor c=ourdb.query(DB_TABLE,columns,null,null,null,null,null);
