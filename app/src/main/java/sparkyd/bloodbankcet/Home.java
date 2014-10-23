@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -19,12 +20,15 @@ int logged_in=0;
         setContentView(R.layout.activity_home);
 
 
+
         sql=(Button)findViewById(R.id.sql);
+
         sql.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent sqlite=new Intent(Home.this,sqltest.class);
                 startActivity(sqlite);
+
             }
         });
 
