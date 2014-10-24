@@ -4,14 +4,18 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.RadioGroup;
+
 import moonblade.bloodbankcet.R;
 
 public class ViewBlood extends Activity {
-
+RadioGroup choice,bg;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_blood);
+        choice=(RadioGroup)findViewById(R.id.choice);
+
     }
 
 
