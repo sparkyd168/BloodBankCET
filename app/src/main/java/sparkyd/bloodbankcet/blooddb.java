@@ -82,4 +82,17 @@ public class blooddb{
     public void delete (String position){
         ourdb.delete(DB_TABLE,KEY_NAME + "=?",new String[] {position});
     }
+
+    public void editEntry(String id,String name,String bg,String branch, String phone, String hostel ){
+        ContentValues cv = new ContentValues();
+        cv.put(KEY_NAME,name);
+        cv.put(KEY_BG,bg);
+        cv.put(KEY_BRANCH,branch);
+        cv.put(KEY_PHONE,phone);
+        cv.put(KEY_HOSTEL,hostel);
+        int id1= Integer.parseInt(id);
+        ourdb.update(DB_TABLE,cv,KEY_ROWID + "=?" + id1,null);
+    }
+
+
 }
