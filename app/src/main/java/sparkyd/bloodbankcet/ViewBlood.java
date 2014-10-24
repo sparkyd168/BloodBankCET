@@ -4,32 +4,18 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ExpandableListView;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import moonblade.bloodbankcet.R;
 
 public class ViewBlood extends Activity {
 RadioGroup choice,bg;
-    RadioButton blood,branch;
-    ExpandableListView el;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_blood);
         choice=(RadioGroup)findViewById(R.id.choice);
-        blood=(RadioButton)findViewById(R.id.blood);
-        branch=(RadioButton)findViewById(R.id.branch);
-        el=(ExpandableListView)findViewById(R.id.ExpList);
-        el.setVisibility(View.INVISIBLE);
-        blood.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            el.setVisibility(View.VISIBLE);
-            }
-        });
+
     }
 
 

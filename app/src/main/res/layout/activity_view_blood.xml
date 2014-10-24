@@ -23,10 +23,6 @@
         android:text="Filter By:"
         android:textSize="20sp"/>
 
-
-<RelativeLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
     <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -35,23 +31,9 @@
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Blood Group"
-            android:id="@+id/blood"/>
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Branch"
-            android:id="@+id/branch"/>
-    </RadioGroup>
+            android:text="Blood Group"/>
 
-    <ExpandableListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ExpList"
-        android:paddingRight="10dp"
-        android:paddingLeft="20dp"
-        android:layout_toRightOf="@+id/choice"
-        />
+        </RadioGroup>
 
-</RelativeLayout>
+
 </LinearLayout>

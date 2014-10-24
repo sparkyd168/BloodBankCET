@@ -16,16 +16,6 @@
         android:layout_height="wrap_content"
         android:text="sql"
         android:id="@+id/sql"
-        android:layout_centerVertical="true"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:background="@drawable/mybutton"
-        android:layout_height="wrap_content"
-        android:text="view"
-        android:id="@+id/viewblood"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="79dp" />
 </RelativeLayout>
