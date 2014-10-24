@@ -10,8 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import sparkyd.bloodbankcet.ViewBlood;
-import sparkyd.bloodbankcet.settings;
+import moonblade.bloodbankcet.ViewBlood;
+import moonblade.bloodbankcet.settings;
 
 
 public class Home extends Activity {
