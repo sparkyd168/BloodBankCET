@@ -36,15 +36,15 @@
             android:label="@string/title_activity_sqldb" >
         </activity>
         <activity
-            android:name="moonblade.bloodbankcet.settings"
+            android:name=".settings"
             android:label="@string/title_activity_settings" >
         </activity>
         <activity
-            android:name="moonblade.bloodbankcet.blooddb"
+            android:name=".blooddb"
             android:label="@string/title_activity_blooddb" >
         </activity>
         <activity
-            android:name="moonblade.bloodbankcet.ViewBlood"
+            android:name=".ViewBlood"
             android:label="@string/title_activity_view_blood" >
         </activity>
     </application>

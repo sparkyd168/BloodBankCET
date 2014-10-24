@@ -8,8 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-import moonblade.bloodbankcet.R;
-
 public class settings extends Activity {
 int logged_in = 0;
     Button save,cancel;
