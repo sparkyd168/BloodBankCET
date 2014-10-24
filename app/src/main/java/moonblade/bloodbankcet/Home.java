@@ -5,26 +5,29 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
-
-import sparkyd.bloodbankcet.settings;
 
 
 public class Home extends Activity {
 int logged_in=0;
-    Button sql;
+    Button sql,viewblood;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
 
-
+        viewblood=(Button)findViewById(R.id.viewblood);
         sql=(Button)findViewById(R.id.sql);
 
+        viewblood.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent view=new Intent(Home.this,ViewBlood.class);
+                startActivity(view);
+            }
+        });
         sql.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
