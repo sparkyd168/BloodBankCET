@@ -5,8 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import moonblade.bloodbankcet.ViewBlood;
+import moonblade.bloodbankcet.settings;
 
 
 public class Home extends Activity {
@@ -24,14 +29,14 @@ int logged_in=0;
         viewblood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent view=new Intent(Home.this,ViewBlood.class);
-                startActivity(view);
+                Intent viewBlood=new Intent(Home.this, ViewBlood.class);
+                startActivity(viewBlood);
             }
         });
         sql.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent sqlite=new Intent(Home.this,sqltest.class);
+                Intent sqlite=new Intent(Home.this, moonblade.bloodbankcet.sqltest.class);
                 startActivity(sqlite);
 
             }
