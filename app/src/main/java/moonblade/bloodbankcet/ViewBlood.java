@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -16,14 +17,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class ViewBlood extends Activity {
-RadioGroup choice,bg;
-RadioButton blood,branch;
+    RadioGroup choice;
+    RadioButton blood,branch;
+    EditText choice_branch;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_blood);
         choice=(RadioGroup)findViewById(R.id.choice);
+        branch=(RadioButton)findViewById(R.id.branch);
         blood=(RadioButton)findViewById(R.id.blood);
+        choice_branch=(EditText)findViewById(R.id.choice_branch);
 
         String[] blood_groups = getResources().getStringArray(R.array.bloodgroups);
         ArrayAdapter adapter=new ArrayAdapter<String>(this, R.layout.blood_item, R.id.label, blood_groups);
@@ -31,11 +35,22 @@ RadioButton blood,branch;
 
         final ListView lv = (ListView)findViewById(R.id.listview);
         lv.setVisibility(View.INVISIBLE);
+        choice_branch.setVisibility(View.INVISIBLE);
         lv.setAdapter(adapter);
 
 
-
-
+        branch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+choice_branch.setVisibility(View.VISIBLE);
+            }
+        });
+        branch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+choice_branch.setVisibility(View.INVISIBLE);
+            }
+        });
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
