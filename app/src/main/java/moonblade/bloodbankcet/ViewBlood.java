@@ -8,10 +8,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ViewBlood extends Activity {
 RadioGroup choice,bg;
@@ -27,23 +29,37 @@ RadioButton blood,branch;
         ArrayAdapter adapter=new ArrayAdapter<String>(this, R.layout.blood_item, R.id.label, blood_groups);
 
 
-        ListView lv = (ListView)findViewById(R.id.listview);
+        final ListView lv = (ListView)findViewById(R.id.listview);
+        lv.setVisibility(View.INVISIBLE);
         lv.setAdapter(adapter);
+
+
+
+
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
                 // selected item
-                String product = ((TextView) view).getText().toString();
-
-                // Launching new Activity on selecting single List Item
-                Intent i = new Intent(getApplicationContext(), sqldb.class);
-                // sending data to new activity
-                i.putExtra("product", product);
-                startActivity(i);
-
+                String blood_group = ((TextView) view).getText().toString();
+                lv.setVisibility(View.INVISIBLE);
+//                Toast.makeText(ViewBlood.this,blood_group,Toast.LENGTH_SHORT).show();
             }
         });
+
+        blood.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lv.setVisibility(View.VISIBLE);
+            }
+        });
+        blood.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                lv.setVisibility(View.INVISIBLE);
+            }
+        });
+
     }
 
 
