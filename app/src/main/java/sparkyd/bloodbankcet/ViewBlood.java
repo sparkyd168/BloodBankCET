@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import moonblade.bloodbankcet.R;
 
@@ -28,6 +29,7 @@ RadioGroup choice,bg;
             @Override
             public void onClick(View v) {
             el.setVisibility(View.VISIBLE);
+            
             }
         });
     }
