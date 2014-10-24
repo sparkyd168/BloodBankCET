@@ -26,12 +26,12 @@ ListView lv=(ListView)findViewById(R.id.list);
 //        tv.setText(data);
 
         Cursor cursor = sqldb.readData();
-        String[] from = new String[] { sqldb.KEY_ROWID, sqldb.KEY_NAME };
+        String[] from = new String[] { KEY_ROWID, dbhelper.MEMBER_NAME };
 
-        int[] to = new int[] { R.id.info, R.id.name };
+        int[] to = new int[] { R.id., R.id.name };
 
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(
-                sqlview.this, R.layout.activity_sqlview, cursor, from, to);
+                moonblade.bloodbankcet.Home.this, R.layout.view_member_entry, cursor, from, to);
 
         adapter.notifyDataSetChanged();
         lv.setAdapter(adapter);
