@@ -2,6 +2,7 @@ package moonblade.bloodbankcet;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,7 +33,7 @@ public class ViewBlood extends Activity {
         String[] blood_groups = getResources().getStringArray(R.array.bloodgroups);
         ArrayAdapter adapter=new ArrayAdapter<String>(this, R.layout.blood_item, R.id.label, blood_groups);
 
-
+        final ListView data =(ListView)findViewById(R.id.data);
         final ListView lv = (ListView)findViewById(R.id.listview);
         lv.setVisibility(View.INVISIBLE);
         choice_branch.setVisibility(View.INVISIBLE);
@@ -74,11 +75,15 @@ choice_branch.setVisibility(View.INVISIBLE);
                 lv.setVisibility(View.INVISIBLE);
             }
         });
-
+        displaylist();
     }
 
 
+private void displaylist(){
+//    blooddb.open();
+//    Cursor c=blooddb.readAll();
 
+}
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

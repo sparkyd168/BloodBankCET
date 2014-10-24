@@ -58,4 +58,9 @@
             android:paddingTop="28dp"
             android:layout_toRightOf="@+id/choice"/>
 </RelativeLayout>
+    <ListView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/data"
+        android:paddingTop="5dp"></ListView>
 </LinearLayout>
