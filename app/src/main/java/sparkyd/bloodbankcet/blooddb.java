@@ -1,4 +1,4 @@
-package moonblade.bloodbankcet;
+package sparkyd.bloodbankcet;
 
 import android.app.Activity;
 import android.content.ContentValues;
