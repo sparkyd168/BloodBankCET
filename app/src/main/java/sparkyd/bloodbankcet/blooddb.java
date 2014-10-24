@@ -3,6 +3,7 @@ package sparkyd.bloodbankcet;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
@@ -94,5 +95,27 @@ public class blooddb{
         ourdb.update(DB_TABLE,cv,KEY_ROWID + "=?" + id1,null);
     }
 
+    public Cursor readAll(){
+        Cursor c=ourdb.query(DB_TABLE,new String[]{KEY_ROWID,KEY_NAME,KEY_BRANCH,KEY_BG,KEY_PHONE,KEY_HOSTEL},null,null,null,null,null);
+        if (c!=null)
+           c.moveToFirst();
+        return c;
+    }
+
+    public Cursor readBG(String s) {
+        Cursor mc = null;
+
+        if(s==null||s.length()==0)
+        {
+            mc= ourdb.query(DB_TABLE,new String[]{KEY_ROWID,KEY_NAME,KEY_BRANCH,KEY_BG,KEY_PHONE,KEY_HOSTEL},null,null,null,null,null);
+        }
+        else
+        {
+            mc= ourdb.query(DB_TABLE,new String[]{KEY_ROWID,KEY_NAME,KEY_BRANCH,KEY_BG,KEY_PHONE,KEY_HOSTEL},KEY_BG+" like '%"+ s+"%'",null,null,null,null,null);
+        }
+        if(mc!=null)
+            mc.moveToFirst();
+        return mc;
+    }
 
 }

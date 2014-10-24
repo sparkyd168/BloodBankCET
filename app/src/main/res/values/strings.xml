@@ -12,5 +12,6 @@
     <string name="title_activity_sqldb">sqldb</string>
     <string name="title_activity_settings">settings</string>
     <string name="title_activity_blooddb">blooddb</string>
+    <string name="title_activity_view_blood">ViewBlood</string>
 
 </resources>
