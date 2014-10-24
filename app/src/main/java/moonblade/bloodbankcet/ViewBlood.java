@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -19,16 +20,20 @@ import android.widget.Toast;
 
 public class ViewBlood extends Activity {
     RadioGroup choice;
-    RadioButton blood,branch;
+    RadioButton blood,branch,none;
     EditText choice_branch;
+    Button filter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_blood);
         choice=(RadioGroup)findViewById(R.id.choice);
         branch=(RadioButton)findViewById(R.id.branch);
+        none=(RadioButton)findViewById(R.id.none);
         blood=(RadioButton)findViewById(R.id.blood);
         choice_branch=(EditText)findViewById(R.id.choice_branch);
+        filter=(Button)findViewById(R.id.filter);
+        none.setChecked(true);
 
         String[] blood_groups = getResources().getStringArray(R.array.bloodgroups);
         ArrayAdapter adapter=new ArrayAdapter<String>(this, R.layout.blood_item, R.id.label, blood_groups);
@@ -38,18 +43,32 @@ public class ViewBlood extends Activity {
         lv.setVisibility(View.INVISIBLE);
         choice_branch.setVisibility(View.INVISIBLE);
         lv.setAdapter(adapter);
+        filter.setVisibility(View.INVISIBLE);
 
+        none.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
+        none.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                
+            }
+        });
         branch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 choice_branch.setVisibility(View.VISIBLE);
+                filter.setVisibility(View.VISIBLE);
             }
         });
         branch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 choice_branch.setVisibility(View.INVISIBLE);
+                filter.setVisibility(View.INVISIBLE);
             }
         });
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
