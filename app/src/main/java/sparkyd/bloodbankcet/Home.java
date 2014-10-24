@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import sparkyd.bloodbankcet.settings;
+
 
 public class Home extends Activity {
 int logged_in=0;
@@ -83,7 +85,9 @@ int logged_in=0;
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
-            Toast.makeText(Home.this,"Not implemented yet",Toast.LENGTH_SHORT).show();
+            Intent setting = new Intent(Home.this,settings.class);
+            setting.putExtra("admin", logged_in);
+            startActivity(setting);
         }
         if (id == R.id.action_login) {
             Intent login =new Intent(Home.this,LoginPage.class);

@@ -10,5 +10,6 @@
     <string name="title_activity_sqltest">sqltest</string>
     <string name="title_activity_sqlview">sqlview</string>
     <string name="title_activity_sqldb">sqldb</string>
+    <string name="title_activity_settings">settings</string>
 
 </resources>
