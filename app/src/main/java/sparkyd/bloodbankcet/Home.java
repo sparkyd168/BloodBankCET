@@ -10,25 +10,33 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import sparkyd.bloodbankcet.ViewBlood;
 import sparkyd.bloodbankcet.settings;
 
 
 public class Home extends Activity {
 int logged_in=0;
-    Button sql;
+    Button sql,viewblood;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
 
-
+        viewblood=(Button)findViewById(R.id.viewblood);
         sql=(Button)findViewById(R.id.sql);
 
+        viewblood.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent viewBlood=new Intent(Home.this, ViewBlood.class);
+                startActivity(viewBlood);
+            }
+        });
         sql.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent sqlite=new Intent(Home.this,sqltest.class);
+                Intent sqlite=new Intent(Home.this, moonblade.bloodbankcet.sqltest.class);
                 startActivity(sqlite);
 
             }
