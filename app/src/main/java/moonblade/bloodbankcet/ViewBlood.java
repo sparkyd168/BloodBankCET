@@ -34,7 +34,7 @@ public class ViewBlood extends Activity {
         choice_branch=(EditText)findViewById(R.id.choice_branch);
         filter=(Button)findViewById(R.id.filter);
         none.setChecked(true);
-
+        final String[] option = {"none"};
         String[] blood_groups = getResources().getStringArray(R.array.bloodgroups);
         ArrayAdapter adapter=new ArrayAdapter<String>(this, R.layout.blood_item, R.id.label, blood_groups);
 
@@ -48,20 +48,22 @@ public class ViewBlood extends Activity {
         none.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+            option[0] ="none";
             }
         });
         none.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                
+
             }
         });
+
         branch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 choice_branch.setVisibility(View.VISIBLE);
                 filter.setVisibility(View.VISIBLE);
+                option[0] ="branch";
             }
         });
         branch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -78,6 +80,7 @@ choice_branch.setVisibility(View.INVISIBLE);
                 // selected item
                 String blood_group = ((TextView) view).getText().toString();
                 lv.setVisibility(View.INVISIBLE);
+
 //                Toast.makeText(ViewBlood.this,blood_group,Toast.LENGTH_SHORT).show();
             }
         });
@@ -86,6 +89,7 @@ choice_branch.setVisibility(View.INVISIBLE);
             @Override
             public void onClick(View v) {
                 lv.setVisibility(View.VISIBLE);
+                option[0] ="blood";
             }
         });
         blood.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
