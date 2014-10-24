@@ -1,18 +1,15 @@
 package moonblade.bloodbankcet;
 
 import android.app.Activity;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import moonblade.bloodbankcet.sqldb;
 import moonblade.bloodbankcet.R;
 
 public class sqlview extends Activity {
-ListView lv=(ListView)findViewById(R.id.list);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,22 +18,9 @@ ListView lv=(ListView)findViewById(R.id.list);
         TextView tv= (TextView)findViewById(R.id.info);
         sqldb table = new sqldb(this);
         table.open();
-//        String data = table.getData();
-//        table.close();
-//        tv.setText(data);
-
-        Cursor cursor = sqldb.readData();
-        String[] from = new String[] { KEY_ROWID, dbhelper.MEMBER_NAME };
-
-        int[] to = new int[] { R.id., R.id.name };
-
-        SimpleCursorAdapter adapter = new SimpleCursorAdapter(
-                moonblade.bloodbankcet.Home.this, R.layout.view_member_entry, cursor, from, to);
-
-        adapter.notifyDataSetChanged();
-        lv.setAdapter(adapter);
-
-
+        String data = table.getData();
+        table.close();
+        tv.setText(data);
     }
 
 
