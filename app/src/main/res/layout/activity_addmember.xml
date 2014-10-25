@@ -1,0 +1,174 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="moonblade.bloodbankcet.addmember">
+
+    <TextView
+        android:text="ADD NEW ENTRY"
+        android:gravity="center"
+
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#ff0039ff"
+        android:id="@+id/tvdname" />
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/tvdname">
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal">
+
+
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:hint="Name"
+                android:ems="10"
+                android:id="@+id/etdbname"
+                android:layout_below="@+id/tvdname"
+                android:layout_gravity="center_horizontal" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/etdbclass"
+                android:hint="Class"
+                android:ems="10"
+                android:layout_below="@+id/etdbname"
+                android:layout_gravity="center_horizontal" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Blood Group"
+                android:textSize="15dp"
+                android:id="@+id/tvbg"
+                android:layout_gravity="center_horizontal"
+                android:layout_below="@+id/etdbclass"/>
+
+
+
+
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/rg"
+                android:layout_gravity="center"
+                >
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="A+   "
+                    android:id="@+id/rap"
+                    android:textSize="15dp"
+                    android:layout_weight="50"
+                    />
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="A-"
+                    android:id="@+id/ran"
+                    android:textSize="15dp"
+                    />
+
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="B+   "
+                    android:id="@+id/rbp"
+                    android:textSize="15dp"
+                    />
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="B-"
+                    android:id="@+id/rbn"
+                    android:textSize="15dp"
+                    />
+
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="AB+"
+                    android:id="@+id/rabp"
+                    android:textSize="15dp"
+                    />
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="AB-"
+                    android:id="@+id/rabn"
+                    android:textSize="15dp"
+                    />
+
+
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="O+   "
+                    android:id="@+id/rop"
+                    android:textSize="15dp"
+                    />
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="O-"
+                    android:id="@+id/ron"
+                    android:textSize="15dp"
+                    />
+
+
+
+            </RadioGroup>
+
+
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="phone"
+                android:ems="10"
+                android:id="@+id/etmob"
+                android:hint="Mobile Number"
+                android:layout_below="@+id/scrollView2"
+                android:layout_gravity="center_horizontal" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ethostel"
+                android:hint="Hostel"
+                android:ems="10"
+                android:layout_below="@+id/etmob"
+                android:layout_gravity="center_horizontal" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ADD ENTRY"
+                android:id="@+id/baddentry"
+                android:layout_below="@+id/ethostel"
+                android:layout_gravity="center" />
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

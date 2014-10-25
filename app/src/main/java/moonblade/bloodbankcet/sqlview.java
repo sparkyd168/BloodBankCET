@@ -13,13 +13,15 @@ import moonblade.bloodbankcet.sqldb;
 import moonblade.bloodbankcet.R;
 
 public class sqlview extends Activity {
-    ListView lv=(ListView)findViewById(R.id.try2);
 
+    private SimpleCursorAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_sqlview);
-getdata();
+        ListView lv=(ListView)findViewById(R.id.try2);
+getdata(lv);
 //        TextView tv= (TextView)findViewById(R.id.info);
 //        sqldb table = new sqldb(this);
 //        table.open();
@@ -30,19 +32,16 @@ getdata();
     }
 
 
-    private void getdata(){
+    private void getdata(ListView lv){
 sqldb table = new sqldb(this);
         table.open();
         Cursor c=table.readAll();
         c.moveToFirst();
 
-        ListAdapter adapter=new SimpleCursorAdapter(this,
-                R.layout.listviewlayout, c,
-                new String[] {"name"},
-                new int[] {R.id.set_name});
-//        lv.setListAdapter(adapter);
-
-//        lv.setListAdapter(entries);
+        String[] columns = new String[] {table.KEY_NAME};
+        int[] to = new int[]{R.id.set_name};
+        adapter = new SimpleCursorAdapter(sqlview.this,R.layout.listviewlayout,c,columns,to,0);
+        lv.setAdapter(adapter);
 
         table.close();
     }

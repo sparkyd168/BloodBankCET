@@ -47,6 +47,10 @@
             android:name=".ViewBlood"
             android:label="@string/title_activity_view_blood" >
         </activity>
+        <activity
+            android:name=".addmember"
+            android:label="@string/title_activity_addmember" >
+        </activity>
     </application>
 
 </manifest>

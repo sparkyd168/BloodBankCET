@@ -15,14 +15,18 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class ViewBlood extends Activity {
+    private SimpleCursorAdapter adapter;
     RadioGroup choice;
     RadioButton blood,branch,none;
     EditText choice_branch;
     Button filter;
+    final String[] option = {"none"};
+    final ListView data =(ListView)findViewById(R.id.data);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,11 +38,11 @@ public class ViewBlood extends Activity {
         choice_branch=(EditText)findViewById(R.id.choice_branch);
         filter=(Button)findViewById(R.id.filter);
         none.setChecked(true);
-        final String[] option = {"none"};
+
         String[] blood_groups = getResources().getStringArray(R.array.bloodgroups);
         ArrayAdapter adapter=new ArrayAdapter<String>(this, R.layout.blood_item, R.id.label, blood_groups);
 
-        final ListView data =(ListView)findViewById(R.id.data);
+
         final ListView lv = (ListView)findViewById(R.id.listview);
         lv.setVisibility(View.INVISIBLE);
         choice_branch.setVisibility(View.INVISIBLE);
@@ -49,6 +53,7 @@ public class ViewBlood extends Activity {
             @Override
             public void onClick(View v) {
             option[0] ="none";
+                getdata();
             }
         });
         none.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -64,6 +69,7 @@ public class ViewBlood extends Activity {
 choice_branch.setVisibility(View.VISIBLE);
                 filter.setVisibility(View.VISIBLE);
                 option[0] ="branch";
+                getdata();
             }
         });
         branch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -80,7 +86,7 @@ choice_branch.setVisibility(View.INVISIBLE);
                 // selected item
                 String blood_group = ((TextView) view).getText().toString();
                 lv.setVisibility(View.INVISIBLE);
-
+                getdata();
 //                Toast.makeText(ViewBlood.this,blood_group,Toast.LENGTH_SHORT).show();
             }
         });
@@ -101,7 +107,20 @@ choice_branch.setVisibility(View.INVISIBLE);
         displaylist();
     }
 
+private void getdata(){
+    blooddb table = new blooddb(this);
 
+    table.open();
+    Cursor c=table.readAll();
+    c.moveToFirst();
+
+    String[] columns = new String[] {table.KEY_NAME,table.KEY_BG};
+    int[] to = new int[]{R.id.set_name,R.id.set_bg};
+    adapter = new SimpleCursorAdapter(ViewBlood.this,R.layout.listviewlayout,c,columns,to,0);
+    data.setAdapter(adapter);
+
+    table.close();
+}
 private void displaylist(){
 //    blooddb.open();
 //    Cursor c=blooddb.readAll();

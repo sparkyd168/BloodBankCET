@@ -11,16 +11,24 @@ import android.widget.Button;
 
 public class Home extends Activity {
 int logged_in=0;
-    Button sql,viewblood;
+    Button sql,viewblood,add;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-
+        add=(Button)findViewById(R.id.add);
         viewblood=(Button)findViewById(R.id.viewblood);
         sql=(Button)findViewById(R.id.sql);
 
+
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(Home.this,addmember.class);
+                startActivity(i);
+            }
+        });
         viewblood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
