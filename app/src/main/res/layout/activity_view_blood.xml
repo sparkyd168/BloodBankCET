@@ -49,12 +49,12 @@
 
         </RadioGroup>
 
-        <ListView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/listview"
-            android:layout_toRightOf="@+id/choice">
-            </ListView>
+        <!--<ListView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/listview"-->
+            <!--android:layout_toRightOf="@+id/choice">-->
+            <!--</ListView>-->
 
         <EditText
             android:layout_width="fill_parent"
@@ -74,6 +74,12 @@
     <ListView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/data"
+        android:id="@+id/lvdata"
         android:paddingTop="5dp"></ListView>
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listview"
+        android:layout_toRightOf="@+id/choice">
+    </ListView>
 </LinearLayout>

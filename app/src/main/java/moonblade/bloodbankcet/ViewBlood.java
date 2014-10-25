@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.CursorAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -20,13 +21,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class ViewBlood extends Activity {
-    private SimpleCursorAdapter adapter;
     RadioGroup choice;
     RadioButton blood,branch,none;
     EditText choice_branch;
     Button filter;
-    final String[] option = {"none"};
-    final ListView data =(ListView)findViewById(R.id.data);
+    private CursorAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,22 +37,22 @@ public class ViewBlood extends Activity {
         choice_branch=(EditText)findViewById(R.id.choice_branch);
         filter=(Button)findViewById(R.id.filter);
         none.setChecked(true);
-
+        final String[] option = {"none"};
         String[] blood_groups = getResources().getStringArray(R.array.bloodgroups);
         ArrayAdapter adapter=new ArrayAdapter<String>(this, R.layout.blood_item, R.id.label, blood_groups);
 
-
+        final ListView data =(ListView)findViewById(R.id.lvdata);
         final ListView lv = (ListView)findViewById(R.id.listview);
+        getdata(data);
+
         lv.setVisibility(View.INVISIBLE);
         choice_branch.setVisibility(View.INVISIBLE);
         lv.setAdapter(adapter);
         filter.setVisibility(View.INVISIBLE);
-//        getdata();
 
         none.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            option[0] ="none";
 
             }
         });
@@ -70,7 +69,6 @@ public class ViewBlood extends Activity {
 choice_branch.setVisibility(View.VISIBLE);
                 filter.setVisibility(View.VISIBLE);
                 option[0] ="branch";
-
             }
         });
         branch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -105,10 +103,10 @@ choice_branch.setVisibility(View.INVISIBLE);
                 lv.setVisibility(View.INVISIBLE);
             }
         });
-
     }
 
-private void getdata(){
+
+private void getdata(ListView data){
     blooddb table = new blooddb(this);
 
     table.open();
@@ -122,7 +120,6 @@ private void getdata(){
 
     table.close();
 }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
