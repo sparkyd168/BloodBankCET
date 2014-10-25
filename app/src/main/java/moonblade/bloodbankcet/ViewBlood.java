@@ -44,7 +44,7 @@ public class ViewBlood extends Activity {
         final ListView data =(ListView)findViewById(R.id.lvdata);
         final ListView lv = (ListView)findViewById(R.id.listview);
 
-        getdata(data);
+        getdatanone(data);
 
         lv.setVisibility(View.INVISIBLE);
         choice_branch.setVisibility(View.INVISIBLE);
@@ -54,7 +54,7 @@ public class ViewBlood extends Activity {
         none.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                getdatanone(data);
             }
         });
         none.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -67,7 +67,7 @@ public class ViewBlood extends Activity {
         branch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-choice_branch.setVisibility(View.VISIBLE);
+                choice_branch.setVisibility(View.VISIBLE);
                 filter.setVisibility(View.VISIBLE);
                 option[0] ="branch";
             }
@@ -75,8 +75,15 @@ choice_branch.setVisibility(View.VISIBLE);
         branch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-choice_branch.setVisibility(View.INVISIBLE);
+                choice_branch.setVisibility(View.INVISIBLE);
                 filter.setVisibility(View.INVISIBLE);
+            }
+        });
+        filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String branch=choice_branch.getText().toString();
+                getdataBranch(data,branch);
             }
         });
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -86,7 +93,7 @@ choice_branch.setVisibility(View.INVISIBLE);
                 // selected item
                 String blood_group = ((TextView) view).getText().toString();
                 lv.setVisibility(View.INVISIBLE);
-
+                getdatablood(data,blood_group);
 //                Toast.makeText(ViewBlood.this,blood_group,Toast.LENGTH_SHORT).show();
             }
         });
@@ -107,8 +114,8 @@ choice_branch.setVisibility(View.INVISIBLE);
     }
 
 
-private void getdata(ListView data){
-    //There is some syntax error in blooddb database, so it force closes
+    private void getdatanone(ListView data){
+        //There is some syntax error in blooddb database, so it force closes
 //    blooddb table = new blooddb(this);
 //
 //    table.open();
@@ -122,17 +129,46 @@ private void getdata(ListView data){
 //
 //    table.close();
 
-    sqldb table = new sqldb(this);
-    table.open();
-    Cursor c=table.readAll();
-    c.moveToFirst();
-    String[] columns = new String[] {table.KEY_NAME,table.KEY_BG};
-    int[] to = new int[]{R.id.set_name,R.id.set_bg};
-    adapter = new SimpleCursorAdapter(ViewBlood.this,R.layout.listviewlayout,c,columns,to,0);
-    data.setAdapter(adapter);
+        sqldb table = new sqldb(this);
+        table.open();
+        Cursor c=table.readAll();
+        c.moveToFirst();
+        String[] columns = new String[] {table.KEY_NAME,table.KEY_BG};
+        int[] to = new int[]{R.id.set_name,R.id.set_bg};
+        adapter = new SimpleCursorAdapter(ViewBlood.this,R.layout.listviewlayout,c,columns,to,0);
+        data.setAdapter(adapter);
 
-    table.close();
-}
+        table.close();
+    }
+
+    private void getdatablood(ListView data,String blood_group){
+
+        sqldb table = new sqldb(this);
+        table.open();
+        Cursor c=table.readBlood(blood_group);
+        c.moveToFirst();
+        String[] columns = new String[] {table.KEY_NAME,table.KEY_BG};
+        int[] to = new int[]{R.id.set_name,R.id.set_bg};
+        adapter = new SimpleCursorAdapter(ViewBlood.this,R.layout.listviewlayout,c,columns,to,0);
+        data.setAdapter(adapter);
+
+        table.close();
+    }
+
+    private void getdataBranch(ListView data,String branch){
+
+        sqldb table = new sqldb(this);
+        table.open();
+        Cursor c=table.readBranch(branch);
+        c.moveToFirst();
+        String[] columns = new String[] {table.KEY_NAME,table.KEY_BG};
+        int[] to = new int[]{R.id.set_name,R.id.set_bg};
+        adapter = new SimpleCursorAdapter(ViewBlood.this,R.layout.listviewlayout,c,columns,to,0);
+        data.setAdapter(adapter);
+
+        table.close();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

@@ -103,6 +103,36 @@ public class sqldb{
         return c;
     }
 
+    public Cursor readBlood(String s) {
+        Cursor mc = null;
+
+        if(s==null||s.length()==0)
+        {
+            mc= ourdb.query(DB_TABLE,new String[]{KEY_ROWID,KEY_NAME,KEY_BG,KEY_BRANCH,KEY_PHONE,KEY_HOSTEL},null,null,null,null,null);
+        }
+        else
+        {
+            mc= ourdb.query(DB_TABLE,new String[]{KEY_ROWID,KEY_NAME,KEY_BG,KEY_BRANCH,KEY_PHONE,KEY_HOSTEL},KEY_BG+" like '%"+ s+"%'",null,null,null,null,null);
+        }
+        if(mc!=null)
+            mc.moveToFirst();
+        return mc;
+    }
+
+    public Cursor readBranch(String s) {
+        Cursor mc = null;
+        if(s==null||s.length()==0)
+        {
+            mc= ourdb.query(DB_TABLE,new String[]{KEY_ROWID,KEY_NAME,KEY_BG,KEY_BRANCH,KEY_PHONE,KEY_HOSTEL},null,null,null,null,null);
+        }
+        else
+        {
+            mc= ourdb.query(DB_TABLE,new String[]{KEY_ROWID,KEY_NAME,KEY_BG,KEY_BRANCH,KEY_PHONE,KEY_HOSTEL},KEY_BRANCH+" like '%"+ s+"%'",null,null,null,null,null);
+        }
+        if(mc!=null)
+            mc.moveToFirst();
+        return mc;
+    }
 
     public int updateData(long memberID, String memberName, String memberbg, String memberbranch, String memberphone, String memberhostel) {
         ContentValues cvUpdate = new ContentValues();
