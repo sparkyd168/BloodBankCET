@@ -48,12 +48,13 @@ public class ViewBlood extends Activity {
         choice_branch.setVisibility(View.INVISIBLE);
         lv.setAdapter(adapter);
         filter.setVisibility(View.INVISIBLE);
+//        getdata();
 
         none.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
             option[0] ="none";
-                getdata();
+
             }
         });
         none.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -69,7 +70,7 @@ public class ViewBlood extends Activity {
 choice_branch.setVisibility(View.VISIBLE);
                 filter.setVisibility(View.VISIBLE);
                 option[0] ="branch";
-                getdata();
+
             }
         });
         branch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -86,7 +87,7 @@ choice_branch.setVisibility(View.INVISIBLE);
                 // selected item
                 String blood_group = ((TextView) view).getText().toString();
                 lv.setVisibility(View.INVISIBLE);
-                getdata();
+
 //                Toast.makeText(ViewBlood.this,blood_group,Toast.LENGTH_SHORT).show();
             }
         });
@@ -108,18 +109,18 @@ choice_branch.setVisibility(View.INVISIBLE);
     }
 
 private void getdata(){
-//    blooddb table = new blooddb(this);
-//
-//    table.open();
-//    Cursor c=table.readAll();
-//    c.moveToFirst();
-//
-//    String[] columns = new String[] {table.KEY_NAME,table.KEY_BG};
-//    int[] to = new int[]{R.id.set_name,R.id.set_bg};
-//    adapter = new SimpleCursorAdapter(ViewBlood.this,R.layout.listviewlayout,c,columns,to,0);
-//    data.setAdapter(adapter);
-//
-//    table.close();
+    blooddb table = new blooddb(this);
+
+    table.open();
+    Cursor c=table.readAll();
+    c.moveToFirst();
+
+    String[] columns = new String[] {table.KEY_NAME,table.KEY_BG};
+    int[] to = new int[]{R.id.set_name,R.id.set_bg};
+    adapter = new SimpleCursorAdapter(ViewBlood.this,R.layout.listviewlayout,c,columns,to,0);
+    data.setAdapter(adapter);
+
+    table.close();
 }
 
     @Override
