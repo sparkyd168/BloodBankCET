@@ -1,8 +1,11 @@
 package moonblade.bloodbankcet;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -111,6 +114,47 @@ public class ViewBlood extends Activity {
                 lv.setVisibility(View.INVISIBLE);
             }
         });
+
+     data.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+         @Override
+         public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+             final Cursor cursor = (Cursor) data.getItemAtPosition(position);
+             final Dialog dialog = new Dialog(ViewBlood.this);
+             dialog.setContentView(R.layout.dialoglayout);
+             dialog.setTitle("Detail of Student");
+             TextView namea= (TextView)dialog.findViewById(R.id.tvdiagname);
+             TextView brancha= (TextView)dialog.findViewById(R.id.tvdiagbranch);
+             TextView bg= (TextView)dialog.findViewById(R.id.tvdiagbg);
+             TextView mob= (TextView)dialog.findViewById(R.id.tvdiagmob);
+             TextView hos= (TextView)dialog.findViewById(R.id.tvdiaghostel);
+             namea.setText(cursor.getString(cursor.getColumnIndexOrThrow("_name")));
+             brancha.setText(cursor.getString(cursor.getColumnIndexOrThrow("_branch")));
+             bg.setText( cursor.getString(cursor.getColumnIndexOrThrow("_bg")));
+             mob.setText(cursor.getString(cursor.getColumnIndexOrThrow("_phone")));
+             final String num=cursor.getString(cursor.getColumnIndexOrThrow("_phone"));
+             hos.setText(cursor.getString(cursor.getColumnIndexOrThrow("_hostel")));
+             final Button dbitton = (Button)dialog.findViewById(R.id.bdiagdok);
+             final Button callbutton = (Button)dialog.findViewById(R.id.bdiagcall);
+//             Button bdiagedit = (Button)dialog.findViewById(R.id.bdiagedit);
+//             Button bdel = (Button)dialog.findViewById(R.id.bdiagdelete);
+//             final AlertDialog.Builder alert = new AlertDialog.Builder(ViewFullDatabase.this);
+             dbitton.setOnClickListener(new View.OnClickListener() {
+                 @Override
+                 public void onClick(View v) {
+                     dialog.cancel();
+                 }
+             });
+             callbutton.setOnClickListener(new View.OnClickListener() {
+                 @Override
+                 public void onClick(View v) {
+                     Intent callIntent = new Intent(Intent.ACTION_CALL);
+                     callIntent.setData(Uri.parse("tel:" + num));
+                     startActivity(callIntent);
+                 }
+             });
+             dialog.show();
+         }
+     });
     }
 
 
