@@ -10,28 +10,8 @@
     tools:context="moonblade.bloodbankcet.sqlview">
 
 
-
-
-    <TableLayout
-
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true">
-
-        <TableRow><TextView
-            android:text="Name"
-            android:layout_weight="1"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent" /></TableRow>
-
-    </TableLayout>
-
-    <TextView
-        android:text="info"
-        android:id="@+id/info"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="20dp" />
+<ListView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/try2"></ListView>
 </RelativeLayout>

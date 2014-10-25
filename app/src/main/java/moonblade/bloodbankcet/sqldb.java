@@ -76,6 +76,13 @@ public class sqldb{
         return ourdb.insert(DB_TABLE,null,cv);
     }
 
+    public Cursor readAll(){
+        Cursor c=ourdb.query(DB_TABLE,new String[]{KEY_ROWID,KEY_NAME},null,null,null,null,null);
+        if (c!=null)
+            c.moveToFirst();
+        return c;
+    }
+
     public String getData() {
         String[] columns=new String[]{KEY_ROWID,KEY_NAME};
         Cursor c=ourdb.query(DB_TABLE,columns,null,null,null,null,null);
