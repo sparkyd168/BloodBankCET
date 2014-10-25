@@ -35,11 +35,16 @@ getdata(lv);
     private void getdata(ListView lv){
 sqldb table = new sqldb(this);
         table.open();
-        Cursor c=table.readData();
+//        Cursor c=table.readData();
+
+        Cursor c=table.readAll();
         c.moveToFirst();
 
-        String[] columns = new String[] {table.KEY_NAME};
-        int[] to = new int[]{R.id.set_name};
+//        String[] columns = new String[] {table.KEY_NAME};
+//        int[] to = new int[]{R.id.set_name};
+
+        String[] columns = new String[] {table.KEY_NAME,table.KEY_BG};
+        int[] to = new int[]{R.id.set_name,R.id.set_bg};
         adapter = new SimpleCursorAdapter(sqlview.this,R.layout.listviewlayout,c,columns,to,0);
         lv.setAdapter(adapter);
 

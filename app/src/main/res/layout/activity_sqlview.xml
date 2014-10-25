@@ -9,7 +9,10 @@
     android:background="@drawable/background"
     tools:context="moonblade.bloodbankcet.sqlview">
 
-
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/info"/>
 <ListView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"

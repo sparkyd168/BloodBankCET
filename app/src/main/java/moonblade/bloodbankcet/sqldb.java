@@ -93,15 +93,16 @@ public class sqldb{
     }
 
     public String getData() {
-        String[] columns=new String[]{KEY_ROWID,KEY_NAME};
+        String[] columns=new String[]{KEY_ROWID,KEY_NAME,KEY_BG};
         Cursor c=ourdb.query(DB_TABLE,columns,null,null,null,null,null);
         String result = "";
 
         int irow=c.getColumnIndex(KEY_ROWID);
         int iname=c.getColumnIndex(KEY_NAME);
+        int ibg=c.getColumnIndex(KEY_BG);
 
         for(c.moveToFirst();!c.isAfterLast();c.moveToNext()){
-            result = result + c.getString(irow) + "  " + c.getString(iname) + " \n";
+            result = result + c.getString(irow) + "  " + c.getString(iname) + " " + c.getString(ibg) + " \n";
         }
 
         return result;
