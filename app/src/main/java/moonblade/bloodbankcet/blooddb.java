@@ -15,8 +15,8 @@ public class blooddb{
     public static final String KEY_PHONE="_phone";
     public static final String KEY_HOSTEL="_hostel";
 
-    private static final String DB_NAME="_db";
-    private static final String DB_TABLE="_table";
+    private static final String DB_NAME="_blood_database";
+    private static final String DB_TABLE="_blood_table";
     private static final int DB_VERSION=2;
 
     private dbhelper ourhelper;

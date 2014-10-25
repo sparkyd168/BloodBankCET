@@ -104,28 +104,24 @@ choice_branch.setVisibility(View.INVISIBLE);
                 lv.setVisibility(View.INVISIBLE);
             }
         });
-        displaylist();
+
     }
 
 private void getdata(){
-    blooddb table = new blooddb(this);
-
-    table.open();
-    Cursor c=table.readAll();
-    c.moveToFirst();
-
-    String[] columns = new String[] {table.KEY_NAME,table.KEY_BG};
-    int[] to = new int[]{R.id.set_name,R.id.set_bg};
-    adapter = new SimpleCursorAdapter(ViewBlood.this,R.layout.listviewlayout,c,columns,to,0);
-    data.setAdapter(adapter);
-
-    table.close();
+//    blooddb table = new blooddb(this);
+//
+//    table.open();
+//    Cursor c=table.readAll();
+//    c.moveToFirst();
+//
+//    String[] columns = new String[] {table.KEY_NAME,table.KEY_BG};
+//    int[] to = new int[]{R.id.set_name,R.id.set_bg};
+//    adapter = new SimpleCursorAdapter(ViewBlood.this,R.layout.listviewlayout,c,columns,to,0);
+//    data.setAdapter(adapter);
+//
+//    table.close();
 }
-private void displaylist(){
-//    blooddb.open();
-//    Cursor c=blooddb.readAll();
 
-}
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
