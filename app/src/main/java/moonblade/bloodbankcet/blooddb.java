@@ -8,34 +8,34 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class blooddb{
 
-    public static final String KEY_ROWID="_id";
-    public static final String KEY_NAME="_name";
-    public static final String KEY_BG="_bg";
-    public static final String KEY_BRANCH="_branch";
-    public static final String KEY_PHONE="_phone";
-    public static final String KEY_HOSTEL="_hostel";
+    public static final String KEY_ROWID="_row_id";
+    public static final String KEY_NAME="_bname";
+    public static final String KEY_BG="_bbg";
+    public static final String KEY_BRANCH="_bbranch";
+    public static final String KEY_PHONE="_bphone";
+    public static final String KEY_HOSTEL="_bhostel";
 
     private static final String DB_NAME="_blood_database";
     private static final String DB_TABLE="_blood_table";
-    private static final int DB_VERSION=2;
+    private static final int DB_VERSION=3;
 
-    private dbhelper ourhelper;
-    private final Context ourcontext;
-    private SQLiteDatabase ourdb;
+    private dbhelper helper;
+    private final Context context;
+    private SQLiteDatabase blood_db;
 
 
     public blooddb(Context c){
-        ourcontext=c;
+        context=c;
     }
 
     public blooddb open(){
-        ourhelper = new dbhelper(ourcontext);
-        ourdb = ourhelper.getWritableDatabase();
+        helper = new dbhelper(context);
+        blood_db = helper.getWritableDatabase();
         return this;
     }
 
     public void close(){
-        ourhelper.close();
+        helper.close();
     }
 
     private static class dbhelper extends SQLiteOpenHelper{
@@ -51,7 +51,7 @@ public class blooddb{
                     + KEY_NAME + " text not null, "
                     + KEY_BG + " text not null, "
                     + KEY_BRANCH + " text not null, "
-                    + KEY_PHONE + " text not null "
+                    + KEY_PHONE + " text not null, "
                     + KEY_HOSTEL + " text not null);");
         }
 
@@ -71,11 +71,11 @@ public class blooddb{
         cv.put(KEY_BRANCH,branch);
         cv.put(KEY_PHONE,phone);
         cv.put(KEY_HOSTEL,hostel);
-        return ourdb.insert(DB_TABLE,null,cv);
+        return blood_db.insert(DB_TABLE,null,cv);
     }
 
     public void delete (String position){
-        ourdb.delete(DB_TABLE,KEY_NAME + "=?",new String[] {position});
+        blood_db.delete(DB_TABLE,KEY_NAME + "=?",new String[] {position});
     }
 
     public void editEntry(String id,String name,String bg,String branch, String phone, String hostel ){
@@ -86,11 +86,11 @@ public class blooddb{
         cv.put(KEY_PHONE,phone);
         cv.put(KEY_HOSTEL,hostel);
         int id1= Integer.parseInt(id);
-        ourdb.update(DB_TABLE,cv,KEY_ROWID + "=?" + id1,null);
+        blood_db.update(DB_TABLE,cv,KEY_ROWID + "=?" + id1,null);
     }
 
     public Cursor readAll(){
-        Cursor c=ourdb.query(DB_TABLE,new String[]{KEY_ROWID,KEY_NAME,KEY_BRANCH,KEY_BG,KEY_PHONE,KEY_HOSTEL},null,null,null,null,null);
+        Cursor c=blood_db.query(DB_TABLE,new String[]{KEY_ROWID,KEY_NAME,KEY_BRANCH,KEY_BG,KEY_PHONE,KEY_HOSTEL},null,null,null,null,null);
         if (c!=null)
            c.moveToFirst();
         return c;
@@ -101,11 +101,11 @@ public class blooddb{
 
         if(s==null||s.length()==0)
         {
-            mc= ourdb.query(DB_TABLE,new String[]{KEY_ROWID,KEY_NAME,KEY_BRANCH,KEY_BG,KEY_PHONE,KEY_HOSTEL},null,null,null,null,null);
+            mc= blood_db.query(DB_TABLE,new String[]{KEY_ROWID,KEY_NAME,KEY_BRANCH,KEY_BG,KEY_PHONE,KEY_HOSTEL},null,null,null,null,null);
         }
         else
         {
-            mc= ourdb.query(DB_TABLE,new String[]{KEY_ROWID,KEY_NAME,KEY_BRANCH,KEY_BG,KEY_PHONE,KEY_HOSTEL},KEY_BG+" like '%"+ s+"%'",null,null,null,null,null);
+            mc= blood_db.query(DB_TABLE,new String[]{KEY_ROWID,KEY_NAME,KEY_BRANCH,KEY_BG,KEY_PHONE,KEY_HOSTEL},KEY_BG+" like '%"+ s+"%'",null,null,null,null,null);
         }
         if(mc!=null)
             mc.moveToFirst();

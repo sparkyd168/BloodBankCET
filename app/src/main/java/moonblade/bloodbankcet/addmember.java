@@ -68,9 +68,9 @@ public class addmember extends Activity {
                 String mob=etdbmob.getText().toString();
                 String hostel=etdbhostel.getText().toString();
                 String bg=bloodgroup[0];
-                blooddb add = new blooddb(addmember.this);
+                sqldb add = new sqldb(addmember.this);
                 add.open();
-                add.addEntry(name,  bg, clas, mob, hostel);
+                add.addData(name, bg, clas, mob, hostel);
                 add.close();
                 Toast.makeText(getApplicationContext(), "Entry Successfull", Toast.LENGTH_SHORT).show();
                 Intent i=new Intent(addmember.this,Home.class);

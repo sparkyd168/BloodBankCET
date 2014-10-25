@@ -43,6 +43,7 @@ public class ViewBlood extends Activity {
 
         final ListView data =(ListView)findViewById(R.id.lvdata);
         final ListView lv = (ListView)findViewById(R.id.listview);
+
         getdata(data);
 
         lv.setVisibility(View.INVISIBLE);
@@ -107,13 +108,24 @@ choice_branch.setVisibility(View.INVISIBLE);
 
 
 private void getdata(ListView data){
-    blooddb table = new blooddb(this);
+//    blooddb table = new blooddb(this);
+//
+//    table.open();
+//    Cursor c=table.readAll();
+//    c.moveToFirst();
+//
+//    String[] columns = new String[] {table.KEY_NAME,table.KEY_BG};
+//    int[] to = new int[]{R.id.set_name,R.id.set_bg};
+//    adapter = new SimpleCursorAdapter(ViewBlood.this,R.layout.listviewlayout,c,columns,to,0);
+//    data.setAdapter(adapter);
+//
+//    table.close();
 
+    sqldb table = new sqldb(this);
     table.open();
     Cursor c=table.readAll();
     c.moveToFirst();
-
-    String[] columns = new String[] {table.KEY_NAME,table.KEY_BG};
+    String[] columns = new String[] {table.KEY_NAME,table.KEY_BRANCH};
     int[] to = new int[]{R.id.set_name,R.id.set_bg};
     adapter = new SimpleCursorAdapter(ViewBlood.this,R.layout.listviewlayout,c,columns,to,0);
     data.setAdapter(adapter);

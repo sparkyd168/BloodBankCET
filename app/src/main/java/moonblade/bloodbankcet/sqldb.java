@@ -19,6 +19,9 @@ public class sqldb{
     public static final String KEY_ROWID = "_id";
     public static final String KEY_NAME = "_name";
     public static final String KEY_BG = "_bg";
+    public static final String KEY_BRANCH="_branch";
+    public static final String KEY_PHONE="_phone";
+    public static final String KEY_HOSTEL="_hostel";
 
     private static final String DB_NAME = "_db";
     private static final String DB_TABLE = "_table";
@@ -48,9 +51,12 @@ public class sqldb{
         @Override
         public void onCreate(SQLiteDatabase db) {
             db.execSQL("CREATE TABLE " + DB_TABLE + " (" +
-                            KEY_ROWID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                            KEY_NAME + " TEXT NOT NULL, " +
-                            KEY_BG + " TEXT NOT NULL);"
+                            KEY_ROWID +  " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                            KEY_NAME +   " TEXT NOT NULL, " +
+                            KEY_BG +     " TEXT NOT NULL, " +
+                            KEY_BRANCH + " TEXT NOT NULL, " +
+                            KEY_PHONE +  " TEXT NOT NULL, " +
+                            KEY_HOSTEL + " TEXT NOT NULL);"
             );
         }
 
@@ -78,49 +84,33 @@ public class sqldb{
         cv.put(KEY_BG,bgr);
         return ourdb.insert(DB_TABLE,null,cv);
     }
-    public long addone(String nam) {
+
+    public long addData(String nam,String bgr,String branch, String phone, String hostel) {
 
         ContentValues cv = new ContentValues();
         cv.put(KEY_NAME,nam);
+        cv.put(KEY_BG,bgr);
+        cv.put(KEY_BRANCH,branch);
+        cv.put(KEY_PHONE,phone);
+        cv.put(KEY_HOSTEL,hostel);
         return ourdb.insert(DB_TABLE,null,cv);
     }
 
     public Cursor readAll(){
-        Cursor c=ourdb.query(DB_TABLE,new String[]{KEY_ROWID,KEY_NAME,KEY_BG},null,null,null,null,null);
+        Cursor c=ourdb.query(DB_TABLE,new String[]{KEY_ROWID,KEY_NAME,KEY_BG,KEY_BRANCH,KEY_PHONE,KEY_HOSTEL},null,null,null,null,null);
         if (c!=null)
             c.moveToFirst();
         return c;
     }
 
-    public String getData() {
-        String[] columns=new String[]{KEY_ROWID,KEY_NAME,KEY_BG};
-        Cursor c=ourdb.query(DB_TABLE,columns,null,null,null,null,null);
-        String result = "";
 
-        int irow=c.getColumnIndex(KEY_ROWID);
-        int iname=c.getColumnIndex(KEY_NAME);
-        int ibg=c.getColumnIndex(KEY_BG);
-
-        for(c.moveToFirst();!c.isAfterLast();c.moveToNext()){
-            result = result + c.getString(irow) + "  " + c.getString(iname) + " " + c.getString(ibg) + " \n";
-        }
-
-        return result;
-    }
-
-    public Cursor readData() {
-        String[] allColumns = new String[] { KEY_ROWID,KEY_NAME };
-        Cursor c = ourdb.query(DB_TABLE, allColumns, null,null, null, null, null);
-        if (c != null) {
-            c.moveToFirst();
-        }
-        return c;
-    }
-
-    public int updateData(long memberID, String memberName, String memberbg) {
+    public int updateData(long memberID, String memberName, String memberbg, String memberbranch, String memberphone, String memberhostel) {
         ContentValues cvUpdate = new ContentValues();
         cvUpdate.put(KEY_NAME, memberName);
         cvUpdate.put(KEY_BG, memberbg);
+        cvUpdate.put(KEY_BRANCH,memberbranch);
+        cvUpdate.put(KEY_PHONE,memberphone);
+        cvUpdate.put(KEY_HOSTEL,memberhostel);
         int i = ourdb.update(DB_TABLE, cvUpdate,
                 KEY_ROWID + " = " + memberID, null);
         return i;
