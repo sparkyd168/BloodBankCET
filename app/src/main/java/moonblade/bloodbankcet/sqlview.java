@@ -35,7 +35,7 @@ getdata(lv);
     private void getdata(ListView lv){
 sqldb table = new sqldb(this);
         table.open();
-        Cursor c=table.readAll();
+        Cursor c=table.readData();
         c.moveToFirst();
 
         String[] columns = new String[] {table.KEY_NAME};

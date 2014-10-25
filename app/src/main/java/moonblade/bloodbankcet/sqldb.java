@@ -18,6 +18,7 @@ public class sqldb{
 
     public static final String KEY_ROWID = "_id";
     public static final String KEY_NAME = "_name";
+    public static final String KEY_BG = "_bg";
 
     private static final String DB_NAME = "_db";
     private static final String DB_TABLE = "_table";
@@ -47,8 +48,9 @@ public class sqldb{
         @Override
         public void onCreate(SQLiteDatabase db) {
             db.execSQL("CREATE TABLE " + DB_TABLE + " (" +
-                    KEY_ROWID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                            KEY_NAME + " TEXT NOT NULL);"
+                            KEY_ROWID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                            KEY_NAME + " TEXT NOT NULL, " +
+                            KEY_BG + " TEXT NOT NULL);"
             );
         }
 
@@ -69,7 +71,14 @@ public class sqldb{
         ourhelper.close();
     }
 
-    public long add(String nam) {
+    public long add(String nam,String bgr) {
+
+        ContentValues cv = new ContentValues();
+        cv.put(KEY_NAME,nam);
+        cv.put(KEY_BG,bgr);
+        return ourdb.insert(DB_TABLE,null,cv);
+    }
+    public long addone(String nam) {
 
         ContentValues cv = new ContentValues();
         cv.put(KEY_NAME,nam);
@@ -77,7 +86,7 @@ public class sqldb{
     }
 
     public Cursor readAll(){
-        Cursor c=ourdb.query(DB_TABLE,new String[]{KEY_ROWID,KEY_NAME},null,null,null,null,null);
+        Cursor c=ourdb.query(DB_TABLE,new String[]{KEY_ROWID,KEY_NAME,KEY_BG},null,null,null,null,null);
         if (c!=null)
             c.moveToFirst();
         return c;
@@ -107,9 +116,10 @@ public class sqldb{
         return c;
     }
 
-    public int updateData(long memberID, String memberName) {
+    public int updateData(long memberID, String memberName, String memberbg) {
         ContentValues cvUpdate = new ContentValues();
         cvUpdate.put(KEY_NAME, memberName);
+        cvUpdate.put(KEY_BG, memberbg);
         int i = ourdb.update(DB_TABLE, cvUpdate,
                 KEY_ROWID + " = " + memberID, null);
         return i;
