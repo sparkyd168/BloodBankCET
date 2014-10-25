@@ -108,6 +108,7 @@ choice_branch.setVisibility(View.INVISIBLE);
 
 
 private void getdata(ListView data){
+    //There is some syntax error in blooddb database, so it force closes
 //    blooddb table = new blooddb(this);
 //
 //    table.open();
@@ -125,7 +126,7 @@ private void getdata(ListView data){
     table.open();
     Cursor c=table.readAll();
     c.moveToFirst();
-    String[] columns = new String[] {table.KEY_NAME,table.KEY_BRANCH};
+    String[] columns = new String[] {table.KEY_NAME,table.KEY_BG};
     int[] to = new int[]{R.id.set_name,R.id.set_bg};
     adapter = new SimpleCursorAdapter(ViewBlood.this,R.layout.listviewlayout,c,columns,to,0);
     data.setAdapter(adapter);

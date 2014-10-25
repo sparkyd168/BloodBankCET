@@ -45,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/etdbclass"
-                android:hint="Class"
+                android:hint="Branch"
                 android:ems="10"
                 android:layout_below="@+id/etdbname"
                 android:layout_gravity="center_horizontal" />
