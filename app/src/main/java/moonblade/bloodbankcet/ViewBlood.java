@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -31,12 +32,12 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.Inflater;
 
 public class ViewBlood extends Activity implements AdapterView.OnItemSelectedListener{
     int long_clicked=0;
     int logged_in=0;
     Spinner blood_spinner;
-    ImageButton show_filter;
     private CursorAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,22 +54,10 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
 
         }
         blood_spinner=(Spinner)findViewById(R.id.blood_spinner);
-        show_filter=(ImageButton)findViewById(R.id.show_filter);
         blood_spinner.setOnItemSelectedListener(ViewBlood.this);
         blood_spinner.setVisibility(View.INVISIBLE);
 
-        show_filter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int is_visible = blood_spinner.getVisibility();
-                if(is_visible==View.INVISIBLE){
-                    blood_spinner.setVisibility(View.VISIBLE);
-                }
-                else{
-                    blood_spinner.setVisibility(View.INVISIBLE);
-                }
-            }
-        });
+
         List<String> list = new ArrayList<String>();
         list.add("All");
         list.add("A+");
@@ -230,7 +219,6 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String blood_group = parent.getItemAtPosition(position).toString();
-//        Toast.makeText(ViewBlood.this,blood_group,Toast.LENGTH_SHORT).show();
         ListView data=(ListView)findViewById(R.id.lvdata);
         if(blood_group.equals("All")){
             getdatanone(data);
@@ -302,7 +290,13 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.view_blood, menu);
+//        getMenuInflater().inflate(R.menu.view_blood, menu);
+//        getMenuInflater().inflate(R.menu.view_blood, menu);
+//        Inflater.inflate(new int[]{R.menu.viewblood_action});
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.viewblood_action, menu);
+
         return true;
     }
 
@@ -315,6 +309,16 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
         if (id == R.id.action_settings) {
             return true;
         }
+        if (id==R.id.action_filter){
+             int is_visible = blood_spinner.getVisibility();
+            if(is_visible==View.INVISIBLE){
+                blood_spinner.setVisibility(View.VISIBLE);
+            }
+            else{
+                blood_spinner.setVisibility(View.INVISIBLE);
+            }
+
+    }
         return super.onOptionsItemSelected(item);
     }
 
