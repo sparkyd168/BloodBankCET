@@ -17,10 +17,31 @@ int logged_in=0;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        try{
+            Intent logged = this.getIntent();
+            if (logged!=null){
+                logged_in=getIntent().getExtras().getInt("logged");
+            }
+        }
+        catch (Exception e){
+
+        }
+
+        if(logged_in==1)
+            invalidateOptionsMenu();
+
         add=(Button)findViewById(R.id.add);
         viewblood=(Button)findViewById(R.id.viewblood);
         sql=(Button)findViewById(R.id.sql);
 
+        sql.setVisibility(View.INVISIBLE);
+
+
+        if(logged_in==0){
+            add.setVisibility(View.INVISIBLE);
+        }else{
+            add.setVisibility(View.VISIBLE);
+        }
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,6 +54,7 @@ int logged_in=0;
             @Override
             public void onClick(View v) {
                 Intent view=new Intent(Home.this,ViewBlood.class);
+                view.putExtra("logged",logged_in);
                 startActivity(view);
             }
         });
@@ -46,18 +68,7 @@ int logged_in=0;
         });
 
 
-        try{
-            Intent logged = this.getIntent();
-            if (logged!=null){
-                logged_in=getIntent().getExtras().getInt("logged");
-            }
-        }
-        catch (Exception e){
 
-        }
-
-        if(logged_in==1)
-            invalidateOptionsMenu();
     }
 
 

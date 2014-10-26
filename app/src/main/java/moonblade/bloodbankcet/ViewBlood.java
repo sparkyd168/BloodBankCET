@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class ViewBlood extends Activity {
+    int logged_in=0;
     RadioGroup choice;
     RadioButton blood,branch,none;
     EditText choice_branch;
@@ -33,6 +34,16 @@ public class ViewBlood extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_blood);
+
+        try{
+            Intent logged = this.getIntent();
+            if (logged!=null){
+                logged_in=getIntent().getExtras().getInt("logged");
+            }
+        }
+        catch (Exception e){
+
+        }
         choice=(RadioGroup)findViewById(R.id.choice);
         branch=(RadioButton)findViewById(R.id.branch);
         none=(RadioButton)findViewById(R.id.none);
@@ -132,9 +143,11 @@ public class ViewBlood extends Activity {
              bg.setText( cursor.getString(cursor.getColumnIndexOrThrow("_bg")));
              mob.setText(cursor.getString(cursor.getColumnIndexOrThrow("_phone")));
              final String num=cursor.getString(cursor.getColumnIndexOrThrow("_phone"));
+
              hos.setText(cursor.getString(cursor.getColumnIndexOrThrow("_hostel")));
              final Button dbitton = (Button)dialog.findViewById(R.id.bdiagdok);
              final Button callbutton = (Button)dialog.findViewById(R.id.bdiagcall);
+             final Button editbutton = (Button)dialog.findViewById(R.id.);
 //             Button bdiagedit = (Button)dialog.findViewById(R.id.bdiagedit);
 //             Button bdel = (Button)dialog.findViewById(R.id.bdiagdelete);
 //             final AlertDialog.Builder alert = new AlertDialog.Builder(ViewFullDatabase.this);
@@ -147,14 +160,52 @@ public class ViewBlood extends Activity {
              callbutton.setOnClickListener(new View.OnClickListener() {
                  @Override
                  public void onClick(View v) {
+
+//                     dialog.cancel();
                      Intent callIntent = new Intent(Intent.ACTION_CALL);
                      callIntent.setData(Uri.parse("tel:" + num));
                      startActivity(callIntent);
+
+                 }
+             });
+             editbutton.setOnClickListener(new View.OnClickListener() {
+                 @Override
+                 public void onClick(View v) {
+                     if(logged_in==0){
+                         Toast.makeText(ViewBlood.this,"You do not have permission for editing",Toast.LENGTH_SHORT).show();
+                     }
+                     else{
+                         String id =cursor.getString(cursor.getColumnIndexOrThrow("_id")) ;
+                         String name=cursor.getString(cursor.getColumnIndexOrThrow("_name")) ;
+                         String brancha=cursor.getString(cursor.getColumnIndexOrThrow("_branch"));
+                         String bg = cursor.getString(cursor.getColumnIndexOrThrow("_bg"));
+                         String mob = cursor.getString(cursor.getColumnIndexOrThrow("_phone"));
+                         String hostel = cursor.getString(cursor.getColumnIndexOrThrow("_hostel"));
+                         Bundle b = new Bundle();
+                         b.putString("name",name);
+                         b.putString("id",id);
+                         b.putString("branch",brancha);
+                         b.putString("bg",bg);
+                         b.putString("mob",mob);
+                         b.putString("hostel",hostel);
+                         Intent i = new Intent(ViewBlood.this,editEntry.class);
+                         i.putExtras(b);
+                         startActivity(i);
+                     }
                  }
              });
              dialog.show();
          }
      });
+        data.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                final Cursor cursor = (Cursor) data.getItemAtPosition(position);
+                final Dialog dialog = new Dialog(ViewBlood.this);
+                dialog.setContentView(R.layout.long_click_layout);
+                return false;
+            }
+        });
     }
 
 

@@ -110,4 +110,5 @@
         android:layout_toRightOf="@+id/bdiagdok"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="30dp" />
+
 </RelativeLayout>

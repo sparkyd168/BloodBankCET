@@ -14,5 +14,6 @@
     <string name="title_activity_blooddb">blooddb</string>
     <string name="title_activity_view_blood">ViewBlood</string>
     <string name="title_activity_addmember">addmember</string>
+    <string name="title_activity_edit_entry">editEntry</string>
 
 </resources>
