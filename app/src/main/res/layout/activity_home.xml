@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:paddingLeft="5dp"
     android:background="@drawable/background"
     tools:context=".Home">
 
@@ -11,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="view"
+        android:drawableLeft="@drawable/blood"
         android:id="@+id/viewblood"
         android:layout_centerHorizontal="true" />
 
@@ -26,6 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="add"
+        android:drawableLeft="@drawable/add"
          android:id="@+id/add"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
