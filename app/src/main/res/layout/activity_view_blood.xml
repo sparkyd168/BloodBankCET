@@ -22,63 +22,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/blood_spinner"
         android:prompt="@string/blood_group_spinner_title"></Spinner>
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="Filter By:"/>-->
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/filterchoice">
-    <RadioGroup
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/choice"
-        >
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/none"
-            android:text="None"/>
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Blood Group"
-            android:id="@+id/blood"/>
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Branch"
-            android:id="@+id/branch"/>
-
-
-        </RadioGroup>
-<ScrollView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_toRightOf="@+id/choice">
-        <ListView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/listview">
-            </ListView>
-</ScrollView>
-        <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/choice_branch"
-            android:paddingTop="10dp"
-            android:layout_toRightOf="@+id/choice"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/filter"
-            android:text="Filter"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="80dp"
-            android:layout_below="@+id/choice_branch"/>
-</RelativeLayout>
     <ListView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

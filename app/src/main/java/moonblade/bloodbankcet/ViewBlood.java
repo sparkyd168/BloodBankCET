@@ -34,11 +34,6 @@ import java.util.List;
 public class ViewBlood extends Activity implements AdapterView.OnItemSelectedListener{
     int long_clicked=0;
     int logged_in=0;
-    RadioGroup choice;
-    RadioButton blood,branch,none;
-    EditText choice_branch;
-    Button filter;
-    RelativeLayout filterchoice;
     Spinner blood_spinner;
     private CursorAdapter adapter;
     @Override
@@ -55,15 +50,6 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
         catch (Exception e){
 
         }
-        choice=(RadioGroup)findViewById(R.id.choice);
-        branch=(RadioButton)findViewById(R.id.branch);
-        none=(RadioButton)findViewById(R.id.none);
-        blood=(RadioButton)findViewById(R.id.blood);
-        choice_branch=(EditText)findViewById(R.id.choice_branch);
-        filter=(Button)findViewById(R.id.filter);
-        none.setChecked(true);
-        filterchoice=(RelativeLayout)findViewById(R.id.filterchoice);
-        filterchoice.setVisibility(View.INVISIBLE);
         blood_spinner=(Spinner)findViewById(R.id.blood_spinner);
 
         blood_spinner.setOnItemSelectedListener(ViewBlood.this);
@@ -88,76 +74,9 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
         ArrayAdapter adapter=new ArrayAdapter<String>(this, R.layout.blood_item, R.id.label, blood_groups);
 
         final ListView data =(ListView)findViewById(R.id.lvdata);
+          getdatanone(data);
 
-        final ListView lv = (ListView)findViewById(R.id.listview);
 
-        getdatanone(data);
-
-        lv.setVisibility(View.INVISIBLE);
-        choice_branch.setVisibility(View.INVISIBLE);
-        lv.setAdapter(adapter);
-        filter.setVisibility(View.INVISIBLE);
-
-        none.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getdatanone(data);
-            }
-        });
-        none.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-            }
-        });
-
-        branch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                choice_branch.setVisibility(View.VISIBLE);
-                filter.setVisibility(View.VISIBLE);
-                option[0] ="branch";
-            }
-        });
-        branch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                choice_branch.setVisibility(View.INVISIBLE);
-                filter.setVisibility(View.INVISIBLE);
-            }
-        });
-        filter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String branch=choice_branch.getText().toString();
-                getdataBranch(data,branch);
-            }
-        });
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-
-                // selected item
-                String blood_group = ((TextView) view).getText().toString();
-                lv.setVisibility(View.INVISIBLE);
-                getdatablood(data,blood_group);
-//                Toast.makeText(ViewBlood.this,blood_group,Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        blood.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                lv.setVisibility(View.VISIBLE);
-                option[0] ="blood";
-            }
-        });
-        blood.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                lv.setVisibility(View.INVISIBLE);
-            }
-        });
 
      data.setOnItemClickListener(new AdapterView.OnItemClickListener() {
          @Override
