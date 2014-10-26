@@ -150,5 +150,8 @@ public class sqldb{
         ourdb.delete(DB_TABLE, KEY_ROWID + "="
                 + memberID, null);
     }
+    public void delete(String name) {
+        ourdb.delete(DB_TABLE, KEY_NAME + "=?", new String[] { name });
+    }
 
 }
