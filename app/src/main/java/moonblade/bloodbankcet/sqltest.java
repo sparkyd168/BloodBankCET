@@ -1,4 +1,4 @@
-package sparkyd.bloodbankcet;
+package moonblade.bloodbankcet;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -12,10 +12,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import sparkyd.bloodbankcet.R;
+import moonblade.bloodbankcet.R;
 
 public class sqltest extends Activity {
-EditText name;
+EditText name,bg;
     Button add,view;
 
     @Override
@@ -26,15 +26,18 @@ EditText name;
         name=(EditText)findViewById(R.id.name);
         add=(Button)findViewById(R.id.add);
         view=(Button)findViewById(R.id.view);
+        bg=(EditText)findViewById(R.id.bg);
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String nam=name.getText().toString();
+                String bgr=bg.getText().toString();
 
                     sqldb entry = new sqldb(sqltest.this);
                     entry.open();
-                    entry.add(nam);
+                    entry.add(nam,bgr);
+//                    entry.addone(nam);
                     entry.close();
 
                 Dialog d=new Dialog(sqltest.this);

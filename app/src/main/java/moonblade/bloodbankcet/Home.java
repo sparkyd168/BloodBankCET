@@ -1,4 +1,4 @@
-package sparkyd.bloodbankcet;
+package moonblade.bloodbankcet;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,27 +7,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 
 public class Home extends Activity {
 int logged_in=0;
-    Button sql;
+    Button sql,viewblood,add;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-
-        sql=(Button)findViewById(R.id.sql);
-        sql.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent sqlite=new Intent(Home.this,sqltest.class);
-                startActivity(sqlite);
-            }
-        });
-
 
         try{
             Intent logged = this.getIntent();
@@ -41,6 +29,46 @@ int logged_in=0;
 
         if(logged_in==1)
             invalidateOptionsMenu();
+
+        add=(Button)findViewById(R.id.add);
+        viewblood=(Button)findViewById(R.id.viewblood);
+        sql=(Button)findViewById(R.id.sql);
+
+        sql.setVisibility(View.INVISIBLE);
+
+
+        if(logged_in==0){
+            add.setVisibility(View.INVISIBLE);
+        }else{
+            add.setVisibility(View.VISIBLE);
+        }
+
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(Home.this,addmember.class);
+                startActivity(i);
+            }
+        });
+        viewblood.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent view=new Intent(Home.this,ViewBlood.class);
+                view.putExtra("logged",logged_in);
+                startActivity(view);
+            }
+        });
+        sql.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sqlite=new Intent(Home.this,sqltest.class);
+                startActivity(sqlite);
+
+            }
+        });
+
+
+
     }
 
 
@@ -79,7 +107,9 @@ int logged_in=0;
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
-            Toast.makeText(Home.this,"Not implemented yet",Toast.LENGTH_SHORT).show();
+            Intent setting = new Intent(Home.this,settings.class);
+            setting.putExtra("admin", logged_in);
+            startActivity(setting);
         }
         if (id == R.id.action_login) {
             Intent login =new Intent(Home.this,LoginPage.class);

@@ -1,4 +1,4 @@
-package sparkyd.bloodbankcet;
+package moonblade.bloodbankcet;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import sparkyd.bloodbankcet.R;
+import moonblade.bloodbankcet.R;
 
 public class LoginPage extends Activity {
     EditText username,password;
