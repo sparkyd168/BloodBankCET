@@ -22,17 +22,24 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.SimpleCursorAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ViewBlood extends Activity {
+import java.util.ArrayList;
+import java.util.List;
+
+public class ViewBlood extends Activity implements AdapterView.OnItemSelectedListener{
     int long_clicked=0;
     int logged_in=0;
     RadioGroup choice;
     RadioButton blood,branch,none;
     EditText choice_branch;
     Button filter;
+    RelativeLayout filterchoice;
+    Spinner blood_spinner;
     private CursorAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,11 +62,33 @@ public class ViewBlood extends Activity {
         choice_branch=(EditText)findViewById(R.id.choice_branch);
         filter=(Button)findViewById(R.id.filter);
         none.setChecked(true);
+        filterchoice=(RelativeLayout)findViewById(R.id.filterchoice);
+        filterchoice.setVisibility(View.INVISIBLE);
+        blood_spinner=(Spinner)findViewById(R.id.blood_spinner);
+
+        blood_spinner.setOnItemSelectedListener(ViewBlood.this);
+
+        List<String> list = new ArrayList<String>();
+        list.add("All");
+        list.add("A+");
+        list.add("A-");
+        list.add("B+");
+        list.add("B-");
+        list.add("O+");
+        list.add("O-");
+        list.add("AB+");
+        list.add("AB-");
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, list);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        blood_spinner.setAdapter(dataAdapter);
+
         final String[] option = {"none"};
         String[] blood_groups = getResources().getStringArray(R.array.bloodgroups);
         ArrayAdapter adapter=new ArrayAdapter<String>(this, R.layout.blood_item, R.id.label, blood_groups);
 
         final ListView data =(ListView)findViewById(R.id.lvdata);
+
         final ListView lv = (ListView)findViewById(R.id.listview);
 
         getdatanone(data);
@@ -264,6 +293,22 @@ public class ViewBlood extends Activity {
         });
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        String blood_group = parent.getItemAtPosition(position).toString();
+//        Toast.makeText(ViewBlood.this,blood_group,Toast.LENGTH_SHORT).show();
+        ListView data=(ListView)findViewById(R.id.lvdata);
+        if(blood_group.equals("All")){
+            getdatanone(data);
+        }else{
+            getdatablood(data,blood_group);
+        }
+        }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 
     private void getdatanone(ListView data){
         //There is some syntax error in blooddb database, so it force closes

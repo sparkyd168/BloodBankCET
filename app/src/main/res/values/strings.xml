@@ -6,27 +6,15 @@
     <string name="action_settings">Settings</string>
     <string name="action_login">Login</string>
     <string name="action_logout">Logout</string>
-    <string name="title_activity_login_page">LoginPage</string>
+    <string name="title_activity_login_page">Login</string>
     <string name="title_activity_sqltest">sqltest</string>
     <string name="title_activity_sqlview">sqlview</string>
     <string name="title_activity_sqldb">sqldb</string>
-    <string name="title_activity_settings">settings</string>
+    <string name="title_activity_settings">Settings</string>
     <string name="title_activity_blooddb">blooddb</string>
-    <string name="title_activity_view_blood">ViewBlood</string>
-    <string name="title_activity_addmember">addmember</string>
-    <string name="title_activity_edit_entry">editEntry</string>
+    <string name="title_activity_view_blood">DataBase</string>
+    <string name="title_activity_addmember">Add Entry</string>
+    <string name="title_activity_edit_entry">Edit Entry</string>
+    <string name="blood_group_spinner_title">Select Blood Group</string>
 
-    <!-- Nav Drawer Menu Items -->
-    <string-array name="nav_drawer_items">
-        <item >Home</item>
-    </string-array>
-
-    <!-- Nav Drawer List Item Icons -->
-    <!-- Keep them in order as the titles are in -->
-    <array name="nav_drawer_icons">
-        <item>@drawable/blood</item>
-    </array>
-
-    <!-- Content Description -->
-    <string name="desc_list_item_icon">Item Icon</string>
 </resources>
