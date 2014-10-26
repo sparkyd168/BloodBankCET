@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.CursorAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -35,6 +36,7 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
     int long_clicked=0;
     int logged_in=0;
     Spinner blood_spinner;
+    ImageButton show_filter;
     private CursorAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +53,22 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
 
         }
         blood_spinner=(Spinner)findViewById(R.id.blood_spinner);
-
+        show_filter=(ImageButton)findViewById(R.id.show_filter);
         blood_spinner.setOnItemSelectedListener(ViewBlood.this);
+        blood_spinner.setVisibility(View.INVISIBLE);
 
+        show_filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int is_visible = blood_spinner.getVisibility();
+                if(is_visible==View.INVISIBLE){
+                    blood_spinner.setVisibility(View.VISIBLE);
+                }
+                else{
+                    blood_spinner.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
         List<String> list = new ArrayList<String>();
         list.add("All");
         list.add("A+");
