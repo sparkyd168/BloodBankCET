@@ -4,26 +4,44 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="OK"
-        android:layout_marginLeft="50dp"
-        android:id="@+id/ok_button" />
 
-    <Button
-        android:layout_width="wrap_content"
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="0dp"
+        android:id="@+id/seperator"
+        android:background="?android:attr/dividerVertical" />
+    <LinearLayout
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:text="Edit"
-        android:layout_toRightOf="@+id/ok_button"
-        android:id="@+id/edit_button" />
+        android:layout_below="@+id/seperator"
+        android:measureWithLargestChild="true"
+        android:orientation="horizontal"
+        android:paddingTop="0dip" >
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Delete"
-        android:layout_marginLeft="20dp"
-        android:layout_toRightOf="@+id/edit_button"
-        android:id="@+id/delete_button"/>
+        <Button
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/edit_button"
+            android:text="Edit" />
+
+        <Button
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/delete_button"
+            android:text="Delete" />
+
+        <Button
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text= "Cancel"
+            android:id="@+id/ok_button"/>
+    </LinearLayout>
 </RelativeLayout>
