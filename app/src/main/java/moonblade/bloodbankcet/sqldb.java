@@ -146,7 +146,7 @@ public class sqldb{
         return i;
     }
 
-    public void deleteData(long memberID) {
+    public void deleteId(long memberID) {
         ourdb.delete(DB_TABLE, KEY_ROWID + "="
                 + memberID, null);
     }

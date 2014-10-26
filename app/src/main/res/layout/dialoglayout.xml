@@ -92,23 +92,33 @@
         android:layout_alignLeft="@+id/tvdiagmob"
         android:layout_alignStart="@+id/tvdiagmob" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="OK"
-        android:id="@+id/bdiagdok"
-        android:layout_below="@+id/tvdiaghostel"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="90dp" />
 
-    <Button
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Call"
-        android:id="@+id/bdiagcall"
         android:layout_below="@+id/tvdiaghostel"
-        android:layout_toRightOf="@+id/bdiagdok"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="30dp" />
+        android:measureWithLargestChild="true"
+        android:orientation="horizontal"
+        android:paddingTop="0dip" >
+
+        <Button
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text= "Ok"
+            android:id="@+id/bdiagdok"/>
+
+        <Button
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/bdiagcall"
+            android:text="Call" />
+    </LinearLayout>
 
 </RelativeLayout>
+
