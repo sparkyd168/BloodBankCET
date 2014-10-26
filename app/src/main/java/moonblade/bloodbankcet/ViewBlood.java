@@ -3,6 +3,7 @@ package moonblade.bloodbankcet;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -24,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class ViewBlood extends Activity {
+    int long_clicked=0;
     int logged_in=0;
     RadioGroup choice;
     RadioButton blood,branch,none;
@@ -133,21 +135,21 @@ public class ViewBlood extends Activity {
              final Dialog dialog = new Dialog(ViewBlood.this);
              dialog.setContentView(R.layout.dialoglayout);
              dialog.setTitle("Detail of Student");
-             TextView namea= (TextView)dialog.findViewById(R.id.tvdiagname);
-             TextView brancha= (TextView)dialog.findViewById(R.id.tvdiagbranch);
-             TextView bg= (TextView)dialog.findViewById(R.id.tvdiagbg);
-             TextView mob= (TextView)dialog.findViewById(R.id.tvdiagmob);
-             TextView hos= (TextView)dialog.findViewById(R.id.tvdiaghostel);
+             TextView namea = (TextView) dialog.findViewById(R.id.tvdiagname);
+             TextView brancha = (TextView) dialog.findViewById(R.id.tvdiagbranch);
+             TextView bg = (TextView) dialog.findViewById(R.id.tvdiagbg);
+             TextView mob = (TextView) dialog.findViewById(R.id.tvdiagmob);
+             TextView hos = (TextView) dialog.findViewById(R.id.tvdiaghostel);
              namea.setText(cursor.getString(cursor.getColumnIndexOrThrow("_name")));
              brancha.setText(cursor.getString(cursor.getColumnIndexOrThrow("_branch")));
-             bg.setText( cursor.getString(cursor.getColumnIndexOrThrow("_bg")));
+             bg.setText(cursor.getString(cursor.getColumnIndexOrThrow("_bg")));
              mob.setText(cursor.getString(cursor.getColumnIndexOrThrow("_phone")));
-             final String num=cursor.getString(cursor.getColumnIndexOrThrow("_phone"));
+             final String num = cursor.getString(cursor.getColumnIndexOrThrow("_phone"));
 
              hos.setText(cursor.getString(cursor.getColumnIndexOrThrow("_hostel")));
-             final Button dbitton = (Button)dialog.findViewById(R.id.bdiagdok);
-             final Button callbutton = (Button)dialog.findViewById(R.id.bdiagcall);
-             final Button editbutton = (Button)dialog.findViewById(R.id.);
+             final Button dbitton = (Button) dialog.findViewById(R.id.bdiagdok);
+             final Button callbutton = (Button) dialog.findViewById(R.id.bdiagcall);
+
 //             Button bdiagedit = (Button)dialog.findViewById(R.id.bdiagedit);
 //             Button bdel = (Button)dialog.findViewById(R.id.bdiagdelete);
 //             final AlertDialog.Builder alert = new AlertDialog.Builder(ViewFullDatabase.this);
@@ -168,33 +170,9 @@ public class ViewBlood extends Activity {
 
                  }
              });
-             editbutton.setOnClickListener(new View.OnClickListener() {
-                 @Override
-                 public void onClick(View v) {
-                     if(logged_in==0){
-                         Toast.makeText(ViewBlood.this,"You do not have permission for editing",Toast.LENGTH_SHORT).show();
-                     }
-                     else{
-                         String id =cursor.getString(cursor.getColumnIndexOrThrow("_id")) ;
-                         String name=cursor.getString(cursor.getColumnIndexOrThrow("_name")) ;
-                         String brancha=cursor.getString(cursor.getColumnIndexOrThrow("_branch"));
-                         String bg = cursor.getString(cursor.getColumnIndexOrThrow("_bg"));
-                         String mob = cursor.getString(cursor.getColumnIndexOrThrow("_phone"));
-                         String hostel = cursor.getString(cursor.getColumnIndexOrThrow("_hostel"));
-                         Bundle b = new Bundle();
-                         b.putString("name",name);
-                         b.putString("id",id);
-                         b.putString("branch",brancha);
-                         b.putString("bg",bg);
-                         b.putString("mob",mob);
-                         b.putString("hostel",hostel);
-                         Intent i = new Intent(ViewBlood.this,editEntry.class);
-                         i.putExtras(b);
-                         startActivity(i);
-                     }
-                 }
-             });
-             dialog.show();
+             if (long_clicked == 0)
+                 dialog.show();
+             long_clicked = 0;
          }
      });
         data.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -202,7 +180,82 @@ public class ViewBlood extends Activity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 final Cursor cursor = (Cursor) data.getItemAtPosition(position);
                 final Dialog dialog = new Dialog(ViewBlood.this);
+                long_clicked=1;
+
                 dialog.setContentView(R.layout.long_click_layout);
+                dialog.setTitle("Admin Only");
+                final Button editbutton = (Button)dialog.findViewById(R.id.edit_button);
+                final Button okbutton = (Button)dialog.findViewById(R.id.ok_button);
+                final Button deletebutton = (Button)dialog.findViewById(R.id.delete_button);
+                okbutton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.cancel();
+                    }
+                });
+                editbutton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (logged_in == 0) {
+                            Toast.makeText(ViewBlood.this, "You do not have permission for editing", Toast.LENGTH_SHORT).show();
+                        } else {
+                            String id = cursor.getString(cursor.getColumnIndexOrThrow("_id"));
+                            String name = cursor.getString(cursor.getColumnIndexOrThrow("_name"));
+                            String brancha = cursor.getString(cursor.getColumnIndexOrThrow("_branch"));
+                            String bg = cursor.getString(cursor.getColumnIndexOrThrow("_bg"));
+                            String mob = cursor.getString(cursor.getColumnIndexOrThrow("_phone"));
+                            String hostel = cursor.getString(cursor.getColumnIndexOrThrow("_hostel"));
+                            Bundle b = new Bundle();
+                            b.putString("name", name);
+                            b.putString("id", id);
+                            b.putString("branch", brancha);
+                            b.putString("bg", bg);
+                            b.putString("mob", mob);
+                            b.putString("hostel", hostel);
+                            Intent i = new Intent(ViewBlood.this, editEntry.class);
+                            i.putExtras(b);
+                            startActivity(i);
+                        }
+                    }
+                });
+                final AlertDialog.Builder alert = new AlertDialog.Builder(ViewBlood.this);
+                deletebutton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alert.setTitle("Confirm Delete");
+                        alert
+                                .setMessage("Do you want to DELETE this entry?")
+                                .setCancelable(false)
+                                .setPositiveButton("Do it!",new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,int id) {
+                                        // if this button is clicked, close
+                                        // current activity
+                                        String name=cursor.getString(cursor.getColumnIndexOrThrow("_name"));
+                                        sqldb vi = new sqldb(ViewBlood.this);
+                                        vi.open();
+                                        vi.delete(name);
+                                        vi.close();
+                                        Intent i = new Intent(getApplicationContext(), ViewBlood.class);
+                                        startActivity(i);
+                                        finish();
+
+                                    }
+                                })
+                                .setNegativeButton("I need this",new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,int id) {
+                                        // if this button is clicked, just close
+                                        // the dialog box and do nothing
+                                        dialog.cancel();
+                                    }
+                                });
+                        AlertDialog alertDialog = alert.create();
+
+                        // show it
+                        alertDialog.show();
+                    }
+                });
+                if(logged_in==1)
+                    dialog.show();
                 return false;
             }
         });

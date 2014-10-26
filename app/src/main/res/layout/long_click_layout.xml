@@ -7,14 +7,23 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
-        android:id="@+id/call_button" />
+        android:text="OK"
+        android:layout_marginLeft="50dp"
+        android:id="@+id/ok_button" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
         android:text="Edit"
-        android:id="@+id/edit_button"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="30dp" />
+        android:layout_toRightOf="@+id/ok_button"
+        android:id="@+id/edit_button" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/edit_button"
+        android:id="@+id/delete_button"/>
 </RelativeLayout>
