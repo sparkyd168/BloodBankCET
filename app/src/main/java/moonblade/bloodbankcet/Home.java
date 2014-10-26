@@ -12,6 +12,7 @@ import android.widget.Button;
 public class Home extends Activity {
 int logged_in=0;
     Button sql,viewblood,add;
+    View seperatorview,seperatoradd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,14 +34,18 @@ int logged_in=0;
         add=(Button)findViewById(R.id.add);
         viewblood=(Button)findViewById(R.id.viewblood);
         sql=(Button)findViewById(R.id.sql);
+        seperatoradd=(View)findViewById(R.id.seperatoradd);
+        seperatorview=(View)findViewById(R.id.seperatorview);
 
         sql.setVisibility(View.INVISIBLE);
-
+        seperatoradd.setVisibility(View.INVISIBLE);
 
         if(logged_in==0){
             add.setVisibility(View.INVISIBLE);
+            seperatorview.setVisibility(View.INVISIBLE);
         }else{
             add.setVisibility(View.VISIBLE);
+            seperatorview.setVisibility(View.VISIBLE);
         }
 
         add.setOnClickListener(new View.OnClickListener() {
