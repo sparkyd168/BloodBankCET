@@ -6,8 +6,10 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -135,6 +137,7 @@ public class ViewBlood extends Activity {
              final Dialog dialog = new Dialog(ViewBlood.this);
              dialog.setContentView(R.layout.dialoglayout);
              dialog.setTitle("Detail of Student");
+
              TextView namea = (TextView) dialog.findViewById(R.id.tvdiagname);
              TextView brancha = (TextView) dialog.findViewById(R.id.tvdiagbranch);
              TextView bg = (TextView) dialog.findViewById(R.id.tvdiagbg);

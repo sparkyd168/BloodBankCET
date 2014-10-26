@@ -11,33 +11,39 @@
     tools:context=".Home">
 
     <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:background="@drawable/mybutton"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="view"
-        android:layout_margin="10dp"
         android:id="@+id/viewblood"
         android:layout_centerHorizontal="true" />
 
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="0dp"
+         android:background="?android:attr/dividerVertical" />
+
     <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:background="@drawable/mybutton"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="add"
-        android:layout_margin="10dp"
-        android:id="@+id/add"
+         android:id="@+id/add"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="0dp"
+        android:background="?android:attr/dividerVertical" />
+
     <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:background="@drawable/mybutton"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="sql"
-        android:layout_margin="10dp"
         android:id="@+id/sql"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
