@@ -6,11 +6,16 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.Toast;
+
+import java.util.Date;
 
 import moonblade.bloodbankcet.R;
 
@@ -18,31 +23,25 @@ public class editEntry extends Activity {
 
     Button beditentry;
     EditText etdbname,etdbbranch,etdbmob,etdbhostel;
-    RadioGroup rg;
     String name;
-    RadioButton ap,an,bp,bn,abp,abn,op,on;
+    Spinner edit_spinner;
+    DatePicker edit_picker;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_entry);
         beditentry = (Button) findViewById(R.id.beeditentry);
-        etdbname = (EditText) findViewById(R.id.etedbname);
+        edit_picker=(DatePicker)findViewById(R.id.edatePicker);
+        edit_spinner=(Spinner)findViewById(R.id.edit_spinner);
+         etdbname = (EditText) findViewById(R.id.etedbname);
         etdbbranch = (EditText) findViewById(R.id.etedbbranch);
-        ap = (RadioButton) findViewById(R.id.reap);
-        an = (RadioButton) findViewById(R.id.rean);
-        bp = (RadioButton) findViewById(R.id.rebp);
-        bn = (RadioButton) findViewById(R.id.rebn);
-        abp = (RadioButton) findViewById(R.id.reabp);
-        abn = (RadioButton) findViewById(R.id.reabn);
-        op = (RadioButton) findViewById(R.id.reop);
-        on = (RadioButton) findViewById(R.id.reon);
-        etdbmob = (EditText) findViewById(R.id.etemob);
+      etdbmob = (EditText) findViewById(R.id.etemob);
         etdbhostel = (EditText) findViewById(R.id.etehostel);
-        rg = (RadioGroup) findViewById(R.id.rge);
         final String[] bloodgroup = new String[1];
         Bundle b = getIntent().getExtras();
         name = b.getString("name");
         String brancha = b.getString("branch");
+        Long date_val = b.getLong("date");
         String bg = b.getString("bg");
         final String id = b.getString("id");
         String mob = b.getString("mob");
@@ -51,65 +50,44 @@ public class editEntry extends Activity {
         etdbbranch.setText(brancha);
         etdbhostel.setText(hostel);
         etdbmob.setText(mob);
+        int position=0;
         if (bg.equals("A+")) {
-
-            bloodgroup[0] = "A+";
-            ap.setChecked(true);
+              position=0;
         } else if (bg.equals("A-")) {
-            bloodgroup[0] ="A-";
-            an.setChecked(true);
+            position=1;
         } else if (bg.equals("B+")) {
-            bloodgroup[0] ="B+";
-            bp.setChecked(true);
+            position=2;
         } else if (bg.equals("B-")) {
-            bloodgroup[0] ="B-";
-            bn.setChecked(true);
+            position=3;
         } else if (bg.equals("AB+")) {
-            bloodgroup[0] ="AB+";
-            abp.setChecked(true);
+            position=4;
         }
         else if(bg.equals("AB-")) {
-            bloodgroup[0] ="AB-";
-            abn.setChecked(true);
-        }
+            position=5;
+         }
         else if(bg.equals("O+"))
-        {bloodgroup[0] ="O+";
-            op.setChecked(true);}
+        {position=6;
+            }
         else if(bg.equals("O-")){
-            bloodgroup[0] ="O-";
-            on.setChecked(true);}
-        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            position=7;
+            }
+        edit_spinner.setSelection(position);
+        edit_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId)
-                {
-                    case R.id.reap:
-                        bloodgroup[0] ="A+";
-                        break;
-                    case R.id.rean:
-                        bloodgroup[0] ="A-";
-                        break;
-                    case R.id.rebp:
-                        bloodgroup[0] ="B+";
-                        break;
-                    case R.id.rebn:
-                        bloodgroup[0] ="B-";
-                        break;
-                    case R.id.reabp:
-                        bloodgroup[0] ="AB+";
-                        break;
-                    case R.id.reabn:
-                        bloodgroup[0] ="AB-";
-                        break;
-                    case R.id.reop:
-                        bloodgroup[0] ="O+";
-                        break;
-                    case R.id.reon:
-                        bloodgroup[0] ="O-";
-                        break;
-                }
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                bloodgroup[0]=edit_spinner.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
+        final Date edit_date=new Date(date_val);
+        int year=edit_date.getYear();
+        int month=edit_date.getMonth();
+        int day=edit_date.getDay();
+        edit_picker.updateDate(year,month,day);
         beditentry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,10 +97,11 @@ public class editEntry extends Activity {
                 String mob=etdbmob.getText().toString();
                 String hostel=etdbhostel.getText().toString();
                 String bg=bloodgroup[0];
+                Long long_date=edit_date.getTime();
                 sqldb add = new sqldb(editEntry.this);
                 add.open();
 
-//                add.updateData(Long.parseLong(id), namea, bg, branc, mob, hostel);
+                add.updateData(Long.parseLong(id), namea, bg, branc, mob, hostel,long_date);
                 add.close();
                 Toast.makeText(getApplicationContext(), "Edit Successfull", Toast.LENGTH_SHORT).show();
                 Intent i=new Intent(editEntry.this,ViewBlood.class);

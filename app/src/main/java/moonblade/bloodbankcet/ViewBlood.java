@@ -99,15 +99,17 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
              final String num = cursor.getString(cursor.getColumnIndexOrThrow("_phone"));
 
              hos.setText(cursor.getString(cursor.getColumnIndexOrThrow("_hostel")));
-             String datediag=cursor.getString(cursor.getColumnIndexOrThrow("_date"));
+//             String datediag=cursor.getString(cursor.getColumnIndexOrThrow("_date"));
+             Long val=cursor.getLong(cursor.getColumnIndexOrThrow("_date"));
 
              final Button dbitton = (Button) dialog.findViewById(R.id.bdiagdok);
              final Button callbutton = (Button) dialog.findViewById(R.id.bdiagcall);
-             long val=Long.parseLong(datediag);
+
+//             long val=Long.parseLong(datediag);
+//             Toast.makeText(ViewBlood.this,String.valueOf(val),Toast.LENGTH_SHORT).show();
              Date date = new Date(val);
              SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yy");
-             String dateText = df2.format(date);
-              dat.setText(dateText);
+             dat.setText(df2.format(date));
             dbitton.setOnClickListener(new View.OnClickListener() {
                  @Override
                  public void onClick(View v) {
@@ -160,11 +162,8 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
                             String bg = cursor.getString(cursor.getColumnIndexOrThrow("_bg"));
                             String mob = cursor.getString(cursor.getColumnIndexOrThrow("_phone"));
                             String hostel = cursor.getString(cursor.getColumnIndexOrThrow("_hostel"));
-                            String dat=cursor.getString(cursor.getColumnIndexOrThrow("_date"));
-                            long val=Long.parseLong(dat);
-                            Date date = new Date(val);
-                            SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yy");
-                            String dateText = df2.format(date);
+//                            String dat=cursor.getString(cursor.getColumnIndexOrThrow("_date"));
+                            long val=cursor.getLong(cursor.getColumnIndexOrThrow("_date"));
 
                             Bundle b = new Bundle();
                             b.putString("name", name);
@@ -173,7 +172,7 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
                             b.putString("bg", bg);
                             b.putString("mob", mob);
                             b.putString("hostel", hostel);
-//                            b.putString("date",dateText);
+                            b.putLong("date",val);
                             Intent i = new Intent(ViewBlood.this, editEntry.class);
                             i.putExtras(b);
                             startActivity(i);

@@ -51,7 +51,8 @@ public class addmember extends Activity {
 
 
         int day = datePicker.getDayOfMonth();
-        int month = datePicker.getMonth() + 1;
+        int month = datePicker.getMonth();
+        month--;
         int year = datePicker.getYear();
         Date date = new Date(year,month,day);
 
@@ -66,6 +67,7 @@ public class addmember extends Activity {
                 String hostel=etdbhostel.getText().toString();
                 String bg=bloodgroup[0];
                 sqldb add = new sqldb(addmember.this);
+                Toast.makeText(addmember.this,String.valueOf(millisec),Toast.LENGTH_SHORT).show();
                 add.open();
                 add.addData(name, bg, clas, mob, hostel,millisec);
                 add.close();

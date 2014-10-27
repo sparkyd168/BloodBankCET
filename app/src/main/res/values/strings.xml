@@ -14,6 +14,7 @@
     <string name="title_activity_blooddb">blooddb</string>
     <string name="dummy_title"></string>
     <string name="choose_blood">Blood Group</string>
+    <string name="donation_date">Last Donation</string>
     <string name="title_activity_view_blood">DATABASE</string>
     <string name="title_activity_addmember">Add Entry</string>
     <string name="title_activity_edit_entry">Edit Entry</string>
