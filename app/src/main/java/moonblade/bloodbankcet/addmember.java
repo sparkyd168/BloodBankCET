@@ -6,16 +6,23 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.Toast;
+
+import java.util.Date;
 
 import moonblade.bloodbankcet.R;
 
 public class addmember extends Activity {
     Button baddentry;
     EditText etdbname,etdbclass,etdbmob,etdbhostel;
+    Spinner add_spinner;
+    DatePicker datePicker;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,8 +32,22 @@ public class addmember extends Activity {
         etdbclass=(EditText)findViewById(R.id.etdbclass);
         etdbmob=(EditText)findViewById(R.id.etmob);
         etdbhostel=(EditText)findViewById(R.id.ethostel);
+        datePicker=(DatePicker)findViewById(R.id.datePicker);
         final String[] bloodgroup = new String[1];
+        add_spinner=(Spinner)findViewById(R.id.add_spinner);
+        add_spinner.setPrompt("Blood Group");
+        add_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                bloodgroup[0] = add_spinner.getSelectedItem().toString();
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        Date date=
         baddentry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
