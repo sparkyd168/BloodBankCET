@@ -106,10 +106,7 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
              final Button dbitton = (Button) dialog.findViewById(R.id.bdiagdok);
              final Button callbutton = (Button) dialog.findViewById(R.id.bdiagcall);
 
-//             Button bdiagedit = (Button)dialog.findViewById(R.id.bdiagedit);
-//             Button bdel = (Button)dialog.findViewById(R.id.bdiagdelete);
-//             final AlertDialog.Builder alert = new AlertDialog.Builder(ViewFullDatabase.this);
-             dbitton.setOnClickListener(new View.OnClickListener() {
+            dbitton.setOnClickListener(new View.OnClickListener() {
                  @Override
                  public void onClick(View v) {
                      dialog.cancel();
@@ -234,19 +231,6 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
     }
 
     private void getdatanone(ListView data){
-        //There is some syntax error in blooddb database, so it force closes
-//    blooddb table = new blooddb(this);
-//
-//    table.open();
-//    Cursor c=table.readAll();
-//    c.moveToFirst();
-//
-//    String[] columns = new String[] {table.KEY_NAME,table.KEY_BG};
-//    int[] to = new int[]{R.id.set_name,R.id.set_bg};
-//    adapter = new SimpleCursorAdapter(ViewBlood.this,R.layout.listviewlayout,c,columns,to,0);
-//    data.setAdapter(adapter);
-//
-//    table.close();
 
         sqldb table = new sqldb(this);
         table.open();
@@ -290,10 +274,6 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.view_blood, menu);
-//        getMenuInflater().inflate(R.menu.view_blood, menu);
-//        Inflater.inflate(new int[]{R.menu.viewblood_action});
 
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.viewblood_action, menu);
