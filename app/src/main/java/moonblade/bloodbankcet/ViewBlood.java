@@ -291,6 +291,7 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView = (SearchView) menu.findItem(R.id.action_search)
                 .getActionView();
+        searchView.setQueryHint("Branch");
         if (null != searchView) {
             searchView.setSearchableInfo(searchManager
                     .getSearchableInfo(getComponentName()));
