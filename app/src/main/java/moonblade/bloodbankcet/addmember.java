@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import moonblade.bloodbankcet.R;
@@ -16,7 +17,8 @@ import moonblade.bloodbankcet.R;
 public class addmember extends Activity {
     Button baddentry;
     EditText etdbname,etdbclass,etdbmob,etdbhostel;
-    RadioGroup rg;
+    Spinner add_spinner;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,40 +28,9 @@ public class addmember extends Activity {
         etdbclass=(EditText)findViewById(R.id.etdbclass);
         etdbmob=(EditText)findViewById(R.id.etmob);
         etdbhostel=(EditText)findViewById(R.id.ethostel);
-        rg=(RadioGroup)findViewById(R.id.rg);
+
         final String[] bloodgroup = new String[1];
-        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId)
-                {
-                    case R.id.rap:
-                        bloodgroup[0] ="A+";
-                        break;
-                    case R.id.ran:
-                        bloodgroup[0] ="A-";
-                        break;
-                    case R.id.rbp:
-                        bloodgroup[0] ="B+";
-                        break;
-                    case R.id.rbn:
-                        bloodgroup[0] ="B-";
-                        break;
-                    case R.id.rabp:
-                        bloodgroup[0] ="AB+";
-                        break;
-                    case R.id.rabn:
-                        bloodgroup[0] ="AB-";
-                        break;
-                    case R.id.rop:
-                        bloodgroup[0] ="O+";
-                        break;
-                    case R.id.ron:
-                        bloodgroup[0] ="O-";
-                        break;
-                }
-            }
-        });
+
         baddentry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
