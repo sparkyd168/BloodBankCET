@@ -223,6 +223,7 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
     }
 
     private void initialise_adapter() {
+        blood_list = new ArrayList<String>();
         blood_list.add("All");
         blood_list.add("A+");
         blood_list.add("A-");
