@@ -37,6 +37,10 @@ import java.util.List;
 import java.util.zip.Inflater;
 
 public class ViewBlood extends Activity implements AdapterView.OnItemSelectedListener{
+
+    ArrayList<String> blood_list;
+    ArrayAdapter<String> blood_adapter;
+
     int long_clicked=0;
     int logged_in=0;
     Spinner blood_spinner;
@@ -61,6 +65,7 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
         blood_spinner.setOnItemSelectedListener(ViewBlood.this);
         blood_spinner.setVisibility(View.INVISIBLE);
 
+        initialise_adapter();
 
         List<String> list = new ArrayList<String>();
         list.add("All");
@@ -216,6 +221,21 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
             }
         });
     }
+
+    private void initialise_adapter() {
+        blood_list.add("All");
+        blood_list.add("A+");
+        blood_list.add("A-");
+        blood_list.add("B+");
+        blood_list.add("B-");
+        blood_list.add("O+");
+        blood_list.add("O-");
+        blood_list.add("AB+");
+        blood_list.add("AB-");
+        blood_adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, blood_list);
+        blood_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
