@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import java.sql.SQLException;
+import java.util.Date;
 
 import moonblade.bloodbankcet.R;
 
@@ -22,10 +23,12 @@ public class sqldb{
     public static final String KEY_BRANCH="_branch";
     public static final String KEY_PHONE="_phone";
     public static final String KEY_HOSTEL="_hostel";
+    public static final String KEY_DATE="_date";
+
 
     private static final String DB_NAME = "_db";
-    private static final String DB_TABLE = "_table";
-    private static final int DB_VERSION = 1;
+    private static final String DB_TABLE = "_blood_table";
+    private static final int DB_VERSION = 3;
 
     private dbhelper ourhelper;
     private final Context ourcontext;
@@ -56,7 +59,8 @@ public class sqldb{
                             KEY_BG +     " TEXT NOT NULL, " +
                             KEY_BRANCH + " TEXT NOT NULL, " +
                             KEY_PHONE +  " TEXT NOT NULL, " +
-                            KEY_HOSTEL + " TEXT NOT NULL);"
+                            KEY_HOSTEL + " TEXT NOT NULL, " +
+                            KEY_DATE +   " INTEGER);"
             );
         }
 
@@ -85,7 +89,7 @@ public class sqldb{
         return ourdb.insert(DB_TABLE,null,cv);
     }
 
-    public long addData(String nam,String bgr,String branch, String phone, String hostel) {
+    public long addData(String nam,String bgr,String branch, String phone, String hostel,long date) {
 
         ContentValues cv = new ContentValues();
         cv.put(KEY_NAME,nam);
@@ -93,11 +97,12 @@ public class sqldb{
         cv.put(KEY_BRANCH,branch);
         cv.put(KEY_PHONE,phone);
         cv.put(KEY_HOSTEL,hostel);
+        cv.put(KEY_DATE,date);
         return ourdb.insert(DB_TABLE,null,cv);
     }
 
     public Cursor readAll(){
-        Cursor c=ourdb.query(DB_TABLE,new String[]{KEY_ROWID,KEY_NAME,KEY_BG,KEY_BRANCH,KEY_PHONE,KEY_HOSTEL},null,null,null,null,null);
+        Cursor c=ourdb.query(DB_TABLE,new String[]{KEY_ROWID,KEY_NAME,KEY_BG,KEY_BRANCH,KEY_PHONE,KEY_HOSTEL,KEY_DATE},null,null,null,null,null);
         if (c!=null)
             c.moveToFirst();
         return c;
@@ -108,11 +113,11 @@ public class sqldb{
 
         if(s==null||s.length()==0)
         {
-            mc= ourdb.query(DB_TABLE,new String[]{KEY_ROWID,KEY_NAME,KEY_BG,KEY_BRANCH,KEY_PHONE,KEY_HOSTEL},null,null,null,null,null);
+            mc= ourdb.query(DB_TABLE,new String[]{KEY_ROWID,KEY_NAME,KEY_BG,KEY_BRANCH,KEY_PHONE,KEY_HOSTEL,KEY_DATE},null,null,null,null,null);
         }
         else
         {
-            mc= ourdb.query(DB_TABLE,new String[]{KEY_ROWID,KEY_NAME,KEY_BG,KEY_BRANCH,KEY_PHONE,KEY_HOSTEL},KEY_BG+" like '%"+ s+"%'",null,null,null,null,null);
+            mc= ourdb.query(DB_TABLE,new String[]{KEY_ROWID,KEY_NAME,KEY_BG,KEY_BRANCH,KEY_PHONE,KEY_HOSTEL,KEY_DATE},KEY_BG+" like '%"+ s+"%'",null,null,null,null,null);
         }
         if(mc!=null)
             mc.moveToFirst();
@@ -123,24 +128,25 @@ public class sqldb{
         Cursor mc = null;
         if(s==null||s.length()==0)
         {
-            mc= ourdb.query(DB_TABLE,new String[]{KEY_ROWID,KEY_NAME,KEY_BG,KEY_BRANCH,KEY_PHONE,KEY_HOSTEL},null,null,null,null,null);
+            mc= ourdb.query(DB_TABLE,new String[]{KEY_ROWID,KEY_NAME,KEY_BG,KEY_BRANCH,KEY_PHONE,KEY_HOSTEL,KEY_DATE},null,null,null,null,null);
         }
         else
         {
-            mc= ourdb.query(DB_TABLE,new String[]{KEY_ROWID,KEY_NAME,KEY_BG,KEY_BRANCH,KEY_PHONE,KEY_HOSTEL},KEY_BRANCH+" like '%"+ s+"%'",null,null,null,null,null);
+            mc= ourdb.query(DB_TABLE,new String[]{KEY_ROWID,KEY_NAME,KEY_BG,KEY_BRANCH,KEY_PHONE,KEY_HOSTEL,KEY_DATE},KEY_BRANCH+" like '%"+ s+"%'",null,null,null,null,null);
         }
         if(mc!=null)
             mc.moveToFirst();
         return mc;
     }
 
-    public int updateData(long memberID, String memberName, String memberbg, String memberbranch, String memberphone, String memberhostel) {
+    public int updateData(long memberID, String memberName, String memberbg, String memberbranch, String memberphone, String memberhostel,long date) {
         ContentValues cvUpdate = new ContentValues();
         cvUpdate.put(KEY_NAME, memberName);
         cvUpdate.put(KEY_BG, memberbg);
         cvUpdate.put(KEY_BRANCH,memberbranch);
         cvUpdate.put(KEY_PHONE,memberphone);
         cvUpdate.put(KEY_HOSTEL,memberhostel);
+        cvUpdate.put(KEY_DATE,date)
         int i = ourdb.update(DB_TABLE, cvUpdate,
                 KEY_ROWID + " = " + memberID, null);
         return i;
