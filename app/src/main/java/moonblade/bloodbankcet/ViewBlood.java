@@ -22,7 +22,6 @@ import android.widget.CompoundButton;
 import android.widget.CursorAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -40,20 +39,16 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
     int long_clicked=0;
     int logged_in=0;
     Spinner blood_spinner;
-    Spinner spinner_blood;
     private CursorAdapter adapter;
-    ImageView green;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_blood);
 
-
         try{
             Intent logged = this.getIntent();
             if (logged!=null){
                 logged_in=getIntent().getExtras().getInt("logged");
-
             }
         }
         catch (Exception e){
@@ -62,8 +57,7 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
         blood_spinner=(Spinner)findViewById(R.id.blood_spinner);
         blood_spinner.setOnItemSelectedListener(ViewBlood.this);
         blood_spinner.setVisibility(View.INVISIBLE);
-        green=(ImageView)findViewById(R.id.green);
-        green.setVisibility(View.INVISIBLE);
+
 
         List<String> list = new ArrayList<String>();
         list.add("All");
@@ -80,6 +74,7 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         blood_spinner.setAdapter(dataAdapter);
 
+        final String[] option = {"none"};
         String[] blood_groups = getResources().getStringArray(R.array.bloodgroups);
         ArrayAdapter adapter=new ArrayAdapter<String>(this, R.layout.blood_item, R.id.label, blood_groups);
 
@@ -302,7 +297,6 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
 
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.viewblood_action, menu);
-
 
         return true;
     }
