@@ -4,12 +4,10 @@
     <item android:id="@+id/action_filter"
         android:icon="@drawable/filterwhite"
         android:title="@string/title_activity_view_blood"
-        android:showAsAction="ifRoom"/>
-    <item android:id="@+id/blood_spinner2"
-        android:title="@string/dummy_title"
-        android:showAsAction="always"
+        android:showAsAction="ifRoom"
         android:actionViewClass="android.widget.Spinner"/>
-    <item android:id="@+id/action_settings"
+
+     <item android:id="@+id/action_settings"
         android:title="@string/action_settings"
         android:orderInCategory="100"
         android:showAsAction="never" />
