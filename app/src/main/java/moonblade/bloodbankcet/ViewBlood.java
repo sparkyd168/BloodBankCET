@@ -282,8 +282,8 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.viewblood_action, menu);
         spinner_blood=(Spinner)menu.findItem(R.id.blood_spinner2).getActionView();
+        spinner_blood.setVisibility(View.INVISIBLE);
         spinner_blood.setAdapter(blood_adapter);
-
         spinner_blood.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -317,9 +317,9 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
         if (id == R.id.action_settings) {
             return true;
         }
-        if (id==R.id.action_filter){
+        if (id==R.id.action_search){
 
-    }
+        }
         return super.onOptionsItemSelected(item);
     }
 
