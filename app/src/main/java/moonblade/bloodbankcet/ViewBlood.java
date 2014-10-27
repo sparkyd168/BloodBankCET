@@ -248,23 +248,30 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
     }
 
     private void update_red_green(ListView data){
+        sqldb get_size=new sqldb(ViewBlood.this);
+        get_size.open();
+        int size=get_size.get_row_count();
+        get_size.close();
         setcurrentdate();
+        int visibleChildCount = (data.getLastVisiblePosition() - data.getFirstVisiblePosition()) + 1;
         int firstPosition = data.getFirstVisiblePosition() - data.getHeaderViewsCount();
-        for(int datai=firstPosition;datai<data.getLastVisiblePosition();datai++){
+        Toast.makeText(ViewBlood.this,""+data.getChildCount(),Toast.LENGTH_SHORT).show();
+        for(int datai=firstPosition;datai<size;datai++){
 
-            final Cursor cursor = (Cursor) data.getItemAtPosition(datai);
-//            View wantedView = data.getChildAt(datai);
+                final Cursor cursor = (Cursor) data.getItemAtPosition(datai);
+//    //            View wantedView = data.getChildAt(datai);
+//
+//                int wantedPosition = datai; // Whatever position you're looking for
+//                // This is the same as child #0
+//                int wantedChild = wantedPosition - firstPosition;
+//                if (wantedChild < 0 || wantedChild >= data.getChildCount()) {
+//
+//                    return;
+//                }
+//    // Could also check if wantedPosition is between listView.getFirstVisiblePosition() and listView.getLastVisiblePosition() instead.
+//                View wantedView = data.getChildAt(wantedChild);
+
 //            green=(ImageView)wantedView.findViewById(R.id.green);
-
-            int wantedPosition = datai; // Whatever position you're looking for
-            // This is the same as child #0
-            int wantedChild = wantedPosition - firstPosition;
-            if (wantedChild < 0 || wantedChild >= data.getChildCount()) {
-
-                return;
-            }
-// Could also check if wantedPosition is between listView.getFirstVisiblePosition() and listView.getLastVisiblePosition() instead.
-            View wantedView = data.getChildAt(wantedChild);
 
             Long val=cursor.getLong(cursor.getColumnIndexOrThrow("_date"));
             Date date = new Date(val);
