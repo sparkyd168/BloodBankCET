@@ -84,6 +84,7 @@ public class addmember extends Activity {
                 Intent i=new Intent(addmember.this,Home.class);
                 i.putExtra("logged",1);
                 startActivity(i);
+                finish();
             }
         });
     }

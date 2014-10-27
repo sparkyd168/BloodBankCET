@@ -91,7 +91,12 @@ public class editEntry extends Activity {
         beditentry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final int day = edit_picker.getDayOfMonth();
+                final int month = edit_picker.getMonth();
+                final int year = edit_picker.getYear();
+                final Date date = new Date(year,month,day);
 
+                final long millisec=date.getTime();
                 String namea=etdbname.getText().toString();
                 String branc=etdbbranch.getText().toString();
                 String mob=etdbmob.getText().toString();
@@ -101,12 +106,13 @@ public class editEntry extends Activity {
                 sqldb add = new sqldb(editEntry.this);
                 add.open();
 
-                add.updateData(Long.parseLong(id), namea, bg, branc, mob, hostel,long_date);
+                add.updateData(Long.parseLong(id), namea, bg, branc, mob, hostel,millisec);
                 add.close();
                 Toast.makeText(getApplicationContext(), "Edit Successfull", Toast.LENGTH_SHORT).show();
                 Intent i=new Intent(editEntry.this,ViewBlood.class);
                 i.putExtra("logged",1);
                 startActivity(i);
+                finish();
             }
         });
     }
