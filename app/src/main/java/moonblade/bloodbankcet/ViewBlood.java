@@ -99,18 +99,14 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
              final String num = cursor.getString(cursor.getColumnIndexOrThrow("_phone"));
 
              hos.setText(cursor.getString(cursor.getColumnIndexOrThrow("_hostel")));
-//             String datediag=cursor.getString(cursor.getColumnIndexOrThrow("_date"));
              Long val=cursor.getLong(cursor.getColumnIndexOrThrow("_date"));
 
              final Button dbitton = (Button) dialog.findViewById(R.id.bdiagdok);
              final Button callbutton = (Button) dialog.findViewById(R.id.bdiagcall);
 
-//             long val=Long.parseLong(datediag);
-//             Toast.makeText(ViewBlood.this,String.valueOf(val),Toast.LENGTH_SHORT).show();
              Date date = new Date(val);
              SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yy");
              dat.setText(df2.format(date));
-             Toast.makeText(ViewBlood.this,df2.format(date),Toast.LENGTH_SHORT).show();
             dbitton.setOnClickListener(new View.OnClickListener() {
                  @Override
                  public void onClick(View v) {
