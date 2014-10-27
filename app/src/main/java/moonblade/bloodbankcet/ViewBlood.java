@@ -12,12 +12,14 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -53,7 +55,7 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
     int long_clicked=0;
     int logged_in=0;
     Spinner spinner_blood;
-    ImageView green;
+    ImageView green,red;
     private CursorAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,27 +79,8 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
 
         final ListView data =(ListView)findViewById(R.id.lvdata);
         getdatanone(data);
+        update_red_green(data);
 
-        sqldb find_size = new sqldb(ViewBlood.this);
-        find_size.open();
-        int size_of_data=find_size.get_row_count();
-        find_size.close();
-        setcurrentdate();
-        for(int datai=0;datai<size_of_data;datai++){
-            green=(ImageView)findViewById(R.id.green);
-            final Cursor cursor = (Cursor) data.getItemAtPosition(datai);
-            Long val=cursor.getLong(cursor.getColumnIndexOrThrow("_date"));
-            Date date = new Date(val);
-            int day=date.getDay();
-            int month=date.getMonth()+1;
-            int year=date.getYear();
-            long total=year*365+month*30+day;
-            if(totdays-total<(30*number_of_months)){
-//                 green.setVisibility(View.INVISIBLE);
-                
-                Toast.makeText(ViewBlood.this,"not "+datai,Toast.LENGTH_SHORT).show();
-            }
-        }
 
         data.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -262,6 +245,39 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
         blood_adapter = new ArrayAdapter<String>(this,
                 R.layout.spinner_action_bar, blood_list);
         blood_adapter.setDropDownViewResource(R.layout.spinner_dropdown);
+    }
+
+    private void update_red_green(ListView data){
+        setcurrentdate();
+        int firstPosition = data.getFirstVisiblePosition() - data.getHeaderViewsCount();
+        for(int datai=firstPosition;datai<data.getLastVisiblePosition();datai++){
+
+            final Cursor cursor = (Cursor) data.getItemAtPosition(datai);
+//            View wantedView = data.getChildAt(datai);
+//            green=(ImageView)wantedView.findViewById(R.id.green);
+
+            int wantedPosition = datai; // Whatever position you're looking for
+            // This is the same as child #0
+            int wantedChild = wantedPosition - firstPosition;
+            if (wantedChild < 0 || wantedChild >= data.getChildCount()) {
+
+                return;
+            }
+// Could also check if wantedPosition is between listView.getFirstVisiblePosition() and listView.getLastVisiblePosition() instead.
+            View wantedView = data.getChildAt(wantedChild);
+
+            Long val=cursor.getLong(cursor.getColumnIndexOrThrow("_date"));
+            Date date = new Date(val);
+            int day=date.getDay();
+            int month=date.getMonth()+1;
+            int year=date.getYear();
+            long total=year*365+month*30+day;
+            long diff=totdays-total;
+            if(diff<(30*number_of_months)){
+//                 green.setVisibility(View.INVISIBLE);
+//                 Toast.makeText(ViewBlood.this,""+diff,Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     @Override
