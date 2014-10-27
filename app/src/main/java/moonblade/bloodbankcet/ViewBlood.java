@@ -12,6 +12,7 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -37,6 +38,7 @@ import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.zip.Inflater;
@@ -45,7 +47,9 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
 
     ArrayList<String> blood_list;
     ArrayAdapter<String> blood_adapter;
-
+    private int curday,curmon,curyear;
+    private long totdays;
+    private int number_of_months=3;
     int long_clicked=0;
     int logged_in=0;
     Spinner spinner_blood;
@@ -65,70 +69,93 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
         catch (Exception e){
 
         }
-//        green=(ImageView)findViewById(R.id.green);
+
         initialise_adapter();
 
         String[] blood_groups = getResources().getStringArray(R.array.bloodgroups);
         ArrayAdapter adapter=new ArrayAdapter<String>(this, R.layout.blood_item, R.id.label, blood_groups);
 
         final ListView data =(ListView)findViewById(R.id.lvdata);
-          getdatanone(data);
+        getdatanone(data);
+
+        sqldb find_size = new sqldb(ViewBlood.this);
+        find_size.open();
+        int size_of_data=find_size.get_row_count();
+        find_size.close();
+        for(int datai=0;datai<size_of_data;datai++){
+            green=(ImageView)findViewById(R.id.green);
+            final Cursor cursor = (Cursor) data.getItemAtPosition(datai);
+            Long val=cursor.getLong(cursor.getColumnIndexOrThrow("_date"));
+            Date date = new Date(val);
+            int day=date.getDay();
+            int month=date.getMonth();
+            int year=date.getYear();
+            long total=year*365+month*30+day;
+            if(totdays-total<(30*number_of_months)){
+//                 green.setVisibility(View.INVISIBLE);
+                Toast.makeText(ViewBlood.this,"not "+datai,Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        data.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                final Cursor cursor = (Cursor) data.getItemAtPosition(position);
+                final Dialog dialog = new Dialog(ViewBlood.this);
+                dialog.setContentView(R.layout.dialoglayout);
+                dialog.setTitle("Detail of Student");
+                TextView namea = (TextView) dialog.findViewById(R.id.tvdiagname);
+                TextView brancha = (TextView) dialog.findViewById(R.id.tvdiagbranch);
+                TextView bg = (TextView) dialog.findViewById(R.id.tvdiagbg);
+                TextView mob = (TextView) dialog.findViewById(R.id.tvdiagmob);
+                TextView hos = (TextView) dialog.findViewById(R.id.tvdiaghostel);
+                TextView dat = (TextView) dialog.findViewById(R.id.tvdiagdate);
+//             green=(ImageView)findViewById(R.id.green);
 
 
+                namea.setText(cursor.getString(cursor.getColumnIndexOrThrow("_name")));
+                brancha.setText(cursor.getString(cursor.getColumnIndexOrThrow("_branch")));
+                bg.setText(cursor.getString(cursor.getColumnIndexOrThrow("_bg")));
+                mob.setText(cursor.getString(cursor.getColumnIndexOrThrow("_phone")));
+                final String num = cursor.getString(cursor.getColumnIndexOrThrow("_phone"));
 
-     data.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-         @Override
-         public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-             final Cursor cursor = (Cursor) data.getItemAtPosition(position);
-             final Dialog dialog = new Dialog(ViewBlood.this);
-             dialog.setContentView(R.layout.dialoglayout);
-             dialog.setTitle("Detail of Student");
+                hos.setText(cursor.getString(cursor.getColumnIndexOrThrow("_hostel")));
+                Long val=cursor.getLong(cursor.getColumnIndexOrThrow("_date"));
 
-             TextView namea = (TextView) dialog.findViewById(R.id.tvdiagname);
-             TextView brancha = (TextView) dialog.findViewById(R.id.tvdiagbranch);
-             TextView bg = (TextView) dialog.findViewById(R.id.tvdiagbg);
-             TextView mob = (TextView) dialog.findViewById(R.id.tvdiagmob);
-             TextView hos = (TextView) dialog.findViewById(R.id.tvdiaghostel);
-             TextView dat = (TextView) dialog.findViewById(R.id.tvdiagdate);
+                final Button dbitton = (Button) dialog.findViewById(R.id.bdiagdok);
+                final Button callbutton = (Button) dialog.findViewById(R.id.bdiagcall);
+                setcurrentdate();
+                Date date = new Date(val);
+//             int day=date.getDay();
+//             int month=date.getMonth();
+//             int year=date.getYear();
+//             int total=year*365+month*30+day;
+//             if(totdays-total<(30*number_of_months)){
+//                 green.setVisibility(View.INVISIBLE);
+//             }
+                SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yy");
+                dat.setText(df2.format(date));
+                dbitton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.cancel();
+                    }
+                });
+                callbutton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
+                        Intent callIntent = new Intent(Intent.ACTION_CALL);
+                        callIntent.setData(Uri.parse("tel:" + num));
+                        startActivity(callIntent);
 
-             namea.setText(cursor.getString(cursor.getColumnIndexOrThrow("_name")));
-             brancha.setText(cursor.getString(cursor.getColumnIndexOrThrow("_branch")));
-             bg.setText(cursor.getString(cursor.getColumnIndexOrThrow("_bg")));
-             mob.setText(cursor.getString(cursor.getColumnIndexOrThrow("_phone")));
-             final String num = cursor.getString(cursor.getColumnIndexOrThrow("_phone"));
-
-             hos.setText(cursor.getString(cursor.getColumnIndexOrThrow("_hostel")));
-             Long val=cursor.getLong(cursor.getColumnIndexOrThrow("_date"));
-
-             final Button dbitton = (Button) dialog.findViewById(R.id.bdiagdok);
-             final Button callbutton = (Button) dialog.findViewById(R.id.bdiagcall);
-
-             Date date = new Date(val);
-             SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yy");
-             dat.setText(df2.format(date));
-            dbitton.setOnClickListener(new View.OnClickListener() {
-                 @Override
-                 public void onClick(View v) {
-                     dialog.cancel();
-                 }
-             });
-             callbutton.setOnClickListener(new View.OnClickListener() {
-                 @Override
-                 public void onClick(View v) {
-
-//                     dialog.cancel();
-                     Intent callIntent = new Intent(Intent.ACTION_CALL);
-                     callIntent.setData(Uri.parse("tel:" + num));
-                     startActivity(callIntent);
-
-                 }
-             });
-             if (long_clicked == 0)
-                 dialog.show();
-             long_clicked = 0;
-         }
-     });
+                    }
+                });
+                if (long_clicked == 0)
+                    dialog.show();
+                long_clicked = 0;
+            }
+        });
         data.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -233,7 +260,7 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
         blood_adapter = new ArrayAdapter<String>(this,
                 R.layout.spinner_action_bar, blood_list);
         blood_adapter.setDropDownViewResource(R.layout.spinner_dropdown);
-     }
+    }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -244,13 +271,20 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
         }else{
             getdatablood(data,blood_group);
         }
-        }
+    }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
 
+    private void setcurrentdate(){
+        final Calendar c = Calendar.getInstance();
+        curyear = c.get(Calendar.YEAR);
+        curmon = c.get(Calendar.MONTH);
+        curday = c.get(Calendar.DAY_OF_MONTH);
+        totdays=curyear*365+curmon*30+curday;
+    }
     private void getdatanone(ListView data){
 
         sqldb table = new sqldb(this);

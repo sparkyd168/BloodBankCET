@@ -152,6 +152,13 @@ public class sqldb{
         return i;
     }
 
+    public int get_row_count(){
+        String countQuery = "SELECT  * FROM " + DB_TABLE;
+        Cursor cursor = ourdb.rawQuery(countQuery, null);
+        int cnt = cursor.getCount();
+        cursor.close();
+        return cnt;
+    }
     public void deleteId(long memberID) {
         ourdb.delete(DB_TABLE, KEY_ROWID + "="
                 + memberID, null);
