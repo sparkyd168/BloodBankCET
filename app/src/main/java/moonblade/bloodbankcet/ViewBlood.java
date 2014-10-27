@@ -294,9 +294,9 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
                 }else{
                     getdatablood(data,blood_group);
                 }
-                if (((TextView) view) != null) {
-                    ((TextView) view).setText(null);
-                }
+//                if (((TextView) view) != null) {
+//                    ((TextView) view).setText(null);
+//                }
             }
 
             @Override
