@@ -15,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import moonblade.bloodbankcet.R;
 
@@ -47,7 +48,15 @@ public class addmember extends Activity {
 
             }
         });
-        Date date=
+
+
+        int day = datePicker.getDayOfMonth();
+        int month = datePicker.getMonth() + 1;
+        int year = datePicker.getYear();
+        Date date = new Date(year,month,day);
+
+        final long millisec=date.getTime();
+
         baddentry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,10 +67,11 @@ public class addmember extends Activity {
                 String bg=bloodgroup[0];
                 sqldb add = new sqldb(addmember.this);
                 add.open();
-                add.addData(name, bg, clas, mob, hostel,100);
+                add.addData(name, bg, clas, mob, hostel,millisec);
                 add.close();
                 Toast.makeText(getApplicationContext(), "Entry Successfull", Toast.LENGTH_SHORT).show();
                 Intent i=new Intent(addmember.this,Home.class);
+                i.putExtra("logged",1);
                 startActivity(i);
             }
         });

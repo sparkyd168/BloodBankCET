@@ -92,12 +92,30 @@
         android:layout_alignLeft="@+id/tvdiagmob"
         android:layout_alignStart="@+id/tvdiagmob" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Last Donation :"
+        android:id="@+id/tvddate"
+        android:layout_below="@+id/tvdhostel"
+        android:layout_toLeftOf="@+id/tvdiagname" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/tvdiagdate"
+        android:layout_below="@+id/tvdiaghostel"
+        android:layout_alignLeft="@+id/tvdiagmob"
+        android:layout_alignStart="@+id/tvdiagmob" />
+
+
 
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:layout_marginBottom="0dp"
-        android:layout_below="@+id/tvdiaghostel"
+        android:layout_below="@+id/tvdiagdate"
         android:id="@+id/seperator"
         android:background="?android:attr/dividerVertical" />
     <LinearLayout

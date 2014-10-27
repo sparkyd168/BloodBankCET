@@ -35,7 +35,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.zip.Inflater;
 
@@ -63,7 +65,7 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
         catch (Exception e){
 
         }
-        green=(ImageView)findViewById(R.id.green);
+//        green=(ImageView)findViewById(R.id.green);
         initialise_adapter();
 
         String[] blood_groups = getResources().getStringArray(R.array.bloodgroups);
@@ -87,6 +89,9 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
              TextView bg = (TextView) dialog.findViewById(R.id.tvdiagbg);
              TextView mob = (TextView) dialog.findViewById(R.id.tvdiagmob);
              TextView hos = (TextView) dialog.findViewById(R.id.tvdiaghostel);
+             TextView dat = (TextView) dialog.findViewById(R.id.tvdiagdate);
+
+
              namea.setText(cursor.getString(cursor.getColumnIndexOrThrow("_name")));
              brancha.setText(cursor.getString(cursor.getColumnIndexOrThrow("_branch")));
              bg.setText(cursor.getString(cursor.getColumnIndexOrThrow("_bg")));
@@ -94,9 +99,15 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
              final String num = cursor.getString(cursor.getColumnIndexOrThrow("_phone"));
 
              hos.setText(cursor.getString(cursor.getColumnIndexOrThrow("_hostel")));
+             String datediag=cursor.getString(cursor.getColumnIndexOrThrow("_date"));
+
              final Button dbitton = (Button) dialog.findViewById(R.id.bdiagdok);
              final Button callbutton = (Button) dialog.findViewById(R.id.bdiagcall);
-
+             long val=Long.parseLong(datediag);
+             Date date = new Date(val);
+             SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yy");
+             String dateText = df2.format(date);
+              dat.setText(dateText);
             dbitton.setOnClickListener(new View.OnClickListener() {
                  @Override
                  public void onClick(View v) {
@@ -149,6 +160,12 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
                             String bg = cursor.getString(cursor.getColumnIndexOrThrow("_bg"));
                             String mob = cursor.getString(cursor.getColumnIndexOrThrow("_phone"));
                             String hostel = cursor.getString(cursor.getColumnIndexOrThrow("_hostel"));
+                            String dat=cursor.getString(cursor.getColumnIndexOrThrow("_date"));
+                            long val=Long.parseLong(dat);
+                            Date date = new Date(val);
+                            SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yy");
+                            String dateText = df2.format(date);
+
                             Bundle b = new Bundle();
                             b.putString("name", name);
                             b.putString("id", id);
@@ -156,6 +173,7 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
                             b.putString("bg", bg);
                             b.putString("mob", mob);
                             b.putString("hostel", hostel);
+//                            b.putString("date",dateText);
                             Intent i = new Intent(ViewBlood.this, editEntry.class);
                             i.putExtras(b);
                             startActivity(i);
@@ -174,12 +192,13 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
                                     public void onClick(DialogInterface dialog,int id) {
                                         // if this button is clicked, close
                                         // current activity
-                                        String name=cursor.getString(cursor.getColumnIndexOrThrow("_name"));
+                                        long delid=cursor.getLong(cursor.getColumnIndexOrThrow("_id"));
                                         sqldb vi = new sqldb(ViewBlood.this);
                                         vi.open();
-                                        vi.delete(name);
+                                        vi.deleteId(delid);
                                         vi.close();
                                         Intent i = new Intent(getApplicationContext(), ViewBlood.class);
+                                        i.putExtra("logged",1);
                                         startActivity(i);
                                         finish();
 
