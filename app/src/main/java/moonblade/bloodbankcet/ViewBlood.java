@@ -110,6 +110,7 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
              Date date = new Date(val);
              SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yy");
              dat.setText(df2.format(date));
+             Toast.makeText(ViewBlood.this,df2.format(date),Toast.LENGTH_SHORT).show();
             dbitton.setOnClickListener(new View.OnClickListener() {
                  @Override
                  public void onClick(View v) {

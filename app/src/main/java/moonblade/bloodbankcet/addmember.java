@@ -14,6 +14,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -33,7 +34,7 @@ public class addmember extends Activity {
         etdbclass=(EditText)findViewById(R.id.etdbclass);
         etdbmob=(EditText)findViewById(R.id.etmob);
         etdbhostel=(EditText)findViewById(R.id.ethostel);
-        datePicker=(DatePicker)findViewById(R.id.datePicker);
+        datePicker=(DatePicker)findViewById(R.id.date_Picker);
         final String[] bloodgroup = new String[1];
         add_spinner=(Spinner)findViewById(R.id.add_spinner);
         add_spinner.setPrompt("Blood Group");
@@ -50,11 +51,10 @@ public class addmember extends Activity {
         });
 
 
-        int day = datePicker.getDayOfMonth();
-        int month = datePicker.getMonth();
-        month--;
-        int year = datePicker.getYear();
-        Date date = new Date(year,month,day);
+        final int day = datePicker.getDayOfMonth();
+        final int month = datePicker.getMonth();
+        final int year = datePicker.getYear();
+        final Date date = new Date(year,month,day);
 
         final long millisec=date.getTime();
 
@@ -67,14 +67,19 @@ public class addmember extends Activity {
                 String hostel=etdbhostel.getText().toString();
                 String bg=bloodgroup[0];
                 sqldb add = new sqldb(addmember.this);
-                Toast.makeText(addmember.this,String.valueOf(millisec),Toast.LENGTH_SHORT).show();
+                Date dAte = new Date(millisec);
+                SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yy");
+
+//                Toast.makeText(addmember.this,df2.format(dAte),Toast.LENGTH_SHORT).show();
+                Toast.makeText(addmember.this,String.valueOf(day),Toast.LENGTH_SHORT).show();
+
                 add.open();
-                add.addData(name, bg, clas, mob, hostel,millisec);
+//                add.addData(name, bg, clas, mob, hostel,millisec);
                 add.close();
-                Toast.makeText(getApplicationContext(), "Entry Successfull", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), "Entry Successfull", Toast.LENGTH_SHORT).show();
                 Intent i=new Intent(addmember.this,Home.class);
                 i.putExtra("logged",1);
-                startActivity(i);
+//                startActivity(i);
             }
         });
     }

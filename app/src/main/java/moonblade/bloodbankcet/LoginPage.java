@@ -32,8 +32,8 @@ public class LoginPage extends Activity {
                 String user=username.getText().toString();
                 String pass=password.getText().toString();
 
-                String login_user="Nisham";
-                String login_pass="pass";
+                String login_user="";
+                String login_pass="";
 
                 if(user.equals(login_user) && pass.equals(login_pass)){
                     Toast.makeText(LoginPage.this,"Success",Toast.LENGTH_SHORT).show();
