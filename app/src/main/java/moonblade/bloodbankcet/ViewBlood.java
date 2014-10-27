@@ -82,17 +82,19 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
         find_size.open();
         int size_of_data=find_size.get_row_count();
         find_size.close();
+        setcurrentdate();
         for(int datai=0;datai<size_of_data;datai++){
             green=(ImageView)findViewById(R.id.green);
             final Cursor cursor = (Cursor) data.getItemAtPosition(datai);
             Long val=cursor.getLong(cursor.getColumnIndexOrThrow("_date"));
             Date date = new Date(val);
             int day=date.getDay();
-            int month=date.getMonth();
+            int month=date.getMonth()+1;
             int year=date.getYear();
             long total=year*365+month*30+day;
             if(totdays-total<(30*number_of_months)){
 //                 green.setVisibility(View.INVISIBLE);
+                
                 Toast.makeText(ViewBlood.this,"not "+datai,Toast.LENGTH_SHORT).show();
             }
         }
@@ -124,7 +126,7 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
 
                 final Button dbitton = (Button) dialog.findViewById(R.id.bdiagdok);
                 final Button callbutton = (Button) dialog.findViewById(R.id.bdiagcall);
-                setcurrentdate();
+
                 Date date = new Date(val);
 //             int day=date.getDay();
 //             int month=date.getMonth();
@@ -281,8 +283,9 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
     private void setcurrentdate(){
         final Calendar c = Calendar.getInstance();
         curyear = c.get(Calendar.YEAR);
-        curmon = c.get(Calendar.MONTH);
+        curmon = c.get(Calendar.MONTH)+1;
         curday = c.get(Calendar.DAY_OF_MONTH);
+//        Toast.makeText(ViewBlood.this,""+curday+" "+curmon+" "+curyear,Toast.LENGTH_SHORT).show();
         totdays=curyear*365+curmon*30+curday;
     }
     private void getdatanone(ListView data){
