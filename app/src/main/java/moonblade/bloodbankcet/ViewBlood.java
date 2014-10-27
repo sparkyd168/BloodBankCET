@@ -159,7 +159,6 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
                             String bg = cursor.getString(cursor.getColumnIndexOrThrow("_bg"));
                             String mob = cursor.getString(cursor.getColumnIndexOrThrow("_phone"));
                             String hostel = cursor.getString(cursor.getColumnIndexOrThrow("_hostel"));
-//                            String dat=cursor.getString(cursor.getColumnIndexOrThrow("_date"));
                             long val=cursor.getLong(cursor.getColumnIndexOrThrow("_date"));
 
                             Bundle b = new Bundle();
@@ -318,7 +317,6 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
                 // this is your adapter that will be filtered
                 ListView data=(ListView)findViewById(R.id.lvdata);
                 getdataBranch(data,newText);
-//                spinner_blood.getSelectedItemPosition()
                 spinner_blood.setSelection(0);
                 return true;
             }
@@ -344,9 +342,6 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
                 }else{
                     getdatablood(data,blood_group);
                 }
-//                if (((TextView) view) != null) {
-//                    ((TextView) view).setText(null);
-//                }
             }
 
             @Override
