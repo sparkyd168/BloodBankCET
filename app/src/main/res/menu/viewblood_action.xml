@@ -7,7 +7,7 @@
         android:showAsAction="ifRoom"/>
     <item android:id="@+id/blood_spinner2"
         android:title="@string/dummy_title"
-        android:showAsAction="always"
+        android:showAsAction="ifRoom"
         android:actionViewClass="android.widget.Spinner"/>
     <item android:id="@+id/action_settings"
         android:title="@string/action_settings"
