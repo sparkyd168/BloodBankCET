@@ -22,6 +22,7 @@ import android.widget.CompoundButton;
 import android.widget.CursorAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -39,6 +40,7 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
     int long_clicked=0;
     int logged_in=0;
     Spinner blood_spinner;
+    ImageView green;
     private CursorAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +56,7 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
         catch (Exception e){
 
         }
+        green=(ImageView)findViewById(R.id.green);
         blood_spinner=(Spinner)findViewById(R.id.blood_spinner);
         blood_spinner.setOnItemSelectedListener(ViewBlood.this);
         blood_spinner.setVisibility(View.INVISIBLE);
