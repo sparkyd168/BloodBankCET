@@ -43,7 +43,7 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
 
     int long_clicked=0;
     int logged_in=0;
-    Spinner blood_spinner;
+    Spinner spinner_blood;
     ImageView green;
     private CursorAdapter adapter;
     @Override
@@ -61,28 +61,8 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
 
         }
         green=(ImageView)findViewById(R.id.green);
-        blood_spinner=(Spinner)findViewById(R.id.blood_spinner);
-        blood_spinner.setOnItemSelectedListener(ViewBlood.this);
-        blood_spinner.setVisibility(View.INVISIBLE);
-
         initialise_adapter();
 
-        List<String> list = new ArrayList<String>();
-        list.add("All");
-        list.add("A+");
-        list.add("A-");
-        list.add("B+");
-        list.add("B-");
-        list.add("O+");
-        list.add("O-");
-        list.add("AB+");
-        list.add("AB-");
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, list);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        blood_spinner.setAdapter(dataAdapter);
-
-        final String[] option = {"none"};
         String[] blood_groups = getResources().getStringArray(R.array.bloodgroups);
         ArrayAdapter adapter=new ArrayAdapter<String>(this, R.layout.blood_item, R.id.label, blood_groups);
 
@@ -234,8 +214,8 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
         blood_list.add("AB+");
         blood_list.add("AB-");
         blood_adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, blood_list);
-        blood_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                R.layout.spinner_action_bar, blood_list);
+        blood_adapter.setDropDownViewResource(R.layout.spinner_dropdown);
      }
 
     @Override
@@ -301,6 +281,29 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
 
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.viewblood_action, menu);
+        spinner_blood=(Spinner)menu.findItem(R.id.blood_spinner2).getActionView();
+        spinner_blood.setAdapter(blood_adapter);
+
+        spinner_blood.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String blood_group = parent.getItemAtPosition(position).toString();
+                ListView data=(ListView)findViewById(R.id.lvdata);
+                if(blood_group.equals("All")){
+                    getdatanone(data);
+                }else{
+                    getdatablood(data,blood_group);
+                }
+                if (((TextView) view) != null) {
+                    ((TextView) view).setText(null);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         return true;
     }
@@ -315,13 +318,6 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
             return true;
         }
         if (id==R.id.action_filter){
-             int is_visible = blood_spinner.getVisibility();
-            if(is_visible==View.INVISIBLE){
-                blood_spinner.setVisibility(View.VISIBLE);
-            }
-            else{
-                blood_spinner.setVisibility(View.INVISIBLE);
-            }
 
     }
         return super.onOptionsItemSelected(item);
