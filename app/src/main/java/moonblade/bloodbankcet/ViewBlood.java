@@ -184,6 +184,7 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
                             Intent i = new Intent(ViewBlood.this, editEntry.class);
                             i.putExtras(b);
                             startActivity(i);
+                            dialog.cancel();
                         }
                     }
                 });

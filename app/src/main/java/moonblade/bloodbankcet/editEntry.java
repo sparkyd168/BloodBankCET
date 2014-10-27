@@ -86,7 +86,7 @@ public class editEntry extends Activity {
         final Date edit_date=new Date(date_val);
         int year=edit_date.getYear();
         int month=edit_date.getMonth();
-        int day=edit_date.getDay();
+        int day=edit_date.getDate();
         edit_picker.updateDate(year,month,day);
         beditentry.setOnClickListener(new View.OnClickListener() {
             @Override
