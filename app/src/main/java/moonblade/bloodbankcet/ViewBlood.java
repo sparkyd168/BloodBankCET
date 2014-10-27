@@ -4,6 +4,8 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -27,6 +29,7 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
+import android.widget.SearchView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -284,6 +287,37 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
         spinner_blood=(Spinner)menu.findItem(R.id.blood_spinner2).getActionView();
         spinner_blood.setVisibility(View.INVISIBLE);
         spinner_blood.setAdapter(blood_adapter);
+
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search)
+                .getActionView();
+        if (null != searchView) {
+            searchView.setSearchableInfo(searchManager
+                    .getSearchableInfo(getComponentName()));
+            searchView.setIconifiedByDefault(false);
+        }
+
+        SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
+            public boolean onQueryTextChange(String newText) {
+                // this is your adapter that will be filtered
+                ListView data=(ListView)findViewById(R.id.lvdata);
+                getdataBranch(data,newText);
+//                spinner_blood.getSelectedItemPosition()
+                spinner_blood.setSelection(0);
+                return true;
+            }
+
+            public boolean onQueryTextSubmit(String query) {
+                //Here u can get the value "query" which is entered in the search box.
+//                Toast.makeText(ViewBlood.this,query,Toast.LENGTH_SHORT).show();
+                ListView data=(ListView)findViewById(R.id.lvdata);
+                getdataBranch(data,query);
+                spinner_blood.setSelection(0);
+                return true;
+            }
+        };
+        searchView.setOnQueryTextListener(queryTextListener);
+
         spinner_blood.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
