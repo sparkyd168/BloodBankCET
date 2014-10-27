@@ -26,7 +26,7 @@ public class sqldb{
     public static final String KEY_DATE="_date";
 
 
-    private static final String DB_NAME = "_db";
+    private static final String DB_NAME = "_bdb";
     private static final String DB_TABLE = "_blood_table";
     private static final int DB_VERSION = 3;
 
@@ -146,7 +146,7 @@ public class sqldb{
         cvUpdate.put(KEY_BRANCH,memberbranch);
         cvUpdate.put(KEY_PHONE,memberphone);
         cvUpdate.put(KEY_HOSTEL,memberhostel);
-        cvUpdate.put(KEY_DATE,date)
+        cvUpdate.put(KEY_DATE,date);
         int i = ourdb.update(DB_TABLE, cvUpdate,
                 KEY_ROWID + " = " + memberID, null);
         return i;
