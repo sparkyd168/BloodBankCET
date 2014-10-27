@@ -75,15 +75,15 @@ public class addmember extends Activity {
                 Date dAte = new Date(millisec);
                 SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yy");
 
-//                Toast.makeText(addmember.this,String.valueOf(day),Toast.LENGTH_SHORT).show();
+                Toast.makeText(addmember.this,df2.format(dAte),Toast.LENGTH_SHORT).show();
 
                 add.open();
-                add.addData(name, bg, clas, mob, hostel,millisec);
+//                add.addData(name, bg, clas, mob, hostel,millisec);
                 add.close();
-                Toast.makeText(getApplicationContext(), "Entry Successfull", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), "Entry Successfull", Toast.LENGTH_SHORT).show();
                 Intent i=new Intent(addmember.this,Home.class);
                 i.putExtra("logged",1);
-                startActivity(i);
+//                startActivity(i);
             }
         });
     }
