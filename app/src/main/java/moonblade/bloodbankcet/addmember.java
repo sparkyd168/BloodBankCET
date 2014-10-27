@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
@@ -28,8 +29,20 @@ public class addmember extends Activity {
         etdbclass=(EditText)findViewById(R.id.etdbclass);
         etdbmob=(EditText)findViewById(R.id.etmob);
         etdbhostel=(EditText)findViewById(R.id.ethostel);
+        add_spinner=(Spinner)findViewById(R.id.add_spinner);
 
         final String[] bloodgroup = new String[1];
+        add_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                bloodgroup[0]=add_spinner.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         baddentry.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,7 +54,8 @@ public class addmember extends Activity {
                 String bg=bloodgroup[0];
                 sqldb add = new sqldb(addmember.this);
                 add.open();
-                add.addData(name, bg, clas, mob, hostel);
+                Toast.makeText(addmember.this,bloodgroup[0],Toast.LENGTH_SHORT).show();
+//                add.addData(name, bg, clas, mob, hostel);
                 add.close();
                 Toast.makeText(getApplicationContext(), "Entry Successfull", Toast.LENGTH_SHORT).show();
                 Intent i=new Intent(addmember.this,Home.class);
