@@ -54,7 +54,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/add_spinner"
-                android:layout_gravity="center_horizontal"
                 android:prompt="@string/choose"
                 android:entries="@array/blood_groups"></Spinner>
 

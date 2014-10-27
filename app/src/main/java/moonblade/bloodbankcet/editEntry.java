@@ -122,7 +122,7 @@ public class editEntry extends Activity {
                 sqldb add = new sqldb(editEntry.this);
                 add.open();
 
-//                add.updateData(Long.parseLong(id), namea, bg, branc, mob, hostel);
+                add.updateData(Long.parseLong(id), namea, bg, branc, mob, hostel);
                 add.close();
                 Toast.makeText(getApplicationContext(), "Edit Successfull", Toast.LENGTH_SHORT).show();
                 Intent i=new Intent(editEntry.this,ViewBlood.class);
