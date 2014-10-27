@@ -1,6 +1,8 @@
 package moonblade.bloodbankcet;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -23,8 +25,10 @@ import moonblade.bloodbankcet.R;
 public class addmember extends Activity {
     Button baddentry;
     EditText etdbname,etdbclass,etdbmob,etdbhostel;
+//    private int day,month,year;
     Spinner add_spinner;
     DatePicker datePicker;
+    static final int DATE_DIALOG_ID = 999;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,16 +55,17 @@ public class addmember extends Activity {
         });
 
 
-        final int day = datePicker.getDayOfMonth();
-        final int month = datePicker.getMonth();
-        final int year = datePicker.getYear();
-        final Date date = new Date(year,month,day);
-
-        final long millisec=date.getTime();
 
         baddentry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final int day = datePicker.getDayOfMonth();
+                final int month = datePicker.getMonth();
+                final int year = datePicker.getYear();
+                final Date date = new Date();
+
+                final long millisec=date.getTime();
+
                 String name=etdbname.getText().toString();
                 String clas=etdbclass.getText().toString();
                 String mob=etdbmob.getText().toString();
@@ -70,16 +75,15 @@ public class addmember extends Activity {
                 Date dAte = new Date(millisec);
                 SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yy");
 
-//                Toast.makeText(addmember.this,df2.format(dAte),Toast.LENGTH_SHORT).show();
-                Toast.makeText(addmember.this,String.valueOf(day),Toast.LENGTH_SHORT).show();
+//                Toast.makeText(addmember.this,String.valueOf(day),Toast.LENGTH_SHORT).show();
 
                 add.open();
-//                add.addData(name, bg, clas, mob, hostel,millisec);
+                add.addData(name, bg, clas, mob, hostel,millisec);
                 add.close();
-//                Toast.makeText(getApplicationContext(), "Entry Successfull", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Entry Successfull", Toast.LENGTH_SHORT).show();
                 Intent i=new Intent(addmember.this,Home.class);
                 i.putExtra("logged",1);
-//                startActivity(i);
+                startActivity(i);
             }
         });
     }
