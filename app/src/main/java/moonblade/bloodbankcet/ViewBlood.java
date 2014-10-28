@@ -4,7 +4,6 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.ListActivity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -46,7 +45,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.zip.Inflater;
 
-public class ViewBlood extends ListActivity implements AdapterView.OnItemSelectedListener{
+public class ViewBlood extends Activity implements AdapterView.OnItemSelectedListener{
 
     ArrayList<String> blood_list;
     ArrayAdapter<String> blood_adapter;
@@ -319,12 +318,11 @@ public class ViewBlood extends ListActivity implements AdapterView.OnItemSelecte
         table.open();
         Cursor c=table.readAll();
         c.moveToFirst();
-        int a = 0;
-        String[] columns = new String[] {table.KEY_NAME,table.KEY_BG,table.KEY_DATE};
-        int[] to = new int[]{R.id.set_name,R.id.set_bg,a};
-        MySimpleArrayAdapter new_adapter= new MySimpleArrayAdapter(ViewBlood.this,c,columns,to,0,);
+        String[] columns = new String[] {table.KEY_NAME,table.KEY_BG};
+        int[] to = new int[]{R.id.set_name,R.id.set_bg};
         adapter = new SimpleCursorAdapter(ViewBlood.this,R.layout.listviewlayout,c,columns,to,0);
         data.setAdapter(adapter);
+
         table.close();
     }
 
