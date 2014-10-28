@@ -190,6 +190,7 @@ public class Home extends Activity {
         if (id == R.id.action_logout){
             SharedPreferences.Editor editor = getSharedPreferences("Preferences", MODE_PRIVATE).edit();
             editor.putInt("Logged_in",0);
+            editor.putInt(getResources().getString(R.string.pref_is_admin),0);
             editor.commit();
             Intent logout =new Intent (Home.this,Home.class);
             startActivity(logout);
