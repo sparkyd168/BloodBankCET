@@ -210,9 +210,8 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
                                         vi.open();
                                         vi.deleteId(delid);
                                         vi.close();
-                                        Intent i = new Intent(getApplicationContext(), ViewBlood.class);
-                                        startActivity(i);
-                                        finish();
+                                        dialog.cancel();
+
 
                                     }
                                 })

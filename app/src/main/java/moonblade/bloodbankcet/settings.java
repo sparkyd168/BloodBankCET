@@ -12,9 +12,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class settings extends Activity {
-int logged_in = 0,month_saved;
+    int logged_in = 0,month_saved;
     Button save,cancel;
     EditText months;
+    private int safe_months=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,16 +44,22 @@ int logged_in = 0,month_saved;
             @Override
             public void onClick(View v) {
                 int flag=0;
-                int safe_months=Integer.parseInt(months.getText().toString());
-                if(safe_months>=2) {
+                if(!months.getText().toString().isEmpty()) {
+                    safe_months = Integer.parseInt(months.getText().toString());
+                }
+                if(!months.getText().toString().isEmpty()&&safe_months>=2) {
                     SharedPreferences.Editor editor = getSharedPreferences("Preferences", MODE_PRIVATE).edit();
                     editor.putInt(String.valueOf(R.string.pref_months), safe_months);
                     editor.commit();
                     flag=0;
-                }else{
+                }else if(months.getText().toString().isEmpty()) {
+                    
+                }
+                else{
                     Toast.makeText(settings.this,"Minimum Number of months is 2",Toast.LENGTH_SHORT).show();
                     flag=1;
                 }
+
                 if(flag==0){
                     finish();
                 }

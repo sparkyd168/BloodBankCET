@@ -106,13 +106,19 @@ public class editEntry extends Activity {
                 sqldb add = new sqldb(editEntry.this);
                 add.open();
 
-                add.updateData(Long.parseLong(id), namea, bg, branc, mob, hostel,millisec);
-                add.close();
-                Toast.makeText(getApplicationContext(), "Edit Successfull", Toast.LENGTH_SHORT).show();
-                Intent i=new Intent(editEntry.this,ViewBlood.class);
-                startActivity(i);
-                finish();
-            }
+                if(name.isEmpty()||branc.isEmpty()||mob.isEmpty()||hostel.isEmpty()){
+                    Toast.makeText(getApplicationContext(), "Please fill the Entries", Toast.LENGTH_SHORT).show();
+                }else if(mob.length()<10) {
+                    Toast.makeText(getApplicationContext(), "Not a valid phone number", Toast.LENGTH_SHORT).show();
+                }else{
+                        add.updateData(Long.parseLong(id), namea, bg, branc, mob, hostel,millisec);
+                        add.close();
+                        Toast.makeText(getApplicationContext(), "Edit Successfull", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                }
+
+
         });
     }
 

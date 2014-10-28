@@ -6,6 +6,7 @@
     <string name="action_settings">Settings</string>
     <string name="action_login">Login</string>
     <string name="action_logout">Logout</string>
+    <string name="action_sign_up">Sign up</string>
     <string name="title_activity_login_page">Login</string>
     <string name="title_activity_sqltest">sqltest</string>
     <string name="title_activity_sqlview">sqlview</string>
@@ -16,6 +17,9 @@
     <string name="choose_blood">Blood Group</string>
     <string name="number_of_months">Months b/w Donation</string>
     <string name="pref_months">number_of_months</string>
+    <string name="pref_user_name">Username</string>
+    <string name="pref_pass_word">Password</string>
+    <string name="pref_is_user">User_exist</string>
 
     <string name="donation_date">Last Donation</string>
     <string name="title_activity_view_blood">DATABASE</string>

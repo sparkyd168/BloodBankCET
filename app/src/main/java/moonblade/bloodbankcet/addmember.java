@@ -76,15 +76,18 @@ public class addmember extends Activity {
                 SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yy");
 
 //                Toast.makeText(addmember.this,df2.format(dAte),Toast.LENGTH_SHORT).show();
+                if(name.isEmpty()||clas.isEmpty()||mob.isEmpty()||hostel.isEmpty()){
+                    Toast.makeText(getApplicationContext(), "Please fill the Entries", Toast.LENGTH_SHORT).show();
+                }else if(mob.length()<10) {
+                    Toast.makeText(getApplicationContext(), "Not a valid phone number", Toast.LENGTH_SHORT).show();
+                }else{
+                    add.open();
+                    add.addData(name, bg, clas, mob, hostel,millisec);
+                    add.close();
+                    Toast.makeText(getApplicationContext(), "Entry Successful", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
 
-                add.open();
-                add.addData(name, bg, clas, mob, hostel,millisec);
-                add.close();
-                Toast.makeText(getApplicationContext(), "Entry Successfull", Toast.LENGTH_SHORT).show();
-                Intent i=new Intent(addmember.this,Home.class);
-                i.putExtra("logged",1);
-                startActivity(i);
-                finish();
             }
         });
     }

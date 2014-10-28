@@ -36,15 +36,28 @@
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
         android:layout_alignParentEnd="true" />
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_below="@+id/password"
+    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+    android:layout_marginRight="@dimen/activity_horizontal_margin"
+    android:layout_marginTop="@dimen/activity_vertical_margin">
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/myloginbutton"
+        android:text="@string/action_login"
         android:id="@+id/button_login"
-        android:layout_marginTop="50dp"
         android:layout_below="@+id/password"
-        android:layout_centerHorizontal="true" />
-
-
+        android:layout_weight="0.5" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/action_sign_up"
+        android:id="@+id/button_sign_up"
+        android:visibility="gone"
+        android:layout_below="@+id/password"
+        android:layout_weight="0.5" />
+</LinearLayout>
 </RelativeLayout>
