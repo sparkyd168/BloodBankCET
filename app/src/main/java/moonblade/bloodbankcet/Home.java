@@ -136,24 +136,8 @@ public class Home extends Activity {
             finish();
         }
         if (id == R.id.action_export) {
-            try {
-                CSVWriter writer = new CSVWriter(new FileWriter("filename"), '\t');
-                sqldb rs=new sqldb(Home.this);
-                rs.open();
-                java.sql.ResultSet myResultSet = (java.sql.ResultSet) (java.sql.ResultSet) rs.readAll();
-                rs.close();
-                writer.writeAll(myResultSet,true);
-            } catch (FileNotFoundException e) {
-//                Toast.makeText(Home.this,"ERROR1",Toast.LENGTH_SHORT).show();
+//            csv_wtf();
 
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-                Toast.makeText(Home.this,"ERROR2",Toast.LENGTH_SHORT).show();
-            } catch (SQLException e) {
-                e.printStackTrace();
-                Toast.makeText(Home.this,"ERROR3",Toast.LENGTH_SHORT).show();
-            }
 
 
             return  true;
@@ -170,5 +154,28 @@ public class Home extends Activity {
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void csv_wtf() {
+        try {
+            CSVWriter writer = new CSVWriter(new FileWriter("filename"), '\t');
+            sqldb rs=new sqldb(Home.this);
+            rs.open();
+            java.sql.ResultSet myResultSet = rs.getresultset();
+            rs.close();
+            writer.writeAll(myResultSet,true);
+        } catch (FileNotFoundException e) {
+                Toast.makeText(Home.this,"ERROR1",Toast.LENGTH_SHORT).show();
+
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(Home.this,"ERROR2",Toast.LENGTH_SHORT).show();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Toast.makeText(Home.this,"ERROR3",Toast.LENGTH_SHORT).show();
+        }catch(Exception e){
+            Toast.makeText(Home.this,"ERROR4",Toast.LENGTH_SHORT).show();
+        }
     }
 }

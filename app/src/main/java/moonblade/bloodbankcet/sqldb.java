@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 
@@ -152,6 +153,12 @@ public class sqldb{
         return i;
     }
 
+    public ResultSet getresultset(){
+        ResultSet resultSet= (ResultSet) ourdb.query(DB_TABLE,new String[]{KEY_ROWID,KEY_NAME,KEY_BG,KEY_BRANCH,KEY_PHONE,KEY_HOSTEL,KEY_DATE},null,null,null,null,null);
+//        if (resultSet!=null)
+//            resultSet.moveToFirst();
+        return resultSet;
+    }
     public int get_row_count(){
         String countQuery = "SELECT  * FROM " + DB_TABLE;
         Cursor cursor = ourdb.rawQuery(countQuery, null);
