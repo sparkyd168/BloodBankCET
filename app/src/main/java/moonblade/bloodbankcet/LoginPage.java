@@ -2,6 +2,7 @@ package moonblade.bloodbankcet;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -41,8 +42,12 @@ public class LoginPage extends Activity {
                 }
 
                 if(log==1){
+                    SharedPreferences.Editor editor = getSharedPreferences("Preferences", MODE_PRIVATE).edit();
+                    editor.putInt("Logged_in",log);
+                    editor.commit();
+
+
                     Intent logged_in=new Intent(LoginPage.this,Home.class);
-                    logged_in.putExtra("logged",log);
                     startActivity(logged_in);
                     finish();
 

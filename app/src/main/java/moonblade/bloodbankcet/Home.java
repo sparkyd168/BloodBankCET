@@ -2,6 +2,7 @@ package moonblade.bloodbankcet;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,7 +22,10 @@ int logged_in=0;
         try{
             Intent logged = this.getIntent();
             if (logged!=null){
-                logged_in=getIntent().getExtras().getInt("logged");
+//                logged_in=getIntent().getExtras().getInt("logged");
+
+                SharedPreferences prefs = getSharedPreferences("Preferences", MODE_PRIVATE);
+                logged_in=prefs.getInt("Logged_in", 0);
             }
         }
         catch (Exception e){
@@ -122,8 +126,10 @@ int logged_in=0;
             finish();
         }
         if (id == R.id.action_logout){
+            SharedPreferences.Editor editor = getSharedPreferences("Preferences", MODE_PRIVATE).edit();
+            editor.putInt("Logged_in",0);
+            editor.commit();
             Intent logout =new Intent (Home.this,Home.class);
-            logout.putExtra("logged",0);
             startActivity(logout);
             finish();
         }

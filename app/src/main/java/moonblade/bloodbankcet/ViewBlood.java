@@ -8,6 +8,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
@@ -51,7 +52,7 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
     ArrayAdapter<String> blood_adapter;
     private int curday,curmon,curyear;
     private long totdays;
-    private int number_of_months=3;
+    private int number_of_months;
     int long_clicked=0;
     int logged_in=0;
     Spinner spinner_blood;
@@ -65,7 +66,9 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
         try{
             Intent logged = this.getIntent();
             if (logged!=null){
-                logged_in=getIntent().getExtras().getInt("logged");
+                SharedPreferences prefs = getSharedPreferences("Preferences", MODE_PRIVATE);
+                logged_in=prefs.getInt("Logged_in", 0);
+                number_of_months=prefs.getInt("number_of_months",3);
             }
         }
         catch (Exception e){
@@ -73,13 +76,13 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
         }
 
         initialise_adapter();
-
+        setcurrentdate();
         String[] blood_groups = getResources().getStringArray(R.array.bloodgroups);
         ArrayAdapter adapter=new ArrayAdapter<String>(this, R.layout.blood_item, R.id.label, blood_groups);
 
         final ListView data =(ListView)findViewById(R.id.lvdata);
         getdatanone(data);
-        update_red_green(data);
+//        update_red_green(data);
 
 
         data.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -95,7 +98,7 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
                 TextView mob = (TextView) dialog.findViewById(R.id.tvdiagmob);
                 TextView hos = (TextView) dialog.findViewById(R.id.tvdiaghostel);
                 TextView dat = (TextView) dialog.findViewById(R.id.tvdiagdate);
-//             green=(ImageView)findViewById(R.id.green);
+                ImageView indicator=(ImageView)dialog.findViewById(R.id.indicator);
 
 
                 namea.setText(cursor.getString(cursor.getColumnIndexOrThrow("_name")));
@@ -111,13 +114,15 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
                 final Button callbutton = (Button) dialog.findViewById(R.id.bdiagcall);
 
                 Date date = new Date(val);
-//             int day=date.getDay();
-//             int month=date.getMonth();
-//             int year=date.getYear();
-//             int total=year*365+month*30+day;
-//             if(totdays-total<(30*number_of_months)){
-//                 green.setVisibility(View.INVISIBLE);
-//             }
+                int day=date.getDate();
+                int month=date.getMonth();
+                int year=date.getYear();
+                int total=year*365+month*30+day;
+             if(totdays-total<(30*number_of_months)){
+                 indicator.setImageResource(R.drawable.red);
+             }else{
+                 indicator.setImageResource(R.drawable.green);
+             }
                 SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yy");
                 dat.setText(df2.format(date));
                 dbitton.setOnClickListener(new View.OnClickListener() {
@@ -206,7 +211,6 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
                                         vi.deleteId(delid);
                                         vi.close();
                                         Intent i = new Intent(getApplicationContext(), ViewBlood.class);
-                                        i.putExtra("logged",1);
                                         startActivity(i);
                                         finish();
 
@@ -259,7 +263,7 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
         Toast.makeText(ViewBlood.this,""+data.getChildCount(),Toast.LENGTH_SHORT).show();
         for(int datai=firstPosition;datai<size;datai++){
 
-                final Cursor cursor = (Cursor) data.getItemAtPosition(datai);
+            final Cursor cursor = (Cursor) data.getItemAtPosition(datai);
 //    //            View wantedView = data.getChildAt(datai);
 //
 //                int wantedPosition = datai; // Whatever position you're looking for

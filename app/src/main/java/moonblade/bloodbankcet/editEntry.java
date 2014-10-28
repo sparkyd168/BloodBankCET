@@ -110,7 +110,6 @@ public class editEntry extends Activity {
                 add.close();
                 Toast.makeText(getApplicationContext(), "Edit Successfull", Toast.LENGTH_SHORT).show();
                 Intent i=new Intent(editEntry.this,ViewBlood.class);
-                i.putExtra("logged",1);
                 startActivity(i);
                 finish();
             }

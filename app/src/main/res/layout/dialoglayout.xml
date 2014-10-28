@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:text="Name :"
         android:id="@+id/tvdname"
-        android:layout_marginLeft="86dp"
+        android:layout_marginLeft="80dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:text="New Text"
         android:id="@+id/tvdiagname"
-        android:layout_marginLeft="71dp"
+        android:layout_marginLeft="50dp"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/tvdname" />
 
@@ -109,6 +109,14 @@
         android:layout_alignLeft="@+id/tvdiagmob"
         android:layout_alignStart="@+id/tvdiagmob" />
 
+    <ImageView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/indicator"
+    android:visibility="visible"
+    android:layout_alignParentLeft="true"
+    android:layout_marginTop="@dimen/activity_vertical_margin"
+    android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
 
 
     <View
