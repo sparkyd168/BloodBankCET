@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET"/>
+    <!--<meta-data android:name="com.google.android.backup.api_key" android:value="AEdPqrEAAAAINN2Sc3dKrJi8QqsPm6NFAF6S091NC6PNChwjUg" />-->
 
     <application
         android:allowBackup="true"
