@@ -36,17 +36,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/green"
-        android:src="@drawable/green"
-        android:visibility="visible"
-        android:layout_alignParentLeft="true"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/red"
-        android:src="@drawable/red"
         android:visibility="invisible"
         android:layout_alignParentLeft="true"
         android:layout_marginTop="@dimen/activity_vertical_margin"
