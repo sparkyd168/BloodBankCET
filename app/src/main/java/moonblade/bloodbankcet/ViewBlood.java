@@ -68,7 +68,7 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
             if (logged!=null){
                 SharedPreferences prefs = getSharedPreferences("Preferences", MODE_PRIVATE);
                 logged_in=prefs.getInt("Logged_in", 0);
-                number_of_months=prefs.getInt("number_of_months",3);
+                number_of_months=prefs.getInt(String.valueOf(R.string.pref_months),3);
             }
         }
         catch (Exception e){

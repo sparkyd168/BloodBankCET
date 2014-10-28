@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class settings extends Activity {
-int logged_in = 0;
+int logged_in = 0,month_saved;
     Button save,cancel;
     EditText months;
     @Override
@@ -29,10 +29,12 @@ int logged_in = 0;
             if (logged != null) {
                 SharedPreferences prefs = getSharedPreferences("Preferences", MODE_PRIVATE);
                 logged_in=prefs.getInt("Logged_in", 0);
+                month_saved=prefs.getInt(String.valueOf(R.string.pref_months),3);
             }
         } catch (Exception e) {
 
         }
+        months.setHint(getResources().getString(R.string.number_of_months)+",cur : "+month_saved);
 
         if (logged_in == 1)
             invalidateOptionsMenu();
@@ -40,16 +42,20 @@ int logged_in = 0;
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                int flag=0;
                 int safe_months=Integer.parseInt(months.getText().toString());
-                if(safe_months>2) {
+                if(safe_months>=2) {
                     SharedPreferences.Editor editor = getSharedPreferences("Preferences", MODE_PRIVATE).edit();
                     editor.putInt(String.valueOf(R.string.pref_months), safe_months);
                     editor.commit();
+                    flag=0;
                 }else{
-                    Toast.makeText(settings.this,"Minimum Value is two")
+                    Toast.makeText(settings.this,"Minimum Number of months is 2",Toast.LENGTH_SHORT).show();
+                    flag=1;
                 }
-
+                if(flag==0){
+                    finish();
+                }
             }
         });
 
