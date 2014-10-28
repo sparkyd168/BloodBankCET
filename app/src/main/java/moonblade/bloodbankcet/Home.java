@@ -11,7 +11,7 @@ import android.widget.Button;
 
 
 public class Home extends Activity {
-int logged_in=0;
+private int logged_in=0,is_admin=0;
     Button sql,viewblood,add;
     View seperatorview,seperatoradd;
     @Override
@@ -22,10 +22,9 @@ int logged_in=0;
         try{
             Intent logged = this.getIntent();
             if (logged!=null){
-//                logged_in=getIntent().getExtras().getInt("logged");
-
                 SharedPreferences prefs = getSharedPreferences("Preferences", MODE_PRIVATE);
                 logged_in=prefs.getInt("Logged_in", 0);
+                is_admin=prefs.getInt(getResources().getString(R.string.pref_is_admin), 0);
             }
         }
         catch (Exception e){
