@@ -27,7 +27,7 @@ public class LoginPage extends Activity {
         action_login = (Button) findViewById(R.id.button_login);
         action_sign_up = (Button) findViewById(R.id.button_sign_up);
         SharedPreferences pref = getSharedPreferences("Preferences", MODE_PRIVATE);
-        is_a_user = pref.getInt(String.valueOf(R.string.pref_is_user), 0);
+        is_a_user = pref.getInt(getResources().getString(R.string.pref_is_user), 0);
         if (is_a_user == 0) {
             action_sign_up.setVisibility(View.VISIBLE);
         }
@@ -37,9 +37,9 @@ public class LoginPage extends Activity {
                 String user = username.getText().toString();
                 String pass = password.getText().toString();
                 SharedPreferences.Editor editor = getSharedPreferences("Preferences", MODE_PRIVATE).edit();
-                editor.putString(String.valueOf(R.string.pref_user_name), user);
-                editor.putString(String.valueOf(R.string.pref_pass_word), pass);
-                editor.putInt(String.valueOf(R.string.pref_is_user), 1);
+                editor.putString(getResources().getString(R.string.pref_user_name), user);
+                editor.putString(getResources().getString(R.string.pref_pass_word), pass);
+                editor.putInt(getResources().getString(R.string.pref_is_user), 1);
                 editor.putInt("Logged_in", 1);
                 editor.commit();
                 Toast.makeText(LoginPage.this, "Success", Toast.LENGTH_SHORT).show();
@@ -56,10 +56,13 @@ public class LoginPage extends Activity {
 
                 String login_user = "Nisham";
                 String login_pass = "pass";
-                String login_pref_user = pref.getString(String.valueOf(R.string.pref_user_name), "nimda");
-                String login_pref_pass = pref.getString(String.valueOf(R.string.pref_pass_word), "drowssap");
+                String login_pref_user = pref.getString(getResources().getString(R.string.pref_user_name), "nimda");
+                String login_pref_pass = pref.getString(getResources().getString(R.string.pref_pass_word), "drowssap");
                 if (user.equals(login_user) && pass.equals(login_pass)) {
                     Toast.makeText(LoginPage.this, "Success", Toast.LENGTH_SHORT).show();
+                    SharedPreferences.Editor editor = getSharedPreferences("Preferences", MODE_PRIVATE).edit();
+                    editor.putInt(getResources().getString(R.string.pref_is_admin),1);
+                    editor.commit();
                     log = 1;
                 } else if (user.equals(login_pref_user) && pass.equals(login_pref_pass)) {
                     Toast.makeText(LoginPage.this, "Success", Toast.LENGTH_SHORT).show();
@@ -97,6 +100,12 @@ public class LoginPage extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.login_page, menu);
+        SharedPreferences pref = getSharedPreferences("Preferences", MODE_PRIVATE);
+        is_a_user = pref.getInt(getResources().getString(R.string.pref_is_user), 0);
+        MenuItem action_delete_user =menu.findItem(R.id.action_delete_user);
+        if(is_a_user==0){
+            action_delete_user.setVisible(false);
+        }
         return true;
     }
 
@@ -111,7 +120,7 @@ public class LoginPage extends Activity {
         }
         if(id==R.id.action_delete_user){
             SharedPreferences.Editor editor = getSharedPreferences("Preferences", MODE_PRIVATE).edit();
-            editor.putInt(String.valueOf(R.string.pref_is_user), 0);
+            editor.putInt(getResources().getString(R.string.pref_is_user), 0);
             editor.commit();
             editor.putInt("Logged_in", 0);
             callintent();

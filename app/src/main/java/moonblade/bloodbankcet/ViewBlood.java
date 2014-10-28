@@ -54,7 +54,7 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
     private long totdays;
     private int number_of_months;
     int long_clicked=0;
-    int logged_in=0;
+    private int logged_in=0,is_admin=0;
     Spinner spinner_blood;
     ImageView green,red;
     private CursorAdapter adapter;
@@ -68,7 +68,8 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
             if (logged!=null){
                 SharedPreferences prefs = getSharedPreferences("Preferences", MODE_PRIVATE);
                 logged_in=prefs.getInt("Logged_in", 0);
-                number_of_months=prefs.getInt(String.valueOf(R.string.pref_months),3);
+                is_admin=prefs.getInt(getResources().getString(R.string.pref_is_admin), 0);
+                number_of_months=prefs.getInt(getResources().getString(R.string.pref_months),3);
             }
         }
         catch (Exception e){
@@ -228,7 +229,7 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
                         alertDialog.show();
                     }
                 });
-                if(logged_in==1)
+                if(is_admin==1)
                     dialog.show();
                 return false;
             }

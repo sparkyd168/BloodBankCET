@@ -30,7 +30,7 @@ public class settings extends Activity {
             if (logged != null) {
                 SharedPreferences prefs = getSharedPreferences("Preferences", MODE_PRIVATE);
                 logged_in=prefs.getInt("Logged_in", 0);
-                month_saved=prefs.getInt(String.valueOf(R.string.pref_months),3);
+                month_saved=prefs.getInt(getResources().getString(R.string.pref_months),3);
             }
         } catch (Exception e) {
 
@@ -49,7 +49,7 @@ public class settings extends Activity {
                 }
                 if(!months.getText().toString().isEmpty()&&safe_months>=2) {
                     SharedPreferences.Editor editor = getSharedPreferences("Preferences", MODE_PRIVATE).edit();
-                    editor.putInt(String.valueOf(R.string.pref_months), safe_months);
+                    editor.putInt(getResources().getString(R.string.pref_months), safe_months);
                     editor.commit();
                     flag=0;
                 }else if(months.getText().toString().isEmpty()) {
