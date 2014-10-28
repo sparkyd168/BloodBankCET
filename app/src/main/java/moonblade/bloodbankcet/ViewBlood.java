@@ -80,7 +80,7 @@ public class ViewBlood extends ListActivity implements AdapterView.OnItemSelecte
 
         final ListView data =(ListView)findViewById(R.id.lvdata);
         getdatanone(data);
-//        update_red_green(data);
+        update_red_green(data);
 
 
         data.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -319,9 +319,10 @@ public class ViewBlood extends ListActivity implements AdapterView.OnItemSelecte
         table.open();
         Cursor c=table.readAll();
         c.moveToFirst();
-        String[] columns = new String[] {table.KEY_NAME,table.KEY_BG};
-        int[] to = new int[]{R.id.set_name,R.id.set_bg};
-//        MySimpleArrayAdapter new_adapter= new MySimpleArrayAdapter(ViewBlood.this,c,columns,to,0,);
+        int a = 0;
+        String[] columns = new String[] {table.KEY_NAME,table.KEY_BG,table.KEY_DATE};
+        int[] to = new int[]{R.id.set_name,R.id.set_bg,a};
+        MySimpleArrayAdapter new_adapter= new MySimpleArrayAdapter(ViewBlood.this,c,columns,to,0,);
         adapter = new SimpleCursorAdapter(ViewBlood.this,R.layout.listviewlayout,c,columns,to,0);
         data.setAdapter(adapter);
         table.close();
