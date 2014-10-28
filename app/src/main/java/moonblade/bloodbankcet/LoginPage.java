@@ -109,6 +109,13 @@ public class LoginPage extends Activity {
         if (id == R.id.action_settings) {
             Toast.makeText(LoginPage.this, "Not implemented yet", Toast.LENGTH_SHORT).show();
         }
+        if(id==R.id.action_delete_user){
+            SharedPreferences.Editor editor = getSharedPreferences("Preferences", MODE_PRIVATE).edit();
+            editor.putInt(String.valueOf(R.string.pref_is_user), 0);
+            editor.commit();
+            editor.putInt("Logged_in", 0);
+            callintent();
+        }
         return super.onOptionsItemSelected(item);
     }
 

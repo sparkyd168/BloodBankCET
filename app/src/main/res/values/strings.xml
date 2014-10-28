@@ -26,7 +26,10 @@
     <string name="title_activity_addmember">Add Entry</string>
     <string name="title_activity_edit_entry">Edit Entry</string>
     <string name="blood_group_spinner_title">Select Blood Group</string>
-    <integer name="default_safe_months">3</integer>
+
+    <string name="action_delete_user">Delete Account</string>
+
+
 
     <string-array name="blood_groups">
         <!--<item>All</item>-->

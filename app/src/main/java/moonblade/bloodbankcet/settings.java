@@ -53,7 +53,7 @@ public class settings extends Activity {
                     editor.commit();
                     flag=0;
                 }else if(months.getText().toString().isEmpty()) {
-                    
+
                 }
                 else{
                     Toast.makeText(settings.this,"Minimum Number of months is 2",Toast.LENGTH_SHORT).show();
