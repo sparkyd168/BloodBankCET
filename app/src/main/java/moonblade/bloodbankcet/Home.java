@@ -8,10 +8,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.sql.SQLException;
+
+import au.com.bytecode.opencsv.CSVReader;
+import au.com.bytecode.opencsv.CSVWriter;
 
 
 public class Home extends Activity {
-private int logged_in=0,is_admin=0;
+    private int logged_in=0,is_admin=0;
     Button sql,viewblood,add;
     View seperatorview,seperatoradd;
     @Override
@@ -98,9 +108,10 @@ private int logged_in=0,is_admin=0;
 
             MenuItem logout=menu.findItem(R.id.action_logout);
             logout.setVisible(false);
-//            MenuItem admin=menu.findItem(R.id.action_admin);
-//            admin.setVisible(false);
-
+        }
+        if(is_admin==0){
+            MenuItem export=menu.findItem(R.id.action_export);
+            export.setVisible(false);
         }
 
         return true;
@@ -123,6 +134,32 @@ private int logged_in=0,is_admin=0;
             Intent login =new Intent(Home.this,LoginPage.class);
             startActivity(login);
             finish();
+        }
+        if (id == R.id.action_export) {
+            try {
+                CSVWriter writer = new CSVWriter(new FileWriter("filename"), '\t');
+                sqldb rs=new sqldb(Home.this);
+                rs.open();
+                java.sql.ResultSet myResultSet = (java.sql.ResultSet) (java.sql.ResultSet) rs.readAll();
+                rs.close();
+                writer.writeAll(myResultSet,true);
+            } catch (FileNotFoundException e) {
+//                Toast.makeText(Home.this,"ERROR1",Toast.LENGTH_SHORT).show();
+
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(Home.this,"ERROR2",Toast.LENGTH_SHORT).show();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                Toast.makeText(Home.this,"ERROR3",Toast.LENGTH_SHORT).show();
+            }
+
+
+            return  true;
+        }
+        if (id == R.id.action_import) {
+            return true;
         }
         if (id == R.id.action_logout){
             SharedPreferences.Editor editor = getSharedPreferences("Preferences", MODE_PRIVATE).edit();

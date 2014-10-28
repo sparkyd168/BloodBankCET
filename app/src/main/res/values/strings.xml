@@ -3,10 +3,7 @@
 
     <string name="app_name">Blood Bank CET</string>
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-    <string name="action_login">Login</string>
-    <string name="action_logout">Logout</string>
-    <string name="action_sign_up">Sign up</string>
+
     <string name="title_activity_login_page">Login</string>
     <string name="title_activity_sqltest">sqltest</string>
     <string name="title_activity_sqlview">sqlview</string>
@@ -30,7 +27,15 @@
     <string name="title_activity_edit_entry">Edit Entry</string>
     <string name="blood_group_spinner_title">Select Blood Group</string>
 
+    <string name="button_sign_up">Sign up</string>
+
+
     <string name="action_delete_user">Delete Account</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_login">Login</string>
+    <string name="action_logout">Logout</string>
+    <string name="action_export">Export</string>
+    <string name="action_import">Import</string>
 
 
 
