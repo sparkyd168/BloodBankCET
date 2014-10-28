@@ -3,17 +3,24 @@ package moonblade.bloodbankcet;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.channels.FileChannel;
 import java.sql.SQLException;
 
 import au.com.bytecode.opencsv.CSVReader;
@@ -24,6 +31,8 @@ public class Home extends Activity {
     private int logged_in=0,is_admin=0;
     Button sql,viewblood,add;
     View seperatorview,seperatoradd;
+    private static final int FILE_SELECT_CODE = 0;
+    private String path;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,7 +116,9 @@ public class Home extends Activity {
         if (logged_in==0) {
 
             MenuItem logout=menu.findItem(R.id.action_logout);
+            MenuItem menu_import=menu.findItem(R.id.action_import);
             logout.setVisible(false);
+            menu_import.setVisible(false);
         }
         if(is_admin==0){
             MenuItem export=menu.findItem(R.id.action_export);
@@ -137,13 +148,44 @@ public class Home extends Activity {
         }
         if (id == R.id.action_export) {
 //            csv_wtf();
-
+            File sd = Environment.getExternalStorageDirectory();
+            File data = Environment.getDataDirectory();
+            FileChannel source=null;
+            FileChannel destination=null;
+            String currentDBPath = "/data/"+ "moonblade.bloodbankcet" +"/databases/"+"_bdb";
+            String backupDBPath = "_bdb";
+            File currentDB = new File(data, currentDBPath);
+            File backupDB = new File(sd, backupDBPath);
+            try {
+                source = new FileInputStream(currentDB).getChannel();
+                destination = new FileOutputStream(backupDB).getChannel();
+                destination.transferFrom(source, 0, source.size());
+                source.close();
+                destination.close();
+                Toast.makeText(Home.this, "DataBase Exported!", Toast.LENGTH_LONG).show();
+            } catch(IOException e) {
+                Toast.makeText(Home.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+            }
 
 
             return  true;
         }
         if (id == R.id.action_import) {
-            return true;
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("*/*");
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+
+            try {
+                startActivityForResult(
+                        Intent.createChooser(intent, "Select a Database File"),
+                        FILE_SELECT_CODE);
+            } catch (android.content.ActivityNotFoundException ex) {
+                // Potentially direct the user to the Market with a Dialog
+                Toast.makeText(Home.this, "Please install a File Manager.",
+                        Toast.LENGTH_SHORT).show();
+                return true;
+            }
         }
         if (id == R.id.action_logout){
             SharedPreferences.Editor editor = getSharedPreferences("Preferences", MODE_PRIVATE).edit();
@@ -154,6 +196,53 @@ public class Home extends Activity {
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case FILE_SELECT_CODE:
+                if (resultCode == RESULT_OK) {
+                    // Get the Uri of the selected file
+                    Uri uri = data.getData();
+                    //Log.d(TAG, "File Uri: " + uri.toString());
+                    // Get the path
+                    try {
+                        path = FileUtils.getPath(this, uri);
+                        String DB_FILEPATH =Environment.getDataDirectory()+"/data/"+ "moonblade.bloodbankcet" +"/databases/"+"_bdb";
+                        // Close the SQLiteOpenHelper so it will commit the created empty
+                        // database to internal storage.
+                        sqldb db = new sqldb(Home.this);
+                        db.open();
+                        db.close();
+                        File newDb = new File(path);
+                        File oldDb = new File(DB_FILEPATH);
+                        if (newDb.exists()) {
+                            try {
+                                FileUtils.copyFile(new FileInputStream(newDb), new FileOutputStream(oldDb));
+                            } catch (IOException e) {
+                                Toast.makeText(Home.this, e.getMessage(),
+                                        Toast.LENGTH_SHORT).show();
+                                e.printStackTrace();
+                            }
+                            // Access the copied database so SQLiteHelper will cache it and mark
+                            // it as created.
+                            db.open();
+                            db.close();
+                        }
+
+                        Toast.makeText(Home.this, "DB Imported!",
+                                Toast.LENGTH_SHORT).show();
+                    } catch (URISyntaxException e) {
+                        e.printStackTrace();
+                    }
+                    //Log.d(TAG, "File Path: " + path);
+                    // Get the file instance
+                    // File file = new File(path);
+                    // Initiate the upload
+                }
+                break;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void csv_wtf() {
