@@ -40,7 +40,7 @@ class MySimpleArrayAdapter extends ArrayAdapter<String> {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         setcurrentdate();
         View rowView = inflater.inflate(R.layout.listviewlayout, parent, false);
-        ImageView imageView = (ImageView) rowView.findViewById(R.id.green);
+        ImageView imageView = (ImageView) rowView.findViewById(R.id.red);
 
         for(int i=0;!columns[i].isEmpty();i++){
             
