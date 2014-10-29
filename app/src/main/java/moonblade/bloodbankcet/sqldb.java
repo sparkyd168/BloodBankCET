@@ -27,8 +27,14 @@ public class sqldb{
     public static final String KEY_DATE="_date";
 
 
-    private static final String DB_NAME = "_bdb";
+    public static final String KEY_ADMINID="_adminid";
+    public static final String KEY_USERNAME="_username";
+    public static final String KEY_PASSWORD="_password";
+
+
+    private static final String DB_NAME = "_database";
     private static final String DB_TABLE = "_blood_table";
+    private static final String DB_ADMIN_TABLE= "_admin_table";
     private static final int DB_VERSION = 3;
 
     private dbhelper ourhelper;
@@ -49,6 +55,7 @@ public class sqldb{
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
             db.execSQL("DROP TABLE IF EXISTS " + DB_TABLE);
+            db.execSQL("DROP TABLE IF EXISTS " + DB_ADMIN_TABLE);
             onCreate(db);
         }
 
@@ -62,6 +69,11 @@ public class sqldb{
                             KEY_PHONE +  " TEXT NOT NULL, " +
                             KEY_HOSTEL + " TEXT NOT NULL, " +
                             KEY_DATE +   " INTEGER);"
+            );
+            db.execSQL("CREATE TABLE " + DB_ADMIN_TABLE + " (" +
+                            KEY_ROWID +  " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                            KEY_USERNAME +   " TEXT NOT NULL, " +
+                            KEY_PASSWORD +   " TEXT NOT NULL);"
             );
         }
 
