@@ -29,7 +29,7 @@ import au.com.bytecode.opencsv.CSVWriter;
 
 public class Home extends Activity {
     private int logged_in=0,is_admin=0;
-    Button sql,viewblood,add;
+    Button viewblood,add;
     View seperatorview,seperatoradd;
     private static final int FILE_SELECT_CODE = 0;
     private String path;
@@ -55,11 +55,8 @@ public class Home extends Activity {
 
         add=(Button)findViewById(R.id.add);
         viewblood=(Button)findViewById(R.id.viewblood);
-        sql=(Button)findViewById(R.id.sql);
         seperatoradd=(View)findViewById(R.id.seperatoradd);
         seperatorview=(View)findViewById(R.id.seperatorview);
-
-        sql.setVisibility(View.INVISIBLE);
         seperatoradd.setVisibility(View.INVISIBLE);
 
         if(logged_in==0){
@@ -83,14 +80,6 @@ public class Home extends Activity {
                 Intent view=new Intent(Home.this,ViewBlood.class);
                 view.putExtra("logged",logged_in);
                 startActivity(view);
-            }
-        });
-        sql.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent sqlite=new Intent(Home.this,sqltest.class);
-                startActivity(sqlite);
-
             }
         });
 
@@ -255,7 +244,7 @@ public class Home extends Activity {
             rs.close();
             writer.writeAll(myResultSet,true);
         } catch (FileNotFoundException e) {
-                Toast.makeText(Home.this,"ERROR1",Toast.LENGTH_SHORT).show();
+            Toast.makeText(Home.this,"ERROR1",Toast.LENGTH_SHORT).show();
 
             e.printStackTrace();
         } catch (IOException e) {

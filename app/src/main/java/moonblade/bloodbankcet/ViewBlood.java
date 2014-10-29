@@ -119,11 +119,11 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
                 int month=date.getMonth();
                 int year=date.getYear();
                 int total=year*365+month*30+day;
-             if(totdays-total<(30*number_of_months)){
-                 indicator.setImageResource(R.drawable.red);
-             }else{
-                 indicator.setImageResource(R.drawable.green);
-             }
+                if(totdays-total<(30*number_of_months)){
+                    indicator.setImageResource(R.drawable.red);
+                }else{
+                    indicator.setImageResource(R.drawable.green);
+                }
                 SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yy");
                 dat.setText(df2.format(date));
                 dbitton.setOnClickListener(new View.OnClickListener() {
