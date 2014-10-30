@@ -16,7 +16,7 @@ import moonblade.bloodbankcet.R;
 public class LoginPage extends Activity {
     EditText username, password;
     Button action_login, action_sign_up;
-    private int is_a_user;
+    private boolean is_a_user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,23 +27,27 @@ public class LoginPage extends Activity {
         action_login = (Button) findViewById(R.id.button_login);
         action_sign_up = (Button) findViewById(R.id.button_sign_up);
         SharedPreferences pref = getSharedPreferences("Preferences", MODE_PRIVATE);
-        is_a_user = pref.getInt(getResources().getString(R.string.pref_is_user), 0);
-        if (is_a_user == 0) {
+        is_a_user = pref.getBoolean(getResources().getString(R.string.pref_is_user), false);
+        if (is_a_user == false) {
             action_sign_up.setVisibility(View.VISIBLE);
         }
         action_sign_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String user = username.getText().toString();
-                String pass = password.getText().toString();
-                SharedPreferences.Editor editor = getSharedPreferences("Preferences", MODE_PRIVATE).edit();
-                editor.putString(getResources().getString(R.string.pref_user_name), user);
-                editor.putString(getResources().getString(R.string.pref_pass_word), pass);
-                editor.putInt(getResources().getString(R.string.pref_is_user), 1);
-                editor.putInt("Logged_in", 1);
-                editor.commit();
-                Toast.makeText(LoginPage.this, "Success", Toast.LENGTH_SHORT).show();
-                callintent();
+//                String user = username.getText().toString();
+//                String pass = password.getText().toString();
+//                SharedPreferences.Editor editor = getSharedPreferences("Preferences", MODE_PRIVATE).edit();
+//                editor.putString(getResources().getString(R.string.pref_user_name), user);
+//                editor.putString(getResources().getString(R.string.pref_pass_word), pass);
+//                editor.putInt(getResources().getString(R.string.pref_is_user), 1);
+//                editor.putInt("Logged_in", 1);
+//                editor.commit();
+//                Toast.makeText(LoginPage.this, "Success", Toast.LENGTH_SHORT).show();
+//                callintent();
+
+                Intent sign_up=new Intent(LoginPage.this,signup.class);
+                startActivity(sign_up);
+                finish();
             }
         });
         action_login.setOnClickListener(new View.OnClickListener() {
@@ -99,9 +103,9 @@ public class LoginPage extends Activity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.login_page, menu);
         SharedPreferences pref = getSharedPreferences("Preferences", MODE_PRIVATE);
-        is_a_user = pref.getInt(getResources().getString(R.string.pref_is_user), 0);
+        is_a_user = pref.getBoolean(getResources().getString(R.string.pref_is_user), false);
         MenuItem action_delete_user =menu.findItem(R.id.action_delete_user);
-        if(is_a_user==0){
+        if(is_a_user==false){
             action_delete_user.setVisible(false);
         }
         return true;
@@ -119,7 +123,7 @@ public class LoginPage extends Activity {
         }
         if(id==R.id.action_delete_user){
             SharedPreferences.Editor editor = getSharedPreferences("Preferences", MODE_PRIVATE).edit();
-            editor.putInt(getResources().getString(R.string.pref_is_user), 0);
+            editor.putBoolean(getResources().getString(R.string.pref_is_user), false);
             editor.putString(getResources().getString(R.string.pref_user_name), "nimda");
             editor.putString(getResources().getString(R.string.pref_pass_word), "drowssap");
             editor.commit();

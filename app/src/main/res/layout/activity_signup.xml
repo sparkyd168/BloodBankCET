@@ -47,13 +47,13 @@
      <Button
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
-         android:id="@+id/sign_signup"
+         android:id="@+id/button_sign_signup"
          android:layout_weight="0.5"
          android:text="Sign up"/>
      <Button
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
-         android:id="@+id/sign_cancel"
+         android:id="@+id/button_sign_cancel"
          android:layout_weight="0.5"
          android:text="Cancel"/>
      </LinearLayout>
