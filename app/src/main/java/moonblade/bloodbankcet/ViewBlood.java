@@ -116,9 +116,10 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
 
                 Date date = new Date(val);
                 int day=date.getDate();
-                int month=date.getMonth();
+                int month=date.getMonth()+1;
                 int year=date.getYear();
                 int total=year*365+month*30+day;
+//                Toast.makeText(ViewBlood.this,""+day+" "+month+" "+year,Toast.LENGTH_SHORT).show();
                 if(totdays-total<(30*number_of_months)){
                     indicator.setImageResource(R.drawable.red);
                 }else{
@@ -229,7 +230,7 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
                         alertDialog.show();
                     }
                 });
-                if(is_admin==1)
+                if(logged_in==1)
                     dialog.show();
                 return false;
             }
@@ -264,20 +265,6 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
         for(int datai=firstPosition;datai<size;datai++){
 
             final Cursor cursor = (Cursor) data.getItemAtPosition(datai);
-//    //            View wantedView = data.getChildAt(datai);
-//
-//                int wantedPosition = datai; // Whatever position you're looking for
-//                // This is the same as child #0
-//                int wantedChild = wantedPosition - firstPosition;
-//                if (wantedChild < 0 || wantedChild >= data.getChildCount()) {
-//
-//                    return;
-//                }
-//    // Could also check if wantedPosition is between listView.getFirstVisiblePosition() and listView.getLastVisiblePosition() instead.
-//                View wantedView = data.getChildAt(wantedChild);
-
-//            green=(ImageView)wantedView.findViewById(R.id.green);
-
             Long val=cursor.getLong(cursor.getColumnIndexOrThrow("_date"));
             Date date = new Date(val);
             int day=date.getDay();
