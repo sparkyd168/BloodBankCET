@@ -127,7 +127,6 @@ public class Home extends Activity {
 
         if (id == R.id.action_settings) {
             Intent setting = new Intent(Home.this,settings.class);
-            setting.putExtra("admin", logged_in);
             startActivity(setting);
         }
         if (id == R.id.action_login) {

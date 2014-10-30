@@ -425,6 +425,8 @@ public class ViewBlood extends Activity implements AdapterView.OnItemSelectedLis
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
+            Intent setting = new Intent(ViewBlood.this,settings.class);
+            startActivity(setting);
             return true;
         }
         if (id==R.id.action_search){
