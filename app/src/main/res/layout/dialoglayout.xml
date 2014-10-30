@@ -2,162 +2,128 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin">
+    android:layout_height="match_parent">
 
-    <ImageView
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/indicator"
-        android:visibility="visible"
+        android:text="Name :"
+        android:id="@+id/tvdname"
+        android:layout_marginLeft="80dp"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/diaggrid"
-        >
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        android:text="New Text"
+        android:id="@+id/tvdiagname"
+        android:layout_marginLeft="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/tvdname" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Name :"
-                android:layout_weight="0.5"
-                android:id="@+id/tvdname"
-                />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Branch :"
+        android:id="@+id/tvdbranch"
+        android:layout_below="@+id/tvdname"
+        android:layout_toLeftOf="@+id/tvdiagname" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_weight="0.5"
-                android:layout_height="wrap_content"
-                android:text="New Text"
-                android:gravity="left"
-                android:id="@+id/tvdiagname"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/tvdiagbranch"
+        android:layout_below="@+id/tvdiagname"
+        android:layout_alignLeft="@+id/tvdiagname"
+        android:layout_alignStart="@+id/tvdiagname" />
 
-                /></LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Blood Group :"
+        android:id="@+id/tvdbg"
+        android:layout_below="@+id/tvdbranch"
+        android:layout_toLeftOf="@+id/tvdiagname" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Branch :"
-                android:layout_weight="0.5"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/tvdiagbg"
+        android:layout_below="@+id/tvdiagbranch"
+        android:layout_alignLeft="@+id/tvdiagbranch"
+        android:layout_alignStart="@+id/tvdiagbranch" />
 
-                android:id="@+id/tvdbranch"
-                />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mobile :"
+        android:id="@+id/tvdmob"
+        android:layout_below="@+id/tvdbg"
+        android:layout_alignRight="@+id/tvdbg"
+        android:layout_alignEnd="@+id/tvdbg" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New Text"
-                android:layout_weight="0.5"
-                android:id="@+id/tvdiagbranch"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/tvdiagmob"
+        android:layout_alignTop="@+id/tvdmob"
+        android:layout_alignLeft="@+id/tvdiagbg"
+        android:layout_alignStart="@+id/tvdiagbg" />
 
-                /></LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hostel :"
+        android:id="@+id/tvdhostel"
+        android:layout_below="@+id/tvdmob"
+        android:layout_toLeftOf="@+id/tvdiagname" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Blood Group :"
-                android:layout_weight="0.5z"
-                android:id="@+id/tvdbg"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/tvdiaghostel"
+        android:layout_below="@+id/tvdiagmob"
+        android:layout_alignLeft="@+id/tvdiagmob"
+        android:layout_alignStart="@+id/tvdiagmob" />
 
-                />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Last Donation :"
+        android:id="@+id/tvddate"
+        android:layout_below="@+id/tvdhostel"
+        android:layout_toLeftOf="@+id/tvdiagname" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New Text"
-                android:layout_weight="0.5"
-                android:id="@+id/tvdiagbg"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/tvdiagdate"
+        android:layout_below="@+id/tvdiaghostel"
+        android:layout_alignLeft="@+id/tvdiagmob"
+        android:layout_alignStart="@+id/tvdiagmob" />
 
-                /></LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    <ImageView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/indicator"
+    android:visibility="visible"
+    android:layout_alignParentLeft="true"
+    android:layout_marginTop="@dimen/activity_vertical_margin"
+    android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:text="Mobile :"
-                android:id="@+id/tvdmob"
 
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:text="New Text"
-                android:id="@+id/tvdiagmob"
-
-                /></LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:text="Hostel :"
-                android:id="@+id/tvdhostel"
-
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New Text"
-                android:layout_weight="0.5"
-                android:id="@+id/tvdiaghostel"
-
-                />
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Last Donation :"
-                android:id="@+id/tvddate"
-                android:layout_weight="0.5"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New Text"
-                android:id="@+id/tvdiagdate"
-                android:layout_weight="0.5"
-                />
-        </LinearLayout>
-</LinearLayout>
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:layout_marginBottom="0dp"
-        android:layout_below="@+id/diaggrid"
+        android:layout_below="@+id/tvdiagdate"
         android:id="@+id/seperator"
         android:background="?android:attr/dividerVertical" />
     <LinearLayout
