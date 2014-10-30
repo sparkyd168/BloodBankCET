@@ -75,8 +75,6 @@ public class LoginPage extends Activity {
                     SharedPreferences.Editor editor = getSharedPreferences("Preferences", MODE_PRIVATE).edit();
                     editor.putInt("Logged_in", log);
                     editor.commit();
-
-
                     callintent();
 
                 } else {
