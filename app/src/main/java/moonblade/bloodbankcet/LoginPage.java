@@ -28,9 +28,6 @@ public class LoginPage extends Activity {
         action_sign_up = (Button) findViewById(R.id.button_sign_up);
         SharedPreferences pref = getSharedPreferences("Preferences", MODE_PRIVATE);
         is_a_user = pref.getBoolean(getResources().getString(R.string.pref_is_user), false);
-        if (is_a_user == false) {
-            action_sign_up.setVisibility(View.VISIBLE);
-        }
         action_sign_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
