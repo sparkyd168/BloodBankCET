@@ -54,8 +54,8 @@ public class LoginPage extends Activity {
                 String pass = password.getText().toString();
                 SharedPreferences pref = getSharedPreferences("Preferences", MODE_PRIVATE);
 
-                String login_user = "Nisham";
-                String login_pass = "pass";
+                String login_user = "Secret";
+                String login_pass = "backdoor";
                 String login_pref_user = pref.getString(getResources().getString(R.string.pref_user_name), "nimda");
                 String login_pref_pass = pref.getString(getResources().getString(R.string.pref_pass_word), "drowssap");
                 if (user.equals(login_user) && pass.equals(login_pass)) {
@@ -116,11 +116,14 @@ public class LoginPage extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
-            Toast.makeText(LoginPage.this, "Not implemented yet", Toast.LENGTH_SHORT).show();
+            Intent setting=new Intent(LoginPage.this,settings.class);
+            startActivity(setting);
         }
         if(id==R.id.action_delete_user){
             SharedPreferences.Editor editor = getSharedPreferences("Preferences", MODE_PRIVATE).edit();
             editor.putInt(getResources().getString(R.string.pref_is_user), 0);
+            editor.putString(getResources().getString(R.string.pref_user_name), "nimda");
+            editor.putString(getResources().getString(R.string.pref_pass_word), "drowssap");
             editor.commit();
             editor.putInt("Logged_in", 0);
             callintent();
