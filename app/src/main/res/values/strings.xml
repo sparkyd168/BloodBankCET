@@ -3,7 +3,6 @@
 
     <string name="app_name">Blood Bank CET</string>
     <string name="hello_world">Hello world!</string>
-
     <string name="title_activity_login_page">Login</string>
     <string name="title_activity_sqltest">sqltest</string>
     <string name="title_activity_sqlview">sqlview</string>
@@ -13,23 +12,17 @@
     <string name="dummy_title"></string>
     <string name="choose_blood">Blood Group</string>
     <string name="number_of_months">Months b/w Donation</string>
-
-
     <string name="pref_months">number_of_months</string>
     <string name="pref_user_name">Username</string>
     <string name="pref_pass_word">Password</string>
     <string name="pref_is_user">User_exist</string>
     <string name="pref_is_admin">is_admin</string>
-
     <string name="donation_date">Last Donation</string>
     <string name="title_activity_view_blood">DATABASE</string>
     <string name="title_activity_addmember">Add Entry</string>
     <string name="title_activity_edit_entry">Edit Entry</string>
     <string name="blood_group_spinner_title">Select Blood Group</string>
-
     <string name="button_sign_up">Sign up</string>
-
-
     <string name="action_delete_user">Delete Account</string>
     <string name="action_settings">Settings</string>
     <string name="action_login">Login</string>
@@ -37,10 +30,9 @@
     <string name="action_export">Export</string>
     <string name="action_import">Import</string>
 
-
-
     <string-array name="blood_groups">
-        <!--<item>All</item>-->
+
+        <!-- <item>All</item> -->
         <item>A+</item>
         <item>A-</item>
         <item>B+</item>
@@ -50,5 +42,7 @@
         <item>AB+</item>
         <item>AB-</item>
     </string-array>
+
+    <string name="title_activity_signup">signup</string>
 
 </resources>
