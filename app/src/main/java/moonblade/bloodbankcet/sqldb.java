@@ -94,12 +94,15 @@ public class sqldb{
         ourhelper.close();
     }
 
-    public long add(String nam,String bgr) {
-
-        ContentValues cv = new ContentValues();
-        cv.put(KEY_NAME,nam);
-        cv.put(KEY_BG,bgr);
-        return ourdb.insert(DB_TABLE,null,cv);
+    public long addAdmin(String username,String password){
+        ContentValues cv=new ContentValues();
+        cv.put(KEY_USERNAME,username);
+        cv.put(KEY_PASSWORD,password);
+        return ourdb.insert(DB_ADMIN_TABLE,null,cv);
+    }
+    public void deleteAdmin(long memberID){
+        ourdb.delete(DB_ADMIN_TABLE, KEY_ROWID + "="
+                + memberID, null);
     }
 
     public long addData(String nam,String bgr,String branch, String phone, String hostel,long date) {
