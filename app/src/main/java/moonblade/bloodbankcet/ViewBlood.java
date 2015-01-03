@@ -1,36 +1,62 @@
 package moonblade.bloodbankcet;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.ContextMenu;
+import android.view.Gravity;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.CursorAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
+import android.widget.SearchView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ViewBlood extends Activity {
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.zip.Inflater;
+
+public class ViewBlood extends Activity implements AdapterView.OnItemSelectedListener{
+
+    ArrayList<String> blood_list;
+    ArrayAdapter<String> blood_adapter;
+    private int curday,curmon,curyear;
+    private long totdays;
+    private int number_of_months;
     int long_clicked=0;
-    int logged_in=0;
-    RadioGroup choice;
-    RadioButton blood,branch,none;
-    EditText choice_branch;
-    Button filter;
+    private int logged_in=0,is_admin=0;
+    Spinner spinner_blood;
+    ImageView green,red;
     private CursorAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,141 +66,88 @@ public class ViewBlood extends Activity {
         try{
             Intent logged = this.getIntent();
             if (logged!=null){
-                logged_in=getIntent().getExtras().getInt("logged");
+                SharedPreferences prefs = getSharedPreferences("Preferences", MODE_PRIVATE);
+                logged_in=prefs.getInt("Logged_in", 0);
+                is_admin=prefs.getInt(getResources().getString(R.string.pref_is_admin), 0);
+                number_of_months=prefs.getInt(getResources().getString(R.string.pref_months),3);
             }
         }
         catch (Exception e){
 
         }
-        choice=(RadioGroup)findViewById(R.id.choice);
-        branch=(RadioButton)findViewById(R.id.branch);
-        none=(RadioButton)findViewById(R.id.none);
-        blood=(RadioButton)findViewById(R.id.blood);
-        choice_branch=(EditText)findViewById(R.id.choice_branch);
-        filter=(Button)findViewById(R.id.filter);
-        none.setChecked(true);
-        final String[] option = {"none"};
+
+        initialise_adapter();
+        setcurrentdate();
         String[] blood_groups = getResources().getStringArray(R.array.bloodgroups);
         ArrayAdapter adapter=new ArrayAdapter<String>(this, R.layout.blood_item, R.id.label, blood_groups);
 
         final ListView data =(ListView)findViewById(R.id.lvdata);
-        final ListView lv = (ListView)findViewById(R.id.listview);
-
         getdatanone(data);
+//        update_red_green(data);
 
-        lv.setVisibility(View.INVISIBLE);
-        choice_branch.setVisibility(View.INVISIBLE);
-        lv.setAdapter(adapter);
-        filter.setVisibility(View.INVISIBLE);
 
-        none.setOnClickListener(new View.OnClickListener() {
+        data.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-                getdatanone(data);
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                final Cursor cursor = (Cursor) data.getItemAtPosition(position);
+                final Dialog dialog = new Dialog(ViewBlood.this);
+                dialog.setContentView(R.layout.dialoglayout);
+                dialog.setTitle("Detail of Student");
+                TextView namea = (TextView) dialog.findViewById(R.id.tvdiagname);
+                TextView brancha = (TextView) dialog.findViewById(R.id.tvdiagbranch);
+                TextView bg = (TextView) dialog.findViewById(R.id.tvdiagbg);
+                TextView mob = (TextView) dialog.findViewById(R.id.tvdiagmob);
+                TextView hos = (TextView) dialog.findViewById(R.id.tvdiaghostel);
+                TextView dat = (TextView) dialog.findViewById(R.id.tvdiagdate);
+                ImageView indicator=(ImageView)dialog.findViewById(R.id.indicator);
+
+
+                namea.setText(cursor.getString(cursor.getColumnIndexOrThrow("_name")));
+                brancha.setText(cursor.getString(cursor.getColumnIndexOrThrow("_branch")));
+                bg.setText(cursor.getString(cursor.getColumnIndexOrThrow("_bg")));
+                mob.setText(cursor.getString(cursor.getColumnIndexOrThrow("_phone")));
+                final String num = cursor.getString(cursor.getColumnIndexOrThrow("_phone"));
+
+                hos.setText(cursor.getString(cursor.getColumnIndexOrThrow("_hostel")));
+                Long val=cursor.getLong(cursor.getColumnIndexOrThrow("_date"));
+
+                final Button dbitton = (Button) dialog.findViewById(R.id.bdiagdok);
+                final Button callbutton = (Button) dialog.findViewById(R.id.bdiagcall);
+
+                Date date = new Date(val);
+                int day=date.getDate();
+                int month=date.getMonth()+1;
+                int year=date.getYear();
+                int total=year*365+month*30+day;
+//                Toast.makeText(ViewBlood.this,""+day+" "+month+" "+year,Toast.LENGTH_SHORT).show();
+                if(totdays-total<(30*number_of_months)){
+                    indicator.setImageResource(R.drawable.red);
+                }else{
+                    indicator.setImageResource(R.drawable.green);
+                }
+                SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yy");
+                dat.setText(df2.format(date));
+                dbitton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.cancel();
+                    }
+                });
+                callbutton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Intent callIntent = new Intent(Intent.ACTION_CALL);
+                        callIntent.setData(Uri.parse("tel:" + num));
+                        startActivity(callIntent);
+
+                    }
+                });
+                if (long_clicked == 0)
+                    dialog.show();
+                long_clicked = 0;
             }
         });
-        none.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-            }
-        });
-
-        branch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                choice_branch.setVisibility(View.VISIBLE);
-                filter.setVisibility(View.VISIBLE);
-                option[0] ="branch";
-            }
-        });
-        branch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                choice_branch.setVisibility(View.INVISIBLE);
-                filter.setVisibility(View.INVISIBLE);
-            }
-        });
-        filter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String branch=choice_branch.getText().toString();
-                getdataBranch(data,branch);
-            }
-        });
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-
-                // selected item
-                String blood_group = ((TextView) view).getText().toString();
-                lv.setVisibility(View.INVISIBLE);
-                getdatablood(data,blood_group);
-//                Toast.makeText(ViewBlood.this,blood_group,Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        blood.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                lv.setVisibility(View.VISIBLE);
-                option[0] ="blood";
-            }
-        });
-        blood.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                lv.setVisibility(View.INVISIBLE);
-            }
-        });
-
-     data.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-         @Override
-         public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-             final Cursor cursor = (Cursor) data.getItemAtPosition(position);
-             final Dialog dialog = new Dialog(ViewBlood.this);
-             dialog.setContentView(R.layout.dialoglayout);
-             dialog.setTitle("Detail of Student");
-             TextView namea = (TextView) dialog.findViewById(R.id.tvdiagname);
-             TextView brancha = (TextView) dialog.findViewById(R.id.tvdiagbranch);
-             TextView bg = (TextView) dialog.findViewById(R.id.tvdiagbg);
-             TextView mob = (TextView) dialog.findViewById(R.id.tvdiagmob);
-             TextView hos = (TextView) dialog.findViewById(R.id.tvdiaghostel);
-             namea.setText(cursor.getString(cursor.getColumnIndexOrThrow("_name")));
-             brancha.setText(cursor.getString(cursor.getColumnIndexOrThrow("_branch")));
-             bg.setText(cursor.getString(cursor.getColumnIndexOrThrow("_bg")));
-             mob.setText(cursor.getString(cursor.getColumnIndexOrThrow("_phone")));
-             final String num = cursor.getString(cursor.getColumnIndexOrThrow("_phone"));
-
-             hos.setText(cursor.getString(cursor.getColumnIndexOrThrow("_hostel")));
-             final Button dbitton = (Button) dialog.findViewById(R.id.bdiagdok);
-             final Button callbutton = (Button) dialog.findViewById(R.id.bdiagcall);
-
-//             Button bdiagedit = (Button)dialog.findViewById(R.id.bdiagedit);
-//             Button bdel = (Button)dialog.findViewById(R.id.bdiagdelete);
-//             final AlertDialog.Builder alert = new AlertDialog.Builder(ViewFullDatabase.this);
-             dbitton.setOnClickListener(new View.OnClickListener() {
-                 @Override
-                 public void onClick(View v) {
-                     dialog.cancel();
-                 }
-             });
-             callbutton.setOnClickListener(new View.OnClickListener() {
-                 @Override
-                 public void onClick(View v) {
-
-//                     dialog.cancel();
-                     Intent callIntent = new Intent(Intent.ACTION_CALL);
-                     callIntent.setData(Uri.parse("tel:" + num));
-                     startActivity(callIntent);
-
-                 }
-             });
-             if (long_clicked == 0)
-                 dialog.show();
-             long_clicked = 0;
-         }
-     });
         data.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -205,6 +178,8 @@ public class ViewBlood extends Activity {
                             String bg = cursor.getString(cursor.getColumnIndexOrThrow("_bg"));
                             String mob = cursor.getString(cursor.getColumnIndexOrThrow("_phone"));
                             String hostel = cursor.getString(cursor.getColumnIndexOrThrow("_hostel"));
+                            long val=cursor.getLong(cursor.getColumnIndexOrThrow("_date"));
+
                             Bundle b = new Bundle();
                             b.putString("name", name);
                             b.putString("id", id);
@@ -212,9 +187,11 @@ public class ViewBlood extends Activity {
                             b.putString("bg", bg);
                             b.putString("mob", mob);
                             b.putString("hostel", hostel);
+                            b.putLong("date",val);
                             Intent i = new Intent(ViewBlood.this, editEntry.class);
                             i.putExtras(b);
                             startActivity(i);
+                            dialog.cancel();
                         }
                     }
                 });
@@ -230,14 +207,13 @@ public class ViewBlood extends Activity {
                                     public void onClick(DialogInterface dialog,int id) {
                                         // if this button is clicked, close
                                         // current activity
-                                        String name=cursor.getString(cursor.getColumnIndexOrThrow("_name"));
+                                        long delid=cursor.getLong(cursor.getColumnIndexOrThrow("_id"));
                                         sqldb vi = new sqldb(ViewBlood.this);
                                         vi.open();
-                                        vi.delete(name);
+                                        vi.deleteId(delid);
                                         vi.close();
-                                        Intent i = new Intent(getApplicationContext(), ViewBlood.class);
-                                        startActivity(i);
-                                        finish();
+                                        dialog.cancel();
+
 
                                     }
                                 })
@@ -261,21 +237,73 @@ public class ViewBlood extends Activity {
         });
     }
 
+    private void initialise_adapter() {
+        blood_list = new ArrayList<String>();
+        blood_list.add("All");
+        blood_list.add("A+");
+        blood_list.add("A-");
+        blood_list.add("B+");
+        blood_list.add("B-");
+        blood_list.add("O+");
+        blood_list.add("O-");
+        blood_list.add("AB+");
+        blood_list.add("AB-");
+        blood_adapter = new ArrayAdapter<String>(this,
+                R.layout.spinner_action_bar, blood_list);
+        blood_adapter.setDropDownViewResource(R.layout.spinner_dropdown);
+    }
 
+    private void update_red_green(ListView data){
+        sqldb get_size=new sqldb(ViewBlood.this);
+        get_size.open();
+        int size=get_size.get_row_count();
+        get_size.close();
+        setcurrentdate();
+        int visibleChildCount = (data.getLastVisiblePosition() - data.getFirstVisiblePosition()) + 1;
+        int firstPosition = data.getFirstVisiblePosition() - data.getHeaderViewsCount();
+        Toast.makeText(ViewBlood.this,""+data.getChildCount(),Toast.LENGTH_SHORT).show();
+        for(int datai=firstPosition;datai<size;datai++){
+
+            final Cursor cursor = (Cursor) data.getItemAtPosition(datai);
+            Long val=cursor.getLong(cursor.getColumnIndexOrThrow("_date"));
+            Date date = new Date(val);
+            int day=date.getDay();
+            int month=date.getMonth()+1;
+            int year=date.getYear();
+            long total=year*365+month*30+day;
+            long diff=totdays-total;
+            if(diff<(30*number_of_months)){
+//                 green.setVisibility(View.INVISIBLE);
+//                 Toast.makeText(ViewBlood.this,""+diff,Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        String blood_group = parent.getItemAtPosition(position).toString();
+        ListView data=(ListView)findViewById(R.id.lvdata);
+        if(blood_group.equals("All")){
+            getdatanone(data);
+        }else{
+            getdatablood(data,blood_group);
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
+    private void setcurrentdate(){
+        final Calendar c = Calendar.getInstance();
+        curyear = c.get(Calendar.YEAR);
+        curmon = c.get(Calendar.MONTH)+1;
+        curday = c.get(Calendar.DAY_OF_MONTH);
+//        Toast.makeText(ViewBlood.this,""+curday+" "+curmon+" "+curyear,Toast.LENGTH_SHORT).show();
+        totdays=curyear*365+curmon*30+curday;
+    }
     private void getdatanone(ListView data){
-        //There is some syntax error in blooddb database, so it force closes
-//    blooddb table = new blooddb(this);
-//
-//    table.open();
-//    Cursor c=table.readAll();
-//    c.moveToFirst();
-//
-//    String[] columns = new String[] {table.KEY_NAME,table.KEY_BG};
-//    int[] to = new int[]{R.id.set_name,R.id.set_bg};
-//    adapter = new SimpleCursorAdapter(ViewBlood.this,R.layout.listviewlayout,c,columns,to,0);
-//    data.setAdapter(adapter);
-//
-//    table.close();
 
         sqldb table = new sqldb(this);
         table.open();
@@ -319,8 +347,61 @@ public class ViewBlood extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.view_blood, menu);
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.viewblood_action, menu);
+        spinner_blood=(Spinner)menu.findItem(R.id.blood_spinner2).getActionView();
+        spinner_blood.setVisibility(View.INVISIBLE);
+        spinner_blood.setAdapter(blood_adapter);
+
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search)
+                .getActionView();
+        searchView.setQueryHint("Branch");
+        if (null != searchView) {
+            searchView.setSearchableInfo(searchManager
+                    .getSearchableInfo(getComponentName()));
+            searchView.setIconifiedByDefault(false);
+        }
+
+        SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
+            public boolean onQueryTextChange(String newText) {
+                // this is your adapter that will be filtered
+                ListView data=(ListView)findViewById(R.id.lvdata);
+                getdataBranch(data,newText);
+                spinner_blood.setSelection(0);
+                return true;
+            }
+
+            public boolean onQueryTextSubmit(String query) {
+                //Here u can get the value "query" which is entered in the search box.
+//                Toast.makeText(ViewBlood.this,query,Toast.LENGTH_SHORT).show();
+                ListView data=(ListView)findViewById(R.id.lvdata);
+                getdataBranch(data,query);
+                spinner_blood.setSelection(0);
+                return true;
+            }
+        };
+        searchView.setOnQueryTextListener(queryTextListener);
+
+        spinner_blood.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String blood_group = parent.getItemAtPosition(position).toString();
+                ListView data=(ListView)findViewById(R.id.lvdata);
+                if(blood_group.equals("All")){
+                    getdatanone(data);
+                }else{
+                    getdatablood(data,blood_group);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         return true;
     }
 
@@ -331,7 +412,12 @@ public class ViewBlood extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
+            Intent setting = new Intent(ViewBlood.this,settings.class);
+            startActivity(setting);
             return true;
+        }
+        if (id==R.id.action_search){
+
         }
         return super.onOptionsItemSelected(item);
     }

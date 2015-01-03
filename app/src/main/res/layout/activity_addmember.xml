@@ -51,96 +51,25 @@
                 android:layout_gravity="center_horizontal" />
 
 
-            <TextView
+ <Spinner
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_gravity="center_horizontal"
+     android:id="@+id/add_spinner"
+     android:entries="@array/blood_groups"
+     android:prompt="@string/choose_blood"></Spinner>
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/donation_date"
+    android:layout_gravity="center"/>
+            <DatePicker
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Blood Group"
-                android:textSize="15dp"
-                android:id="@+id/tvbg"
-                android:layout_gravity="center_horizontal"
-                android:layout_below="@+id/etdbclass"/>
-
-
-
-
-
-            <RadioGroup
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/rg"
-                android:layout_gravity="center"
-                >
-
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="A+   "
-                    android:id="@+id/rap"
-                    android:textSize="15dp"
-                    android:layout_weight="50"
-                    />
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="A-"
-                    android:id="@+id/ran"
-                    android:textSize="15dp"
-                    />
-
-
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="B+   "
-                    android:id="@+id/rbp"
-                    android:textSize="15dp"
-                    />
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="B-"
-                    android:id="@+id/rbn"
-                    android:textSize="15dp"
-                    />
-
-
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="AB+"
-                    android:id="@+id/rabp"
-                    android:textSize="15dp"
-                    />
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="AB-"
-                    android:id="@+id/rabn"
-                    android:textSize="15dp"
-                    />
-
-
-
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="O+   "
-                    android:id="@+id/rop"
-                    android:textSize="15dp"
-                    />
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="O-"
-                    android:id="@+id/ron"
-                    android:textSize="15dp"
-                    />
-
-
-
-            </RadioGroup>
-
-
+                android:id="@+id/date_Picker"
+                android:calendarViewShown="false"
+                android:layout_gravity="center_horizontal" />
 
             <EditText
                 android:layout_width="wrap_content"
